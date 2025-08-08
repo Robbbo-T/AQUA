@@ -6,8 +6,10 @@ on:
         description: Commit message
         default: "chore: scaffold AQUA skeleton"
         required: false
+
 permissions:
   contents: write
+  workflows: write  # necesario para crear/actualizar .github/workflows/*
 
 jobs:
   scaffold:
@@ -21,23 +23,25 @@ jobs:
       - name: Generate structure from manifest
         shell: python
         run: |
-          import os, json, base64, pathlib, textwrap
+          import os, json, base64, pathlib
+
           MANIFEST_PATH = ".github/aqua_skeleton.json"
           if not os.path.exists(MANIFEST_PATH):
             raise SystemExit("Falta .github/aqua_skeleton.json")
+
           with open(MANIFEST_PATH, "r", encoding="utf-8") as f:
             sk = json.load(f)
 
-          def ensure_dir(p):
+          def ensure_parent(p):
             pathlib.Path(p).parent.mkdir(parents=True, exist_ok=True)
 
-          # 1) Directorios vacíos
+          # 1) Directorios
           for d in sk.get("dirs", []):
             pathlib.Path(d).mkdir(parents=True, exist_ok=True)
 
-          # 2) Archivos con contenido (string o base64)
+          # 2) Archivos
           for path, spec in sk.get("files", {}).items():
-            ensure_dir(path)
+            ensure_parent(path)
             if isinstance(spec, dict) and spec.get("base64"):
               data = base64.b64decode(spec["base64"])
               with open(path, "wb") as fh: fh.write(data)
@@ -45,19 +49,19 @@ jobs:
               content = spec if isinstance(spec, str) else ""
               with open(path, "w", encoding="utf-8") as fh: fh.write(content)
 
-          # 3) Symlinks (opcional). Si no quieres symlinks en Windows, usa *.pointer
+          # 3) Symlinks → pointer (compatible Win)
           for link_path, target in sk.get("symlinks", {}).items():
-            # mejor usar pointer file por compatibilidad
             if sk.get("symlinks_as_pointer", True):
-              ensure_dir(link_path + ".pointer")
-              with open(link_path + ".pointer", "w") as fh:
+              ensure_parent(link_path + ".pointer")
+              with open(link_path + ".pointer", "w", encoding="utf-8") as fh:
                 fh.write(target + "\n")
             else:
-              ensure_dir(link_path)
-              if os.path.exists(link_path): os.remove(link_path)
+              ensure_parent(link_path)
+              if os.path.lexists(link_path):
+                os.remove(link_path)
               os.symlink(target, link_path)
 
-          # 4) .gitignore y .gitattributes “reales” (a partir de UTCS config opcional)
+          # 4) Materializar .gitignore / .gitattributes desde plantillas
           gi_src = sk.get("materialize_gitignore_from")
           if gi_src and os.path.exists(gi_src):
             with open(gi_src, "r", encoding="utf-8") as f: gi = f.read()
@@ -73,3 +77,5 @@ jobs:
         with:
           commit_message: ${{ github.event.inputs.commit_message }}
           branch: ${{ github.ref_name }}
+          # Si tu org bloquea workflows con GITHUB_TOKEN, crea un PAT con scope workflow y descomenta:
+          # token: ${{ secrets.AQUA_PAT }}
