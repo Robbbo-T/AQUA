@@ -1,11 +1,11 @@
-
-
 # SICOCA — Sustainable Industrial Chains Optimisation Circuit Algorithm
 **Path:** `AQUA/domains/industry/supply_chain/algorithms/SICOCA`  
-**UTCS Code:** `QOPT-954` *(provisional; ver sección “UTCS Binding”)*  
+**UTCS Code:** `QOPT-954` *(provisional; ver sección "UTCS Binding")*  
 **AQUA V. Domain:** Industry → Supply Chain → Quantum Optimisation  
 **TRL:** 3 → en transición a TRL 4  
 **Status:** Development / Integration Testing  
+
+[![UTCS Validate](https://github.com/<org>/<repo>/actions/workflows/utcs-validate.yml/badge.svg)](https://github.com/<org>/<repo>/actions/workflows/utcs-validate.yml)
 
 ---
 
@@ -105,22 +105,13 @@ mindmap
 
 ### Feature Prioritization
 ```mermaid
-quadrantChart
+pie
     title SICOCA Feature Prioritization
-    x-axis Low Complexity --> High Complexity
-    y-axis Low Impact --> High Impact
-    quadrant-1 Quick Wins
-    quadrant-2 Major Projects
-    quadrant-3 Fill Ins
-    quadrant-4 Strategic Initiatives
-    Schema validation: [0.2, 0.2]
-    Basic reporting: [0.3, 0.3]
-    Quantum integration: [0.8, 0.8]
-    Real-time optimization: [0.7, 0.9]
-    UI enhancements: [0.8, 0.2]
-    Additional metrics: [0.7, 0.3]
-    Multi-objective optimization: [0.2, 0.8]
-    Global supply chain: [0.3, 0.7]
+    "Quantum Algorithms" : 35
+    "Classical Computing" : 25
+    "Data Processing" : 20
+    "UI/UX" : 10
+    "Testing & QA" : 10
 ```
 
 - **Quantum-Enhanced Optimisation** con QAOA/QUBO y QAE  
@@ -181,14 +172,14 @@ AQUA/domains/industry/supply_chain/algorithms/SICOCA/
 │   └── sicoca/
 │       ├── __init__.py
 │       └── core/
-│       ├── graph.py
-│       ├── qubo.py
-│       ├── qaoa.py
-│       ├── qae.py
-│       ├── hil.py
-│       ├── governance.py
-│       ├── risk.py
-│       └── value.py
+│           ├── graph.py
+│           ├── qubo.py
+│           ├── qaoa.py
+│           ├── qae.py
+│           ├── hil.py
+│           ├── governance.py
+│           ├── risk.py
+│           └── value.py
 ├── data/
 │   ├── schemas/
 │   │   ├── inventory.schema.json
@@ -571,24 +562,20 @@ graph TB
 
 ### Test Status Board
 ```mermaid
-kanban
-    title SICOCA Testing Board
-    section Todo
-      Core architecture design
-      QUBO formulation
-      QAOA implementation
-    section In Progress
-      Hybrid loop development
-      Risk module integration
-      UTCS binding
-    section Testing
-      Unit tests for QAOA
-      Integration tests
-      Performance benchmarks
-    section Done
-      Schema validation
-      Graph model implementation
-      Documentation
+flowchart TD
+    A[Start: Test Suite] --> B{Unit Tests}
+    B -->|Pass| C[Integration Tests]
+    B -->|Fail| D[Report Issues]
+    C --> E{Performance Tests}
+    E -->|Pass| F[Security Tests]
+    E -->|Fail| G[Optimize Code]
+    F --> H{Compliance Tests}
+    H -->|Pass| I[Generate Report]
+    H -->|Fail| J[Fix Compliance]
+    I --> K[End: All Tests Pass]
+    D --> L[End: Test Failed]
+    G --> C
+    J --> F
 ```
 
 ```bash
@@ -602,13 +589,13 @@ Carpetas de prueba: `tests/`
 
 ### Performance Comparison
 ```mermaid
-xychart-beta
-    title "SICOCA Performance Metrics"
-    x-axis ["Speed", "Accuracy", "Scalability", "Usability", "Security"]
-    y-axis "Score" 0 --> 100
-    line [85, 90, 75, 80, 95]
-    line [95, 95, 90, 85, 98]
-    %% First line = Current, Second line = Target
+pie
+    title SICOCA Performance Metrics
+    "Speed" : 20
+    "Accuracy" : 25
+    "Scalability" : 20
+    "Usability" : 15
+    "Security" : 20
 ```
 
 ---
@@ -617,7 +604,8 @@ xychart-beta
 
 ### Development Resources
 ```mermaid
-pie title SICOCA Development Resource Allocation
+pie
+    title SICOCA Development Resource Allocation
     "Quantum Algorithms" : 35
     "Classical Computing" : 25
     "Data Processing" : 20
