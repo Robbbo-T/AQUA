@@ -107,13 +107,13 @@ Portfolio context retained: **Q-100** (BWB • 100 pax • LH₂ • 2033–2036
 graph TB
   subgraph "MOS Eight-Layer Stack for BWB-Q100"
     L8[Business & Strategy]
-    L7[Digital-Industrial Ops (RoBoT/MRO)]
+    L7[Digital-Industrial Ops - RoBoT/MRO]
     L6[Digital Twin & Simulation]
     L5[AI/Agents & Sentient Models]
     L4[Robotics & Ground Ops]
-    L3[Cyber-Physical (Sensors/Edge/TSN)]
-    L2[Aerospace Integration (Avionics • FCS • Propulsion)]
-    L1[Quantum/PQC Foundation (FbQW • QKD • PQC)]
+    L3[Cyber-Physical - Sensors/Edge/TSN]
+    L2[Aerospace Integration Avionics • FCS • Propulsion]
+    L1[Quantum/PQC Foundation - FbQW • QKD • PQC]
   end
   L8-->L7-->L6-->L5-->L4-->L3-->L2-->L1
 ```
