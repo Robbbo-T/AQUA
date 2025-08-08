@@ -2,6 +2,7 @@
   "symlinks_as_pointer": true,
 
   "dirs": [
+    "AQUA",
     "AQUA/.github/workflows",
     "AQUA/.github/ISSUE_TEMPLATE",
     "AQUA/standards/utcs/validators",
@@ -10,23 +11,61 @@
     "AQUA/standards/crypto-pqc/profiles",
     "AQUA/standards/compliance/DO-178C",
     "AQUA/standards/compliance/DO-326A",
+
     "AQUA/domains/AIR_CIVIL_AVIATION/aircraft/BWB-Q100/releases/v1.0/docs",
     "AQUA/domains/AIR_CIVIL_AVIATION/aircraft/BWB-Q100/releases/v1.0/plans",
     "AQUA/domains/AIR_CIVIL_AVIATION/aircraft/BWB-Q100/releases/v1.0/models",
     "AQUA/domains/AIR_CIVIL_AVIATION/aircraft/BWB-Q100/releases/v1.0/tests",
     "AQUA/domains/AIR_CIVIL_AVIATION/aircraft/BWB-Q100/releases/v1.0/evidence",
     "AQUA/domains/AIR_CIVIL_AVIATION/aircraft/BWB-Q100/releases/v1.0/s1000d",
-    "AQUA/domains/AIR_CIVIL_AVIATION",
+
+    "AQUA/domains/AIR_CIVIL_AVIATION/aircraft/HE-180",
+    "AQUA/domains/AIR_CIVIL_AVIATION/airlines/ops-optimization",
+    "AQUA/domains/AIR_CIVIL_AVIATION/airlines/maintenance-predict",
+    "AQUA/domains/AIR_CIVIL_AVIATION/airports/digital-twin",
+    "AQUA/domains/AIR_CIVIL_AVIATION/airports/security-pqc",
+    "AQUA/domains/AIR_CIVIL_AVIATION/atm/flow-management",
+    "AQUA/domains/AIR_CIVIL_AVIATION/atm/trajectory-opt",
+
+    "AQUA/domains/DEFENCE_SECURITY/combat-aircraft/F-QX",
+    "AQUA/domains/DEFENCE_SECURITY/combat-aircraft/UCAV-SWARM",
+    "AQUA/domains/DEFENCE_SECURITY/cyber-quantum/Q-SHIELD",
+    "AQUA/domains/DEFENCE_SECURITY/cyber-quantum/CRYPTO-NET",
+
+    "AQUA/domains/SPACE_SATELLITE/launch-systems/Q-LAUNCHER",
+    "AQUA/domains/SPACE_SATELLITE/constellations/Q-INTERNET",
+
+    "AQUA/domains/URBAN_AIR_MOBILITY/passenger-evtol/CITY-HOP",
+
+    "AQUA/domains/DIGITAL_INFRASTRUCTURE/quantum-computing/Q-CLOUD",
+    "AQUA/domains/DIGITAL_INFRASTRUCTURE/digital-twins/TWIN-PLATFORM",
+    "AQUA/domains/DIGITAL_INFRASTRUCTURE/cybersecurity/PQC-SUITE",
+
+    "AQUA/domains/INDUSTRY_MANUFACTURING/supply-chain/GLOBAL-OPT/algorithms/SICOCA",
+    "AQUA/domains/INDUSTRY_MANUFACTURING/robotics/ASSEMBLY-BOT",
+
+    "AQUA/domains/OPS_INFRASTRUCTURE/mro-facilities/HANGAR-OPT",
+    "AQUA/domains/OPS_INFRASTRUCTURE/energy-systems/H2-INFRA",
+
+    "AQUA/domains/I+D_RESEARCH/quantum-research/Q-PROCESSOR",
+    "AQUA/domains/I+D_RESEARCH/ai-autonomy/NEURAL-PILOT",
+
+    "AQUA/domains/REGUL_COMPLIANCE/certification-automation/DO-178C-AUTO",
+    "AQUA/domains/REGUL_COMPLIANCE/evidence-management/QAUDIT-CHAIN",
+
     "AQUA/platforms/ampel360",
     "AQUA/platforms/diqi-aas",
     "AQUA/platforms/caas",
     "AQUA/platforms/robot",
     "AQUA/platforms/gaia",
+
     "AQUA/pocs/flight-optimizer",
     "AQUA/pocs/quantum-routing",
+
     "AQUA/automation/agen-qai",
     "AQUA/automation/processing-prompt-ui",
     "AQUA/automation/generators",
+
     "AQUA/evidence",
     "AQUA/scripts",
     "AQUA/tools",
@@ -40,18 +79,19 @@
   ],
 
   "files": {
-    "AQUA/AQUART-MGMT-PROJ-DOC-README-main-v19.0.md": "# AQUA INITIATIVE — v19.0 (Root)\n",
-    "AQUA/AQUART-MGMT-PROJ-DOC-CHANGELOG-project-v1.0.md": "## CHANGELOG v1.0\n- Init skeleton\n",
+    "AQUA/AQUART-MGMT-PROJ-DOC-README-main-v19.0.md": "# AQUA INITIATIVE — v19.0 (Canonical Root)\n",
+    "AQUA/AQUART-MGMT-PROJ-DOC-CHANGELOG-project-v1.0.md": "## CHANGELOG v1.0\n- Initial repo skeleton.\n",
     "AQUA/AQUART-MGMT-PROJ-DATA-VERSION-current-v19.0.txt": "19.0\n",
     "AQUA/AQUART-MGMT-LEGAL-DOC-LICENSE-mit-v1.0.md": "MIT License\n\n(c) AQUA\n",
     "AQUA/AQUART-MGMT-SEC-DOC-SECURITY-policy-v2.1.md": "# Security Policy\n",
-    "AQUA/AQUART-MGMT-BUILD-CONF-MAKEFILE-main-v1.0.mk": "# make placeholder\n",
+    "AQUA/AQUART-MGMT-BUILD-CONF-MAKEFILE-main-v1.0.mk": "# Makefile placeholder\n",
     "AQUA/AQUART-MGMT-GIT-CONF-GITIGNORE-standard-v1.0.txt": ".DS_Store\nvenv/\nnode_modules/\n*.log\n*.sig\n*.zip\n",
     "AQUA/AQUART-MGMT-GIT-CONF-GITATTRIBUTES-lfs-v1.0.txt": "*.pdf filter=lfs diff=lfs merge=lfs -text\n*.xlsx filter=lfs diff=lfs merge=lfs -text\n*.zip filter=lfs diff=lfs merge=lfs -text\n*.h5 filter=lfs diff=lfs merge=lfs -text\n*.dwg filter=lfs diff=lfs merge=lfs -text\n",
-    ".github/workflows/AQUART-MGMT-CI-CONF-WORKFLOW-main-v1.0.yml": "name: CI\non:[push]\njobs: {build:{runs-on:ubuntu-latest, steps:[{uses:actions/checkout@v4}]}}\n",
-    ".github/workflows/AQUART-MGMT-CI-CONF-WORKFLOW-security-v1.0.yml": "name: Sec\non:[schedule]\njobs: {scan:{runs-on:ubuntu-latest, steps:[{uses:actions/checkout@v4}]}}\n",
-    ".github/ISSUE_TEMPLATE/AQUART-MGMT-GH-DOC-ISSUE-bug_report-v1.0.md": "# Bug\n",
-    ".github/ISSUE_TEMPLATE/AQUART-MGMT-GH-DOC-ISSUE-feature_request-v1.0.md": "# Feature\n",
+
+    ".github/workflows/AQUART-MGMT-CI-CONF-WORKFLOW-main-v1.0.yml": "name: CI\non:[push]\njobs:{build:{runs-on:ubuntu-latest,steps:[{uses:actions/checkout@v4}]}}\n",
+    ".github/workflows/AQUART-MGMT-CI-CONF-WORKFLOW-security-v1.0.yml": "name: Sec\non:[schedule]\njobs:{scan:{runs-on:ubuntu-latest,steps:[{uses:actions/checkout@v4}]}}\n",
+    ".github/ISSUE_TEMPLATE/AQUART-MGMT-GH-DOC-ISSUE-bug_report-v1.0.md": "# Bug report\n",
+    ".github/ISSUE_TEMPLATE/AQUART-MGMT-GH-DOC-ISSUE-feature_request-v1.0.md": "# Feature request\n",
     ".github/AQUART-MGMT-GH-DOC-TEMPLATE-pull_request-v1.0.md": "# PR Template\n",
     ".github/AQUART-MGMT-GH-DATA-CODEOWNERS-list-v1.0.txt": "* @aqua/owners\n",
 
@@ -60,48 +100,188 @@
     "AQUA/standards/utcs/validators/AQUART-STDS-UTCS-CODE-VALIDATOR-main-v1.0.py": "print('UTCS validate')\n",
     "AQUA/standards/utcs/validators/AQUART-STDS-UTCS-TEST-COMPLIANCE-validation-v1.0.py": "print('UTCS tests')\n",
     "AQUA/standards/utcs/mappings/AQUART-STDS-UTCS-DATA-MAPPING-s1000d-v1.0.json": "{\n  \"map\": \"placeholder\"\n}\n",
+    "AQUA/standards/utcs/mappings/AQUART-STDS-UTCS-DATA-MATRIX-domains-v1.0.xlsx": "",
     "AQUA/standards/s1000d/AQUART-STDS-S1000D-DOC-GOVERNANCE-rules-v2.0.md": "# S1000D Governance\n",
     "AQUA/standards/s1000d/AQUART-STDS-S1000D-DATA-REGISTRY-dmc-v1.0.json": "{ \"dmc\": \"registry\" }\n",
+
     "AQUA/standards/crypto-pqc/AQUART-STDS-PQC-DOC-POLICY-baseline-v3.0.md": "# PQC Policy\n",
     "AQUA/standards/crypto-pqc/AQUART-STDS-PQC-DATA-ALGORITHMS-quantum_safe-v2.1.yaml": "algs:\n  - kyber\n",
     "AQUA/standards/crypto-pqc/profiles/AQUART-STDS-PQC-CONF-PROFILE-nist_l3-v1.0.yaml": "profile: nist_l3\n",
     "AQUA/standards/crypto-pqc/profiles/AQUART-STDS-PQC-CONF-PROFILE-nist_l5-v1.0.yaml": "profile: nist_l5\n",
+
     "AQUA/standards/compliance/DO-178C/AQUART-STDS-DO178C-DATA-CHECKLIST-software-v1.0.xlsx": "",
     "AQUA/standards/compliance/DO-178C/AQUART-STDS-DO178C-DOC-PLAN-lifecycle-v1.0.md": "# DO-178C Plan Template\n",
     "AQUA/standards/compliance/DO-326A/AQUART-STDS-DO326A-DOC-TEMPLATE-security-v1.0.docx": "",
     "AQUA/standards/compliance/DO-326A/AQUART-STDS-DO326A-DATA-MODEL-threat-v2.0.yaml": "threats: []\n",
 
     "AQUA/domains/AIR_CIVIL_AVIATION/AQUART-AIR-MAIN-DOC-README-overview-v1.0.md": "# Civil Aviation Overview\n",
+    "AQUA/domains/AIR_CIVIL_AVIATION/AQUART-AIR-MAIN-DATA-DASHBOARD-metrics-v1.0.html": "<html><body>Metrics</body></html>",
 
-    "AQUA/domains/AIR_CIVIL_AVIATION/aircraft/BWB-Q100/releases/v1.0/docs/AQUART-AIR-ACFT-DOC-PDC-bwb_q100-v1.0.md": "# PDC BWB-Q100\n",
     "AQUA/domains/AIR_CIVIL_AVIATION/aircraft/BWB-Q100/releases/v1.0/docs/AQUART-AIR-ACFT-DOC-SRS-bwb_q100-v1.0.md": "# SRS BWB-Q100\n",
     "AQUA/domains/AIR_CIVIL_AVIATION/aircraft/BWB-Q100/releases/v1.0/docs/AQUART-AIR-ACFT-DOC-SAD-bwb_q100-v1.0.md": "# SAD BWB-Q100\n",
+    "AQUA/domains/AIR_CIVIL_AVIATION/aircraft/BWB-Q100/releases/v1.0/docs/AQUART-AIR-ACFT-DOC-PDC-bwb_q100-v1.0.md": "# PDC BWB-Q100\n",
     "AQUA/domains/AIR_CIVIL_AVIATION/aircraft/BWB-Q100/releases/v1.0/docs/AQUART-AIR-ACFT-DOC-CCP-easa_plan-v1.0.md": "# CCP\n",
     "AQUA/domains/AIR_CIVIL_AVIATION/aircraft/BWB-Q100/releases/v1.0/docs/AQUART-AIR-ACFT-DOC-VVP-verification-v1.0.md": "# VVP\n",
     "AQUA/domains/AIR_CIVIL_AVIATION/aircraft/BWB-Q100/releases/v1.0/docs/AQUART-AIR-ACFT-DOC-RTM-traceability-v1.0.md": "# RTM\n",
     "AQUA/domains/AIR_CIVIL_AVIATION/aircraft/BWB-Q100/releases/v1.0/docs/AQUART-AIR-ACFT-DOC-KPI-initial_targets-v1.0.md": "# KPI\n",
+
     "AQUA/domains/AIR_CIVIL_AVIATION/aircraft/BWB-Q100/releases/v1.0/plans/AQUART-AIR-ACFT-PLAN-DO178C-psac-v1.0.md": "# PSAC\n",
     "AQUA/domains/AIR_CIVIL_AVIATION/aircraft/BWB-Q100/releases/v1.0/plans/AQUART-AIR-ACFT-PLAN-DO254-phac-v1.0.md": "# PHAC\n",
+
+    "AQUA/domains/AIR_CIVIL_AVIATION/aircraft/BWB-Q100/releases/v1.0/models/AQUART-AIR-ACFT-CODE-MODEL-aerodynamic-v1.0.m": "% placeholder aerodynamic model\n",
+    "AQUA/domains/AIR_CIVIL_AVIATION/aircraft/BWB-Q100/releases/v1.0/models/AQUART-AIR-ACFT-CODE-SIM-propulsion-v1.0.py": "print('propulsion sim placeholder')\n",
+
+    "AQUA/domains/AIR_CIVIL_AVIATION/aircraft/BWB-Q100/releases/v1.0/tests/AQUART-AIR-ACFT-TEST-FCS-flight_control-v1.0.py": "print('FCS test placeholder')\n",
+    "AQUA/domains/AIR_CIVIL_AVIATION/aircraft/BWB-Q100/releases/v1.0/tests/AQUART-AIR-ACFT-TEST-PQC-encryption-v1.0.py": "print('PQC test placeholder')\n",
+
+    "AQUA/domains/AIR_CIVIL_AVIATION/aircraft/BWB-Q100/releases/v1.0/evidence/AQUART-AIR-ACFT-DATA-REPORT-test_001-v1.0.pdf": "",
+    "AQUA/domains/AIR_CIVIL_AVIATION/aircraft/BWB-Q100/releases/v1.0/evidence/AQUART-AIR-ACFT-DATA-EVIDENCE-compliance-v1.0.json": "{ \"status\": \"placeholder\" }\n",
+
+    "AQUA/domains/AIR_CIVIL_AVIATION/aircraft/BWB-Q100/releases/v1.0/s1000d/registry.local.json": "{ \"dmc_local\": \"placeholder\" }\n",
 
     "AQUA/domains/AIR_CIVIL_AVIATION/aircraft/BWB-Q100/AQUART-AIR-ACFT-DOC-ROADMAP-bwb_q100-v1.0.md": "# Roadmap BWB-Q100\n",
     "AQUA/domains/AIR_CIVIL_AVIATION/aircraft/BWB-Q100/releases/latest.pointer": "v1.0\n",
 
-    "AQUA/platforms/ampel360/AQUART-PLAT-AMPL-DOC-README-platform_guide-v1.0.md": "# AMPEL360\n",
-    "AQUA/platforms/diqi-aas/AQUART-PLAT-DIQI-DOC-README-service_guide-v1.0.md": "# DiQIaaS\n",
+    "AQUA/domains/AIR_CIVIL_AVIATION/aircraft/HE-180/AQUART-AIR-ACFT-DOC-SPEC-hybrid_electric-v2.0.md": "# HE-180 Spec\n",
+    "AQUA/domains/AIR_CIVIL_AVIATION/aircraft/HE-180/AQUART-AIR-ACFT-CODE-BMS-battery_mgmt-v1.3.py": "print('BMS placeholder')\n",
 
-    "AQUA/pocs/flight-optimizer/AQUART-POC-FLGT-CODE-DEMO-optimizer_prototype-v0.5.py": "print('optimizer demo')\n",
-    "AQUA/pocs/quantum-routing/AQUART-POC-QRTE-CODE-DEMO-quantum_pathfind-v0.3.py": "print('routing demo')\n",
+    "AQUA/domains/AIR_CIVIL_AVIATION/airlines/ops-optimization/AQUART-AIR-AIRL-CODE-SCHED-fleet_optimizer-v3.1.py": "print('fleet optimizer')\n",
+    "AQUA/domains/AIR_CIVIL_AVIATION/airlines/ops-optimization/AQUART-AIR-AIRL-CODE-ROUTE-quantum_path-v2.0.py": "print('quantum path')\n",
+
+    "AQUA/domains/AIR_CIVIL_AVIATION/airlines/maintenance-predict/AQUART-AIR-AIRL-CODE-ML-predictive_maint-v4.0.py": "print('predictive maint')\n",
+    "AQUA/domains/AIR_CIVIL_AVIATION/airlines/maintenance-predict/AQUART-AIR-AIRL-CONF-PIPELINE-sensor_data-v1.2.yaml": "pipeline: {}\n",
+
+    "AQUA/domains/AIR_CIVIL_AVIATION/airports/digital-twin/AQUART-AIR-ARPT-DATA-TWIN-model_config-v2.1.json": "{ \"model\": {} }\n",
+    "AQUA/domains/AIR_CIVIL_AVIATION/airports/digital-twin/AQUART-AIR-ARPT-CODE-SYNC-real_time-v1.5.py": "print('sync')\n",
+
+    "AQUA/domains/AIR_CIVIL_AVIATION/airports/security-pqc/AQUART-AIR-ARPT-CODE-PQC-crystals_impl-v3.0.py": "print('crystals impl')\n",
+    "AQUA/domains/AIR_CIVIL_AVIATION/airports/security-pqc/AQUART-AIR-ARPT-CONF-DETECT-threat_system-v1.1.yaml": "detect: {}\n",
+
+    "AQUA/domains/AIR_CIVIL_AVIATION/atm/flow-management/AQUART-AIR-ATM-CODE-FLOW-traffic_optim-v2.3.py": "print('traffic optim')\n",
+    "AQUA/domains/AIR_CIVIL_AVIATION/atm/flow-management/AQUART-AIR-ATM-CODE-MODEL-sector_capacity-v1.0.m": "% model\n",
+
+    "AQUA/domains/AIR_CIVIL_AVIATION/atm/trajectory-opt/AQUART-AIR-ATM-CODE-CALC-4d_trajectory-v3.2.py": "print('4D traj')\n",
+    "AQUA/domains/AIR_CIVIL_AVIATION/atm/trajectory-opt/AQUART-AIR-ATM-CODE-API-weather_integrate-v1.8.py": "print('weather api')\n",
+
+    "AQUA/domains/DEFENCE_SECURITY/AQUART-DEFENCE-MAIN-DOC-README-overview-v1.0.md": "# Defence Overview\n",
+    "AQUA/domains/DEFENCE_SECURITY/AQUART-DEFENCE-MAIN-DOC-GUIDE-classification-v2.0.pdf": "",
+
+    "AQUA/domains/DEFENCE_SECURITY/combat-aircraft/F-QX/AQUART-DEFENCE-CMBT-DOC-SPEC-stealth_coating-v3.1.md": "# Stealth coating\n",
+    "AQUA/domains/DEFENCE_SECURITY/combat-aircraft/F-QX/AQUART-DEFENCE-CMBT-CODE-EVADE-quantum_radar-v2.0.py": "print('quantum radar')\n",
+
+    "AQUA/domains/DEFENCE_SECURITY/combat-aircraft/UCAV-SWARM/AQUART-DEFENCE-CMBT-CODE-ALGO-swarm_coord-v4.2.py": "print('swarm')\n",
+    "AQUA/domains/DEFENCE_SECURITY/combat-aircraft/UCAV-SWARM/AQUART-DEFENCE-CMBT-CONF-PLAN-autonomous-v1.3.yaml": "autonomy: {}\n",
+
+    "AQUA/domains/DEFENCE_SECURITY/cyber-quantum/Q-SHIELD/AQUART-DEFENCE-CYBR-CODE-FIREWALL-quantum-v5.0.py": "print('firewall')\n",
+    "AQUA/domains/DEFENCE_SECURITY/cyber-quantum/Q-SHIELD/AQUART-DEFENCE-CYBR-DATA-MODEL-threat-v2.1.json": "{ \"threat\": [] }\n",
+
+    "AQUA/domains/DEFENCE_SECURITY/cyber-quantum/CRYPTO-NET/AQUART-DEFENCE-CYBR-CODE-QKD-key_distribution-v3.3.py": "print('qkd')\n",
+    "AQUA/domains/DEFENCE_SECURITY/cyber-quantum/CRYPTO-NET/AQUART-DEFENCE-CYBR-DOC-PROTOCOL-secure_comm-v1.0.md": "# secure comm\n",
+
+    "AQUA/domains/SPACE_SATELLITE/AQUART-SPACE-MAIN-DOC-README-overview-v1.0.md": "# Space Overview\n",
+    "AQUA/domains/SPACE_SATELLITE/AQUART-SPACE-MAIN-CODE-LIB-orbital_mechanics-v2.5.py": "print('orbital mechanics')\n",
+
+    "AQUA/domains/SPACE_SATELLITE/launch-systems/Q-LAUNCHER/AQUART-SPACE-LNCH-CODE-OPTIM-trajectory-v3.0.py": "print('launch traj')\n",
+    "AQUA/domains/SPACE_SATELLITE/launch-systems/Q-LAUNCHER/AQUART-SPACE-LNCH-DATA-MODEL-fuel_calc-v1.2.xlsx": "",
+
+    "AQUA/domains/SPACE_SATELLITE/constellations/Q-INTERNET/AQUART-SPACE-CNST-DATA-TOPO-quantum_net-v2.0.json": "{ \"topo\": {} }\n",
+    "AQUA/domains/SPACE_SATELLITE/constellations/Q-INTERNET/AQUART-SPACE-CNST-CODE-DIST-entanglement-v1.5.py": "print('entangle')\n",
+
+    "AQUA/domains/URBAN_AIR_MOBILITY/AQUART-URBAN-MAIN-DOC-README-overview-v1.0.md": "# UAM Overview\n",
+    "AQUA/domains/URBAN_AIR_MOBILITY/passenger-evtol/CITY-HOP/AQUART-URBAN-EVTL-CONF-DESIGN-configuration-v2.1.yaml": "config: {}\n",
+    "AQUA/domains/URBAN_AIR_MOBILITY/passenger-evtol/CITY-HOP/AQUART-URBAN-EVTL-CODE-CONTROL-autonomous-v3.0.py": "print('autonomous')\n",
+
+    "AQUA/domains/DIGITAL_INFRASTRUCTURE/AQUART-DIGITAL-MAIN-DOC-README-overview-v1.0.md": "# Digital Infra\n",
+
+    "AQUA/domains/DIGITAL_INFRASTRUCTURE/quantum-computing/Q-CLOUD/AQUART-DIGITAL-QCMP-CODE-SERVICE-cloud_api-v2.0.py": "print('qcloud api')\n",
+    "AQUA/domains/DIGITAL_INFRASTRUCTURE/quantum-computing/Q-CLOUD/AQUART-DIGITAL-QCMP-CONF-DEPLOY-kubernetes-v1.3.yaml": "apiVersion: v1\n",
+
+    "AQUA/domains/DIGITAL_INFRASTRUCTURE/digital-twins/TWIN-PLATFORM/AQUART-DIGITAL-TWIN-CODE-PLATFORM-core_engine-v4.1.py": "print('twin core')\n",
+    "AQUA/domains/DIGITAL_INFRASTRUCTURE/digital-twins/TWIN-PLATFORM/AQUART-DIGITAL-TWIN-DATA-CONFIG-platform-v2.0.json": "{ \"cfg\": {} }\n",
+
+    "AQUA/domains/DIGITAL_INFRASTRUCTURE/cybersecurity/PQC-SUITE/AQUART-DIGITAL-CYBR-CODE-PQC-suite_impl-v3.0.py": "print('pqc suite')\n",
+    "AQUA/domains/DIGITAL_INFRASTRUCTURE/cybersecurity/PQC-SUITE/AQUART-DIGITAL-CYBR-CONF-ALGO-crystals_config-v1.2.yaml": "pqc: {}\n",
+
+    "AQUA/domains/INDUSTRY_MANUFACTURING/AQUART-INDUSTRY-MAIN-DOC-README-overview-v1.0.md": "# Industry Overview\n",
+
+    "AQUA/domains/INDUSTRY_MANUFACTURING/supply-chain/GLOBAL-OPT/algorithms/SICOCA/AQUART-INDUSTRY-SUPL-CODE-SICOCA-optimizer-v5.2.py": "print('SICOCA')\n",
+    "AQUA/domains/INDUSTRY_MANUFACTURING/supply-chain/GLOBAL-OPT/algorithms/SICOCA/AQUART-INDUSTRY-SUPL-CODE-SICOCA-quantum_solver-v3.1.py": "print('quantum solver')\n",
+    "AQUA/domains/INDUSTRY_MANUFACTURING/supply-chain/GLOBAL-OPT/algorithms/SICOCA/AQUART-INDUSTRY-SUPL-DATA-SICOCA-config-v2.0.yaml": "cfg: {}\n",
+    "AQUA/domains/INDUSTRY_MANUFACTURING/supply-chain/GLOBAL-OPT/algorithms/SICOCA/AQUART-INDUSTRY-SUPL-DOC-SICOCA-architecture-v1.5.md": "# SICOCA arch\n",
+
+    "AQUA/domains/INDUSTRY_MANUFACTURING/supply-chain/GLOBAL-OPT/AQUART-INDUSTRY-SUPL-CODE-OPTIM-global_supply-v4.0.py": "print('supply optim')\n",
+    "AQUA/domains/INDUSTRY_MANUFACTURING/supply-chain/GLOBAL-OPT/AQUART-INDUSTRY-SUPL-DATA-MODEL-network_graph-v1.3.json": "{ \"graph\": {} }\n",
+
+    "AQUA/domains/INDUSTRY_MANUFACTURING/robotics/ASSEMBLY-BOT/AQUART-INDUSTRY-ROBT-CODE-CTRL-assembly_robot-v3.2.py": "print('assembly bot')\n",
+    "AQUA/domains/INDUSTRY_MANUFACTURING/robotics/ASSEMBLY-BOT/AQUART-INDUSTRY-ROBT-CONF-PARAM-robot_config-v1.1.yaml": "params: {}\n",
+
+    "AQUA/domains/OPS_INFRASTRUCTURE/AQUART-OPS-MAIN-DOC-README-overview-v1.0.md": "# Ops Overview\n",
+    "AQUA/domains/OPS_INFRASTRUCTURE/mro-facilities/HANGAR-OPT/AQUART-OPS-MRO-CODE-OPTIM-hangar_schedule-v2.3.py": "print('hangar schedule')\n",
+    "AQUA/domains/OPS_INFRASTRUCTURE/mro-facilities/HANGAR-OPT/AQUART-OPS-MRO-DATA-LAYOUT-hangar_map-v1.0.dwg": "",
+
+    "AQUA/domains/OPS_INFRASTRUCTURE/energy-systems/H2-INFRA/AQUART-OPS-ENRG-CODE-CONTROL-h2_distribution-v2.1.py": "print('h2 dist')\n",
+    "AQUA/domains/OPS_INFRASTRUCTURE/energy-systems/H2-INFRA/AQUART-OPS-ENRG-DATA-SPEC-h2_storage-v1.0.json": "{ \"storage\": {} }\n",
+
+    "AQUA/domains/I+D_RESEARCH/AQUART-I+D-MAIN-DOC-README-overview-v1.0.md": "# R&D Overview\n",
+    "AQUA/domains/I+D_RESEARCH/quantum-research/Q-PROCESSOR/AQUART-I+D-QRES-CODE-SIM-processor_model-v3.0.py": "print('qproc model')\n",
+    "AQUA/domains/I+D_RESEARCH/quantum-research/Q-PROCESSOR/AQUART-I+D-QRES-DATA-SPEC-qubit_params-v1.2.json": "{ \"qubit\": {} }\n",
+
+    "AQUA/domains/I+D_RESEARCH/ai-autonomy/NEURAL-PILOT/AQUART-I+D-AI-CODE-MODEL-neural_autopilot-v4.5.py": "print('neural autopilot')\n",
+    "AQUA/domains/I+D_RESEARCH/ai-autonomy/NEURAL-PILOT/AQUART-I+D-AI-DATA-TRAIN-flight_dataset-v2.0.h5": "",
+
+    "AQUA/domains/REGUL_COMPLIANCE/AQUART-REGUL-MAIN-DOC-README-overview-v1.0.md": "# Reg Compliance\n",
+    "AQUA/domains/REGUL_COMPLIANCE/certification-automation/DO-178C-AUTO/AQUART-REGUL-CERT-CODE-AUTO-do178c_checker-v4.1.py": "print('do178c checker')\n",
+    "AQUA/domains/REGUL_COMPLIANCE/certification-automation/DO-178C-AUTO/AQUART-REGUL-CERT-DATA-RULES-do178c_objectives-v1.0.json": "{ \"rules\": [] }\n",
+    "AQUA/domains/REGUL_COMPLIANCE/evidence-management/QAUDIT-CHAIN/AQUART-REGUL-EVID-CODE-CHAIN-blockchain_logger-v3.0.py": "print('qaudit')\n",
+    "AQUA/domains/REGUL_COMPLIANCE/evidence-management/QAUDIT-CHAIN/AQUART-REGUL-EVID-CONF-NETWORK-qaudit_config-v1.2.yaml": "net: {}\n",
+
+    "AQUA/platforms/ampel360/AQUART-PLAT-AMPL-DOC-README-platform_guide-v1.0.md": "# AMPEL360 Guide\n",
+    "AQUA/platforms/ampel360/AQUART-PLAT-AMPL-CODE-CORE-engine_main-v5.2.py": "print('engine main')\n",
+    "AQUA/platforms/diqi-aas/AQUART-PLAT-DIQI-DOC-README-service_guide-v1.0.md": "# DiQIaaS Guide\n",
+    "AQUA/platforms/diqi-aas/AQUART-PLAT-DIQI-CODE-API-fleet_service-v3.1.py": "print('fleet api')\n",
+    "AQUA/platforms/caas/AQUART-PLAT-CAAS-DOC-README-certification_guide-v1.0.md": "# CaaS Guide\n",
+    "AQUA/platforms/caas/AQUART-PLAT-CAAS-CODE-ENGINE-compliance_checker-v4.0.py": "print('compliance')\n",
+    "AQUA/platforms/robot/AQUART-PLAT-ROBT-DOC-README-robotics_guide-v1.0.md": "# RoBoT Guide\n",
+    "AQUA/platforms/robot/AQUART-PLAT-ROBT-CODE-CTRL-robot_controller-v2.3.py": "print('robot ctrl')\n",
+    "AQUA/platforms/gaia/AQUART-PLAT-GAIA-DOC-README-orchestration_guide-v1.0.md": "# GAIA Guide\n",
+    "AQUA/platforms/gaia/AQUART-PLAT-GAIA-CODE-ORCH-mission_coordinator-v3.5.py": "print('mission coord')\n",
+
+    "AQUA/pocs/flight-optimizer/AQUART-POC-FLGT-CODE-DEMO-optimizer_prototype-v0.5.py": "print('optimizer')\n",
+    "AQUA/pocs/flight-optimizer/AQUART-POC-FLGT-DATA-TEST-sample_routes-v0.1.json": "{ \"routes\": [] }\n",
+    "AQUA/pocs/quantum-routing/AQUART-POC-QRTE-CODE-DEMO-quantum_pathfind-v0.3.py": "print('qp demo')\n",
+    "AQUA/pocs/quantum-routing/AQUART-POC-QRTE-DOC-RESULTS-benchmark_report-v0.2.pdf": "",
 
     "AQUA/automation/agen-qai/AQUART-AUTO-AGEN-CODE-AGENT-main_orchestrator-v2.1.py": "print('AGEN-QAI')\n",
-    "AQUA/automation/processing-prompt-ui/AQUART-AUTO-PPUI-CODE-ENGINE-template_processor-v3.0.py": "print('PPUI')\n",
-    "AQUA/automation/generators/AQUART-AUTO-GEN-CODE-DOC-markdown_builder-v2.5.py": "print('builder')\n",
+    "AQUA/automation/agen-qai/AQUART-AUTO-AGEN-CONF-PROMPTS-agent_templates-v1.0.yaml": "templates: []\n",
+    "AQUA/automation/processing-prompt-ui/AQUART-AUTO-PPUI-CODE-ENGINE-template_processor-v3.0.py": "print('PPUI engine')\n",
+    "AQUA/automation/processing-prompt-ui/AQUART-AUTO-PPUI-DATA-TEMPLATE-doc_generator-v1.2.json": "{ }\n",
+    "AQUA/automation/generators/AQUART-AUTO-GEN-CODE-DOC-markdown_builder-v2.5.py": "print('doc builder')\n",
+    "AQUA/automation/generators/AQUART-AUTO-GEN-CODE-TEST-test_generator-v1.8.py": "print('gen tests')\n",
 
     "AQUA/evidence/AQUART-EVID-CHAIN-DATA-LEDGER-qaudit_main-v1.0.jsonl": "",
     "AQUA/scripts/AQUART-SCRIPT-BUILD-CODE-SETUP-environment-v1.0.sh": "#!/usr/bin/env bash\nset -e\n",
     "AQUA/tools/AQUART-TOOL-UTCS-CODE-VALIDATOR-compliance_check-v2.0.py": "print('validator')\n",
+    "AQUA/tools/AQUART-TOOL-PQC-CODE-VALIDATOR-crypto_verify-v1.5.py": "print('crypto verify')\n",
+    "AQUA/tools/AQUART-TOOL-REPORT-CODE-GENERATOR-evidence_builder-v3.2.py": "print('report builder')\n",
+
     "AQUA/config/environments/AQUART-CONF-ENV-DATA-DEV-development_settings-v1.0.yml": "env: dev\n",
+    "AQUA/config/environments/AQUART-CONF-ENV-DATA-STAGE-staging_settings-v1.0.yml": "env: stage\n",
+    "AQUA/config/environments/AQUART-CONF-ENV-DATA-PROD-production_settings-v1.0.yml": "env: prod\n",
+    "AQUA/config/AQUART-CONF-MAIN-DATA-SETTINGS-global_config-v2.0.yml": "global: true\n",
+
     "AQUA/tests/unit/AQUART-TEST-UNIT-CODE-PQC-crypto_tests-v1.0.py": "def test_placeholder():\n  assert True\n",
-    "AQUA/docs/api/AQUART-DOCS-API-DOC-SPEC-openapi_definition-v3.0.yaml": "openapi: 3.0.0\ninfo:\n  title: AQUA API\n"
+    "AQUA/tests/unit/AQUART-TEST-UNIT-CODE-TWIN-digital_twin_tests-v1.0.py": "def test_twin():\n  assert True\n",
+    "AQUA/tests/integration/AQUART-TEST-INTG-CODE-SYSTEM-end_to_end-v2.0.py": "def test_e2e():\n  assert True\n",
+    "AQUA/tests/integration/AQUART-TEST-INTG-CODE-API-service_tests-v1.5.py": "def test_api():\n  assert True\n",
+    "AQUA/tests/security/AQUART-TEST-SEC-CODE-PENTEST-vulnerability_scan-v3.0.py": "print('pentest')\n",
+    "AQUA/tests/security/AQUART-TEST-SEC-CODE-FUZZ-fuzzing_suite-v2.1.py": "print('fuzz')\n",
+
+    "AQUA/docs/api/AQUART-DOCS-API-DOC-SPEC-openapi_definition-v3.0.yaml": "openapi: 3.0.0\ninfo:\n  title: AQUA API\n",
+    "AQUA/docs/api/AQUART-DOCS-API-DOC-GUIDE-integration_manual-v1.0.md": "# Integration Manual\n",
+    "AQUA/docs/architecture/AQUART-DOCS-ARCH-DOC-DESIGN-system_architecture-v2.5.md": "# System Architecture\n",
+    "AQUA/docs/architecture/AQUART-DOCS-ARCH-DATA-DIAGRAM-component_map-v1.0.puml": "@startuml\n@enduml\n",
+    "AQUA/docs/user-guides/AQUART-DOCS-USER-DOC-GUIDE-getting_started-v1.0.md": "# Getting Started\n",
+    "AQUA/docs/user-guides/AQUART-DOCS-USER-DOC-MANUAL-operations_handbook-v2.0.pdf": ""
   },
 
   "materialize_gitignore_from": "AQUA/AQUART-MGMT-GIT-CONF-GITIGNORE-standard-v1.0.txt",
