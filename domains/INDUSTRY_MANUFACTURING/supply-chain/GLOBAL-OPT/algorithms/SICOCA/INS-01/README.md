@@ -109,18 +109,18 @@ quadrantChart
     title SICOCA Feature Prioritization
     x-axis Low Complexity --> High Complexity
     y-axis Low Impact --> High Impact
-    quadrant-1 Quick Wins: 
-      Schema validation
-      Basic reporting
-    quadrant-2 Major Projects: 
-      Quantum integration
-      Real-time optimization
-    quadrant-3 Fill Ins: 
-      UI enhancements
-      Additional metrics
-    quadrant-4 Strategic Initiatives: 
-      Multi-objective optimization
-      Global supply chain
+    quadrant-1 Quick Wins
+    quadrant-2 Major Projects
+    quadrant-3 Fill Ins
+    quadrant-4 Strategic Initiatives
+    Schema validation: [0.2, 0.2]
+    Basic reporting: [0.3, 0.3]
+    Quantum integration: [0.8, 0.8]
+    Real-time optimization: [0.7, 0.9]
+    UI enhancements: [0.8, 0.2]
+    Additional metrics: [0.7, 0.3]
+    Multi-objective optimization: [0.2, 0.8]
+    Global supply chain: [0.3, 0.7]
 ```
 
 - **Quantum-Enhanced Optimisation** con QAOA/QUBO y QAE  
@@ -602,11 +602,13 @@ Carpetas de prueba: `tests/`
 
 ### Performance Comparison
 ```mermaid
-radarChart
-    title SICOCA Performance Metrics
-    axis Speed, Accuracy, Scalability, Usability, Security
-    "Current" : [85, 90, 75, 80, 95]
-    "Target" : [95, 95, 90, 85, 98]
+xychart-beta
+    title "SICOCA Performance Metrics"
+    x-axis ["Speed", "Accuracy", "Scalability", "Usability", "Security"]
+    y-axis "Score" 0 --> 100
+    line [85, 90, 75, 80, 95]
+    line [95, 95, 90, 85, 98]
+    %% First line = Current, Second line = Target
 ```
 
 ---
