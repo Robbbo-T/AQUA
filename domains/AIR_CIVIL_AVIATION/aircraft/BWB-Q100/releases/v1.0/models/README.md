@@ -93,18 +93,4 @@ models/
 
 **Maintainer:** Systems Analysis Lead · **Owner:** Amedeo Pelliccia
 
-```
 
----
-
-### Commit
-```
-
-docs(bwb-q100): add models/README.md (aero model + propulsion sim stubs)
-
-````
-```bash
-git add AQUA/domains/AIR_CIVIL_AVIATION/aircraft/BWB-Q100/releases/v1.0/models/README.md
-git commit -m "docs(bwb-q100): add models/README.md (aero model + propulsion sim stubs)"
-git push
-````
