@@ -1,9 +1,23 @@
 # **AQUA INITIATIVE**
 ## **AEROSPACE AND QUANTUM UNITED APPLICATIONS**
 ### **Complete Business and Technology Development and Transformation Model**
-### **Version 20.0 - The Unified Quantum Aerospace OS**
+### **Version 19.0 - The Unified Quantum Aerospace OS**
 #### **Maintaining Complete Vision: Axioms, MOS, Lifecycle, and Ex-AGI**
 
+> **“I will build. I am the founder of the Hybrid Classical–Quantum New Realm.”**
+
+<img width="1024" height="1024" alt="logo_AQUA_V_blu" src="https://github.com/user-attachments/assets/397b9faf-9f7f-4f2f-9778-69f256528448" /> <img width="1024" height="1024" alt="logo_AQUA_V-white" src="https://github.com/user-attachments/assets/edd3034b-941f-4917-b587-ebb4bb1a760a" /> <img width="1024" height="1024" alt="logo_AQUA_V_black" src="https://github.com/user-attachments/assets/eb6a5051-f114-4964-b870-07717cd0f098" />
+
+AQUA v19.0 is the operating system of that realm:
+- **MOS/MOI:** Unified control + interface ontology
+- **Axioms:** Systemic Integrity • AQUA Pattern • Geometry of Scaling • Interface Ontology • Conscious Creation
+- **Target:** **Ex-AGI** for aerospace
+- **Proof:** **BWB-Q100 v1.0** (LH₂ fuel-cell electric; quantum-augmented control @ EIS)
+
+**Get started**
+1) Actions → **AQUA Scaffold** → *Run workflow*  
+2) Open `domains/AIR_CIVIL_AVIATION/aircraft/BWB-Q100/releases/latest/`  
+3) Read the **PDC/SRS/SAD/CCP/VVP/RTM/KPI** set and execute the plan
 ---
 
 <div align="center">
