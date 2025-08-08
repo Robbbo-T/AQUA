@@ -1,0 +1,270 @@
+{
+  "metadata": {
+    "document_id": "AQUART-INDUSTRY-SUPL-DATA-INS01-sample_network-v1.0",
+    "classification": "CONFIDENTIAL",
+    "generated_by": "INS-01 Graph Builder",
+    "description": "Sample supply chain network for INS-01 strategic optimization",
+    "num_nodes": 8,
+    "num_edges": 12,
+    "connectivity": 0.43,
+    "generator": "INS-01 Graph Builder v1.0"
+  },
+  "nodes": [
+    {
+      "id": 0,
+      "attributes": {
+        "type": "supplier",
+        "risk": 0.18,
+        "capacity": 150.2,
+        "location": {
+          "lat": 52.5200,
+          "lon": 13.4050
+        },
+        "certifications": "ISO9001",
+        "esg_score": 87.3,
+        "country": "Germany",
+        "specialization": "Raw Materials"
+      }
+    },
+    {
+      "id": 1,
+      "attributes": {
+        "type": "manufacturer",
+        "risk": 0.32,
+        "capacity": 180.7,
+        "location": {
+          "lat": 48.8566,
+          "lon": 2.3522
+        },
+        "certifications": "ISO14001",
+        "esg_score": 82.1,
+        "country": "France",
+        "specialization": "Component Assembly"
+      }
+    },
+    {
+      "id": 2,
+      "attributes": {
+        "type": "distributor",
+        "risk": 0.12,
+        "capacity": 95.4,
+        "location": {
+          "lat": 41.9028,
+          "lon": 12.4964
+        },
+        "certifications": "ISO45001",
+        "esg_score": 91.8,
+        "country": "Italy",
+        "specialization": "Regional Distribution"
+      }
+    },
+    {
+      "id": 3,
+      "attributes": {
+        "type": "retailer",
+        "risk": 0.08,
+        "capacity": 120.8,
+        "location": {
+          "lat": 40.7128,
+          "lon": -74.0060
+        },
+        "certifications": "ISO9001",
+        "esg_score": 78.9,
+        "country": "USA",
+        "specialization": "End Customer Sales"
+      }
+    },
+    {
+      "id": 4,
+      "attributes": {
+        "type": "supplier",
+        "risk": 0.25,
+        "capacity": 200.1,
+        "location": {
+          "lat": 35.6762,
+          "lon": 139.6503
+        },
+        "certifications": "ISO14001",
+        "esg_score": 85.6,
+        "country": "Japan",
+        "specialization": "Electronic Components"
+      }
+    },
+    {
+      "id": 5,
+      "attributes": {
+        "type": "manufacturer",
+        "risk": 0.28,
+        "capacity": 165.3,
+        "location": {
+          "lat": 37.7749,
+          "lon": -122.4194
+        },
+        "certifications": "ISO9001",
+        "esg_score": 89.2,
+        "country": "USA",
+        "specialization": "Final Assembly"
+      }
+    },
+    {
+      "id": 6,
+      "attributes": {
+        "type": "distributor",
+        "risk": 0.15,
+        "capacity": 110.9,
+        "location": {
+          "lat": -33.8688,
+          "lon": 151.2093
+        },
+        "certifications": "ISO45001",
+        "esg_score": 84.7,
+        "country": "Australia",
+        "specialization": "APAC Distribution"
+      }
+    },
+    {
+      "id": 7,
+      "attributes": {
+        "type": "retailer",
+        "risk": 0.11,
+        "capacity": 88.6,
+        "location": {
+          "lat": 51.5074,
+          "lon": -0.1278
+        },
+        "certifications": "ISO9001",
+        "esg_score": 86.4,
+        "country": "UK",
+        "specialization": "European Sales"
+      }
+    }
+  ],
+  "edges": [
+    [0, 1],
+    [0, 4],
+    [1, 2],
+    [1, 5],
+    [2, 3],
+    [2, 7],
+    [3, 5],
+    [4, 5],
+    [4, 6],
+    [5, 6],
+    [6, 7],
+    [0, 2]
+  ],
+  "weights": {
+    "cost": {
+      "(0, 1)": 120.5,
+      "(1, 0)": 120.5,
+      "(0, 4)": 180.3,
+      "(4, 0)": 180.3,
+      "(1, 2)": 95.2,
+      "(2, 1)": 95.2,
+      "(1, 5)": 210.8,
+      "(5, 1)": 210.8,
+      "(2, 3)": 340.7,
+      "(3, 2)": 340.7,
+      "(2, 7)": 156.4,
+      "(7, 2)": 156.4,
+      "(3, 5)": 285.9,
+      "(5, 3)": 285.9,
+      "(4, 5)": 195.1,
+      "(5, 4)": 195.1,
+      "(4, 6)": 420.2,
+      "(6, 4)": 420.2,
+      "(5, 6)": 380.6,
+      "(6, 5)": 380.6,
+      "(6, 7)": 445.3,
+      "(7, 6)": 445.3,
+      "(0, 2)": 165.7,
+      "(2, 0)": 165.7
+    },
+    "risk": {
+      "(0, 1)": 0.22,
+      "(1, 0)": 0.22,
+      "(0, 4)": 0.35,
+      "(4, 0)": 0.35,
+      "(1, 2)": 0.18,
+      "(2, 1)": 0.18,
+      "(1, 5)": 0.41,
+      "(5, 1)": 0.41,
+      "(2, 3)": 0.28,
+      "(3, 2)": 0.28,
+      "(2, 7)": 0.19,
+      "(7, 2)": 0.19,
+      "(3, 5)": 0.33,
+      "(5, 3)": 0.33,
+      "(4, 5)": 0.31,
+      "(5, 4)": 0.31,
+      "(4, 6)": 0.45,
+      "(6, 4)": 0.45,
+      "(5, 6)": 0.38,
+      "(6, 5)": 0.38,
+      "(6, 7)": 0.42,
+      "(7, 6)": 0.42,
+      "(0, 2)": 0.25,
+      "(2, 0)": 0.25
+    },
+    "co2": {
+      "(0, 1)": 58.2,
+      "(1, 0)": 58.2,
+      "(0, 4)": 145.8,
+      "(4, 0)": 145.8,
+      "(1, 2)": 42.7,
+      "(2, 1)": 42.7,
+      "(1, 5)": 178.4,
+      "(5, 1)": 178.4,
+      "(2, 3)": 225.3,
+      "(3, 2)": 225.3,
+      "(2, 7)": 68.9,
+      "(7, 2)": 68.9,
+      "(3, 5)": 195.7,
+      "(5, 3)": 195.7,
+      "(4, 5)": 156.2,
+      "(5, 4)": 156.2,
+      "(4, 6)": 312.6,
+      "(6, 4)": 312.6,
+      "(5, 6)": 289.1,
+      "(6, 5)": 289.1,
+      "(6, 7)": 334.8,
+      "(7, 6)": 334.8,
+      "(0, 2)": 75.4,
+      "(2, 0)": 75.4
+    }
+  },
+  "performance_baseline": {
+    "total_cost": 2847.3,
+    "total_risk": 3.85,
+    "total_co2": 2144.6,
+    "average_connectivity": 3.0,
+    "network_diameter": 4
+  },
+  "permacrisis_scenarios": {
+    "supply_disruption": {
+      "affected_nodes": [0, 4],
+      "risk_multiplier": 2.0,
+      "cost_multiplier": 1.3,
+      "description": "Critical supplier disruption in Asia-Europe corridor"
+    },
+    "demand_spike": {
+      "affected_nodes": [3, 7],
+      "risk_multiplier": 1.5,
+      "cost_multiplier": 1.2,
+      "description": "Unexpected demand surge in retail markets"
+    },
+    "geopolitical_risk": {
+      "affected_edges": ["(0, 4)", "(4, 6)", "(6, 7)"],
+      "risk_multiplier": 3.0,
+      "cost_multiplier": 1.5,
+      "description": "Trade restrictions affecting international routes"
+    }
+  },
+  "optimization_targets": {
+    "resilience_index": 0.85,
+    "tco_reduction_percent": 23.0,
+    "co2_reduction_percent": 34.0,
+    "quantum_advantage": 1.8,
+    "partition_balance": 0.75
+  }
+}

@@ -1,0 +1,46 @@
+# INS-01 Configuration Parameters
+# Document ID: AQUART-INDUSTRY-SUPL-CONF-INS01-parameters-v1.0
+
+algorithm:
+  name: "INS-01 Strategic Network"
+  type: "QAOA Max-Cut Multiobjetivo"
+  version: "1.0"
+
+quantum_parameters:
+  p_layers: 3
+  shots: 2048
+  optimization_level: 3
+  backend: "ibmq_qasm_simulator"
+  
+optimization_weights:
+  lambda_cost: 0.4
+  lambda_risk: 0.35
+  lambda_co2: 0.25
+  
+classical_optimizer:
+  type: "COBYLA"
+  maxiter: 500
+  tolerance: 1e-6
+  
+network_constraints:
+  min_nodes: 5
+  max_nodes: 100
+  min_connectivity: 0.3
+  max_risk_concentration: 0.4
+  
+kpi_targets:
+  resilience_index: 0.85
+  tco_reduction: 0.20
+  co2_reduction: 0.30
+  quantum_advantage: 1.5
+  
+permacrisis_scenarios:
+  - name: "supply_disruption"
+    probability: 0.15
+    impact: 0.8
+  - name: "demand_spike"
+    probability: 0.25
+    impact: 0.6
+  - name: "geopolitical_risk"
+    probability: 0.10
+    impact: 0.9
