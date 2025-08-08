@@ -1,0 +1,75 @@
+name: AQUA Scaffold
+on:
+  workflow_dispatch:
+    inputs:
+      commit_message:
+        description: Commit message
+        default: "chore: scaffold AQUA skeleton"
+        required: false
+permissions:
+  contents: write
+
+jobs:
+  scaffold:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Generate structure from manifest
+        shell: python
+        run: |
+          import os, json, base64, pathlib, textwrap
+          MANIFEST_PATH = ".github/aqua_skeleton.json"
+          if not os.path.exists(MANIFEST_PATH):
+            raise SystemExit("Falta .github/aqua_skeleton.json")
+          with open(MANIFEST_PATH, "r", encoding="utf-8") as f:
+            sk = json.load(f)
+
+          def ensure_dir(p):
+            pathlib.Path(p).parent.mkdir(parents=True, exist_ok=True)
+
+          # 1) Directorios vacíos
+          for d in sk.get("dirs", []):
+            pathlib.Path(d).mkdir(parents=True, exist_ok=True)
+
+          # 2) Archivos con contenido (string o base64)
+          for path, spec in sk.get("files", {}).items():
+            ensure_dir(path)
+            if isinstance(spec, dict) and spec.get("base64"):
+              data = base64.b64decode(spec["base64"])
+              with open(path, "wb") as fh: fh.write(data)
+            else:
+              content = spec if isinstance(spec, str) else ""
+              with open(path, "w", encoding="utf-8") as fh: fh.write(content)
+
+          # 3) Symlinks (opcional). Si no quieres symlinks en Windows, usa *.pointer
+          for link_path, target in sk.get("symlinks", {}).items():
+            # mejor usar pointer file por compatibilidad
+            if sk.get("symlinks_as_pointer", True):
+              ensure_dir(link_path + ".pointer")
+              with open(link_path + ".pointer", "w") as fh:
+                fh.write(target + "\n")
+            else:
+              ensure_dir(link_path)
+              if os.path.exists(link_path): os.remove(link_path)
+              os.symlink(target, link_path)
+
+          # 4) .gitignore y .gitattributes “reales” (a partir de UTCS config opcional)
+          gi_src = sk.get("materialize_gitignore_from")
+          if gi_src and os.path.exists(gi_src):
+            with open(gi_src, "r", encoding="utf-8") as f: gi = f.read()
+            with open(".gitignore", "w", encoding="utf-8") as g: g.write(gi)
+
+          ga_src = sk.get("materialize_gitattributes_from")
+          if ga_src and os.path.exists(ga_src):
+            with open(ga_src, "r", encoding="utf-8") as f: ga = f.read()
+            with open(".gitattributes", "w", encoding="utf-8") as g: g.write(ga)
+
+      - name: Commit & push
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: ${{ github.event.inputs.commit_message }}
+          branch: ${{ github.ref_name }}
