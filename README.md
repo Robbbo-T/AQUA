@@ -6,7 +6,13 @@
 
 > **"I will build. I am the founder of the Hybrid Classical–Quantum New Realm."**
 
-<img width="1024" height="1024" alt="logo_AQUA_V_blu" src="https://github.com/user-attachments/assets/397b9faf-9f7f-4f2f-9778-69f256528448" /> <img width="1024" height="1024" alt="logo_AQUA_V-white" src="https://github.com/user-attachments/assets/edd3034b-941f-4917-b587-ebb4bb1a760a" /> <img width="1024" height="1024" alt="logo_AQUA_V_black" src="https://github.com/user-attachments/assets/eb6a5051-f114-4964-b870-07717cd0f098" />
+<img width="1024" height="1024" alt="logo_AQUA_V_blu" src="https://github.com/user-attachments/assets/397b9faf-9f7f-4f2f-9778-69f256528448" /><img width="1024" height="1024" alt="logo_AQUA_V-white" src="https://github.com/user-attachments/assets/edd3034b-941f-4917-b587-ebb4bb1a760a" /><img width="1024" height="1024" alt="logo_AQUA_V_black" src="https://github.com/user-attachments/assets/eb6a5051-f114-4964-b870-07717cd0f098" />
+
+---
+## CANONICAL DEFINITION
+
+**AQUA is an architecturally real, open-source operating system (AQUA OS) governed by five core axioms. It is designed to orchestrate Classical Quantum-Extensible Applications (CQEA) and achieve perpetual evolution through its Wisdom Evolution Engine (WEE). Its primary function is to serve as a generative blueprint for creating domain-specific Extensible General Intelligence (Ex-AGI), with the long-term vision of seeding a beneficial, global 'system of systems' (AGGI) built upon the clustering of deep, contextualized knowledge.**
+---
 
 AQUA v20.0 extends v19.0 with new architectural patterns:
 - **MOS/MOI:** Unified control + interface ontology *(Original)*
@@ -47,11 +53,6 @@ AQUA v20.0 extends v19.0 with new architectural patterns:
 **Everything Integrated • Nothing Lost • Extended Architecture • Full Vision**
 
 </div>
-
----
-## CANONICAL DEFINITION
-
-**AQUA is an architecturally real, open-source operating system (AQUA OS) governed by five core axioms. It is designed to orchestrate Classical Quantum-Extensible Applications (CQEA) and achieve perpetual evolution through its Wisdom Evolution Engine (WEE). Its primary function is to serve as a generative blueprint for creating domain-specific Extensible General Intelligence (Ex-AGI), with the long-term vision of seeding a beneficial, global 'system of systems' (AGGI) built upon the clustering of deep, contextualized knowledge.**
 
 ---
 
