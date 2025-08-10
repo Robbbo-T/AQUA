@@ -2152,6 +2152,31 @@ This implementation guide provides a complete pathway for quantum integration wh
 
 The quantum-enhanced AQUA system will provide generational capability improvements while maintaining the robustness and reliability of the classical foundation.
 
+**This annex provides the official mapping of all referenced artifacts in the AQUA v20.0 specification to their governance role, UTCS domain, and latest repository pointer.**
+
+| Artifact                                                 | Role          | UTCS Domain                 | Latest Pointer                                                  |
+| -------------------------------------------------------- | ------------- | --------------------------- | --------------------------------------------------------------- |
+| AQUART-AIR-ACFT-DOC-CCP-easa\_plan-v1.0.md               | Documentation | Aircraft Systems            | repo://AQUART-AIR-ACFT-DOC-CCP-easa\_plan-v1.0.md               |
+| AQUART-AIR-ACFT-DOC-KPI-initial\_targets-v1.0.md         | Documentation | Aircraft Systems            | repo://AQUART-AIR-ACFT-DOC-KPI-initial\_targets-v1.0.md         |
+| AQUART-AIR-ACFT-DOC-PDC-bwb\_q100-v1.0.md                | Documentation | Aircraft Systems            | repo://AQUART-AIR-ACFT-DOC-PDC-bwb\_q100-v1.0.md                |
+| AQUART-AIR-ACFT-DOC-RTM-traceability-v1.0.md             | Documentation | Aircraft Systems            | repo://AQUART-AIR-ACFT-DOC-RTM-traceability-v1.0.md             |
+| AQUART-AIR-ACFT-DOC-SAD-bwb\_q100-v1.0.md                | Documentation | Aircraft Systems            | repo://AQUART-AIR-ACFT-DOC-SAD-bwb\_q100-v1.0.md                |
+| AQUART-AIR-ACFT-DOC-SRS-bwb\_q100-v1.0.md                | Documentation | Aircraft Systems            | repo://AQUART-AIR-ACFT-DOC-SRS-bwb\_q100-v1.0.md                |
+| AQUART-AIR-ACFT-DOC-VVP-verification-v1.0.md             | Documentation | Aircraft Systems            | repo://AQUART-AIR-ACFT-DOC-VVP-verification-v1.0.md             |
+| AQUART-AIR-AIRL-CODE-ML-predictive\_maint-v4.0.py        | Source Code   | General                     | repo://AQUART-AIR-AIRL-CODE-ML-predictive\_maint-v4.0.py        |
+| AQUART-DIGITAL-TWIN-CODE-PLATFORM-core\_engine-v4.1.py   | Source Code   | Digital Twin                | repo://AQUART-DIGITAL-TWIN-CODE-PLATFORM-core\_engine-v4.1.py   |
+| AQUART-EVID-CHAIN-DATA-LEDGER-qaudit\_main-v1.0.jsonl    | Data Asset    | Governance & Evidence       | repo://AQUART-EVID-CHAIN-DATA-LEDGER-qaudit\_main-v1.0.jsonl    |
+| AQUART-INDUSTRY-SUPL-CODE-SICOCA-optimizer-v5.2.py       | Source Code   | Supply Chain & Optimization | repo://AQUART-INDUSTRY-SUPL-CODE-SICOCA-optimizer-v5.2.py       |
+| AQUART-INDUSTRY-SUPL-CODE-SICOCA-quantum\_solver-v3.1.py | Source Code   | Supply Chain & Optimization | repo://AQUART-INDUSTRY-SUPL-CODE-SICOCA-quantum\_solver-v3.1.py |
+| AQUART-PLAT-AMPL-CODE-CORE-engine\_main-v5.2.py          | Source Code   | Design Platform             | repo://AQUART-PLAT-AMPL-CODE-CORE-engine\_main-v5.2.py          |
+| AQUART-PLAT-CAAS-CODE-ENGINE-compliance\_checker-v4.0.py | Source Code   | Certification Platform      | repo://AQUART-PLAT-CAAS-CODE-ENGINE-compliance\_checker-v4.0.py |
+| AQUART-PLAT-DIQI-CODE-API-fleet\_service-v3.1.py         | Source Code   | Operations Platform         | repo://AQUART-PLAT-DIQI-CODE-API-fleet\_service-v3.1.py         |
+| AQUART-PLAT-GAIA-CODE-ORCH-mission\_coordinator-v3.5.py  | Source Code   | Control Platform            | repo://AQUART-PLAT-GAIA-CODE-ORCH-mission\_coordinator-v3.5.py  |
+| AQUART-PLAT-ROBT-CODE-CTRL-robot\_controller-v2.3.py     | Source Code   | Manufacturing Platform      | repo://AQUART-PLAT-ROBT-CODE-CTRL-robot\_controller-v2.3.py     |
+| AQUART-POC-FLGT-CODE-DEMO-optimizer\_prototype-v0.5.py   | Source Code   | Flight Ops POC              | repo://AQUART-POC-FLGT-CODE-DEMO-optimizer\_prototype-v0.5.py   |
+| AQUART-REGUL-CERT-CODE-AUTO-do178c\_checker-v4.1.py      | Source Code   | Governance & Evidence       | repo://AQUART-REGUL-CERT-CODE-AUTO-do178c\_checker-v4.1.py      |
+
+
 <div align="center">
 
 # **AQUA: EVERYTHING INTEGRATED + EXTENDED**
