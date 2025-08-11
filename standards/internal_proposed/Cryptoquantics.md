@@ -5,8 +5,6 @@ Amedeo Pelliccia
 **Version:** v1.0 (Camera-ready)  
 **Program Context:** AMPEL360 · AQUA V. · UTCS-compliant · S1000D-ready
 
-> **Note:** Equations are shown in LaTeX for readability and copy/paste. For rendered math, see [docs/cryptoquantics.pdf](link-to-pdf) or the equation images below. GitHub does not natively render LaTeX equations in Markdown files.
-
 ---
 
 ## Abstract
