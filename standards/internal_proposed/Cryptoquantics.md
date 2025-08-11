@@ -254,3 +254,317 @@ Residuals validated against predicted $\Delta \mathbf{v}(u)$ and $\Delta \boldsy
 - **PR**: *Start Secure Session*, *Auth‑Burst*, *Safe‑Down*  
 - **DS**: Functional description + power/thermal budgets  
 - **V&V**: TV‑1/2/3/4 with acceptance criteria
+
+
+
+# Cryptoquantics System Architecture: Detailed Subsystem Breakdown
+
+## System-Level Entities
+
+1. **Transmitter (TX) Platform**: The spacecraft or ground station generating and aiming the beam.
+2. **Receiver (RX) Platform**: The spacecraft being authenticated and receiving data/propulsion.
+3. **Ground Segment / Mission Control**: For command, telemetry, external tracking, and V&V support.
+
+---
+
+## I. Transmitter (TX) Subsystems
+
+The TX is responsible for generating the dual-use data and momentum beam according to the secure protocol.
+
+### A. Cryptoquantics Control & Management (CQ-CTRL)
+
+1. **Cryptoquantics Session Manager (CQMgr-TX)**
+   - *Function*: Manages state machine (INIT, KEYING, ALIGN, etc.), schedules AUTH-BURSTS, and coordinates with other subsystems.
+
+2. **Key Management Unit (KMU-TX)**
+   - a. **QKD/PQC Module**: Generates and exchanges secure session keys with the RX.
+   - b. **Secure Key Store**: Hardened memory for storing session keys and cryptographic parameters.
+
+3. **Signature Generation Unit**
+   - a. **Pseudorandom Function (PRF) Engine**: Implements the $f_K(\text{context})$ function to generate the cinematic signature sequence $\mathcal{S}_K = \{(P_i, \theta_i, \phi_i, T_i)\}_N$.
+   - b. **Context Acquisition Module**: Gathers real-time inputs (time, ephemeris) required for the PRF.
+
+### B. Optical/Microwave Payload (PAYLOAD-TX)
+
+1. **High-Power Emitter Source**
+   - a. **Laser/Maser Oscillator**: Generates the initial stable, low-power beam.
+   - b. **Power Amplifier Stage (e.g., MOPA)**: Amplifies the beam to the required power level (kW-class).
+
+2. **Modulation & Drive Electronics**
+   - a. **Data Modulator**: Encodes the classical data stream (e.g., using an Electro-Optic or Acousto-Optic Modulator for lasers).
+   - b. **Power Modulator / Driver**: Precisely controls the optical power output $P(t)$ according to the signature sequence $\mathcal{S}_K$.
+
+3. **Beam Forming & Steering Optics**
+   - a. **Telescope/Antenna Assembly**: The primary optics for collimating and projecting the beam.
+   - b. **Coarse Pointing Assembly (CPA)**: A gimbal mechanism for large-angle slewing.
+   - c. **Fine Steering Mirror (FSM)**: A high-frequency, low-angle mirror for precision pointing and jitter correction, also used to execute the small angular offsets ($\theta_i, \phi_i$) in the signature.
+
+### C. Pointing, Acquisition, & Tracking (PAT)
+
+1. **PAT Control Unit**: The processor and algorithms that maintain the link.
+2. **Acquisition Sensor**: A wide field-of-view camera to initially locate the RX beacon.
+3. **Tracking Sensor**: A high-speed, narrow field-of-view sensor to lock onto the RX beacon and provide closed-loop feedback for the FSM.
+
+### D. Electrical Power Subsystem (EPS-TX)
+
+1. **Power Source**: Solar arrays and batteries capable of supplying peak power for the emitter.
+2. **Power Conditioning & Distribution Unit (PCDU)**: Provides stable, high-current/high-voltage power to the laser/maser and its electronics.
+
+### E. Thermal Control Subsystem (TCS-TX)
+
+1. **Heat Rejection System**: Radiators, heat pipes, and/or loop heat pipes to dissipate the significant waste heat from the emitter source and electronics.
+2. **Thermal Stability Control**: Precision heaters and sensors to maintain the temperature of optical components, preventing thermal deformation that would corrupt pointing accuracy.
+
+---
+
+## II. Receiver (RX) Subsystems
+
+The RX is responsible for receiving data, precisely measuring its own kinematic response, and performing the physical authentication check.
+
+### A. Cryptoquantics Verification & Management (CQ-V&V)
+
+1. **Cryptoquantics Session Manager (CQMgr-RX)**
+   - *Function*: Manages the CQ-SSP state machine, initiates AUTH-CHECK, and fuses the results from data and cinematic channels.
+
+2. **Key Management Unit (KMU-RX)**
+   - a. **QKD/PQC Module**: Receives/exchanges keys with the TX.
+   - b. **Secure Key Store**: Holds the shared session key.
+
+3. **Signature Prediction Unit**
+   - a. **PRF Engine**: An identical PRF to the TX, which uses the shared key and context to independently re-generate the expected signature $\mathcal{S}_K$.
+   - b. **Physics Modeler**: A module that takes the expected sequence $\mathcal{S}_K$ and computes the predicted kinematic effect, $\Delta\mathbf{v}(\mathcal{S}_K)$ and/or $\Delta\mathbf{\omega}(\mathcal{S}_K)$, based on the spacecraft's known physical properties (mass, inertia, reflectivity).
+
+### B. Guidance, Navigation, & Control (GNC)
+
+1. **GNC Sensor Suite**
+   - a. **Inertial Measurement Unit (IMU)**: High-grade accelerometers and gyroscopes to measure high-frequency changes in linear acceleration and angular velocity. This is the primary sensor for detecting the "kick."
+   - b. **Star Tracker(s) (STR)**: Provide absolute attitude reference (quaternions) to calibrate gyro drift and measure fine changes in orientation ($\Delta\mathbf{\omega}$).
+   - c. **GNSS Receiver**: Provides precise position and velocity data for orbit determination, enabling the measurement of the cumulative change in velocity ($\Delta\mathbf{v}$).
+
+2. **V&V & State Estimation Processor**
+   - a. **Sensor Fusion Engine (e.g., EKF, UKF)**: Fuses data from the IMU, STR, and GNSS to produce a statistically optimal estimate of the spacecraft's state (position, velocity, attitude, and sensor biases).
+   - b. **Kinematic Signature Estimator**: An algorithm that processes the fused state estimate to extract the experienced velocity/attitude change ($\widehat{\Delta\mathbf{v}}$, $\widehat{\Delta\mathbf{\omega}}$) attributable to the optical beam during an AUTH-BURST.
+   - c. **Signature Verifier & Decision Logic**: The final comparator. It calculates the norm of the difference $|\widehat{\Delta\mathbf{v}} - \Delta\mathbf{v}(\mathcal{S}_K)|$ and compares it against the threshold $\varepsilon_{\Delta v}$ to make the pass/fail authentication decision.
+   - d. **Cross-Modal Residual Monitor**: A background process that checks for physical consistency between different sensor modalities (e.g., thermal vs. optical, ADCS torque vs. optical power).
+
+### C. Communications Payload (PAYLOAD-RX)
+
+1. **Optical/Microwave Front-End**
+   - a. **Receiver Telescope/Antenna**: Collects the incoming photons.
+   - b. **Photodetector Assembly**: Converts photons to an electrical signal (e.g., Avalanche Photodiode).
+
+2. **Demodulation & Decoding Unit**
+   - a. **Demodulator**: Extracts the modulated baseband signal.
+   - b. **FEC Decoder**: Corrects bit errors to recover the classical data stream.
+
+3. **Beacon Emitter**: A low-power laser or LED used to signal the RX's location to the TX for PAT lock-on.
+
+### D. On-Board Data Handling (OBDH)
+
+1. **Main Flight Computer**: Hosts the CQMgr, V&V algorithms, and manages interfaces between all subsystems.
+
+### E. Thermal Control Subsystem (TCS-RX)
+
+1. **Sensor Thermal Stability**: Maintains the IMU and other sensitive components at a constant temperature to minimize thermal drift and noise.
+2. **Optics Thermal Monitor**: A dedicated sensor on the receiver optics to provide data for the cross-modal residual check ($\Delta T$ vs. $P_{abs}$).
+
+---
+
+## System Interconnection Diagram
+
+```mermaid
+graph TD
+    subgraph TX Platform
+        direction LR
+        TX_CQMgr[CQMgr-TX] -->|Generates S_K| TX_PAYLOAD[Optical Payload]
+        TX_CQMgr --> TX_PAT[PAT Control]
+        TX_PAYLOAD -- emits beam --> RX_PAYLOAD
+        TX_PAT -- points beam --> TX_PAYLOAD
+        TX_EPS[EPS-TX] -- Power --> TX_PAYLOAD & TX_PAT
+        TX_TCS[TCS-TX] -- Cooling --> TX_PAYLOAD
+    end
+    subgraph RX Platform
+        direction LR
+        RX_PAYLOAD[Optical Front-End] -->|Data| RX_COMMS[Demodulator]
+        RX_PAYLOAD -->|Photon Flux| GNC_SENSORS[GNC Sensor Suite]
+        
+        subgraph CQ_VNV [CQ Verification]
+            RX_CQMgr[CQMgr-RX] -->|Predicted Δv| VERIFIER[Signature Verifier]
+            GNC_FUSION[Sensor Fusion Engine] -->|Estimated Δv| VERIFIER
+            VERIFIER -->|Pass/Fail| RX_CQMgr
+        end
+        
+        GNC_SENSORS[IMU, STR, GNSS] --> GNC_FUSION
+        
+        RX_CQMgr -- Manages --> GNC_FUSION
+        RX_COMMS -->|Authenticated Data| OBDH[On-Board Computer]
+    end
+    style TX_PAYLOAD fill:#f9f,stroke:#333,stroke-width:2px
+    style GNC_SENSORS fill:#bbf,stroke:#333,stroke-width:2px
+    style VERIFIER fill:#9f9,stroke:#333,stroke-width:2px
+```
+
+### **Cryptoquantics System: Preliminary FMECA**
+
+**Objective:** To analyze potential failure modes in key Cryptoquantics subsystems, their effects, and the design provisions for detection and mitigation.
+
+| **Item / Function** | **Failure Mode** | **Potential Cause(s)** | **Potential Effect (Local -> System -> Mission)** | **Detection Method** | **Mitigation / Corrective Action** |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| **TX Fine Steering Mirror (FSM)** <br/> *(Subsystem I.B.3.c)* | **1. FSM Stuck / No Response** | Mechanical seizure; driver electronics failure; software hang in PAT controller. | L: FSM does not move to commanded offset. <br/> S: Cannot execute the angular component $(\theta_i, \phi_i)$ of the cinematic signature $\mathcal{S}_K$. <br/> M: **Authentication failure.** Legitimate TX cannot pass AUTH-BURST. Link may be lost if FSM is needed for jitter control. | 1. TX PAT control loop error becomes large. <br/> 2. RX V&V detects a signature mismatch (specifically, a torque/$\Delta\omega$ mismatch, even if power/$\Delta v$ is correct). <br/> 3. FSM built-in-test (BIT). | **Design:** Redundant FSM or drive electronics. <br/> **Operational:** TX CQMgr aborts AUTH-BURST, flags FSM fault, attempts reset. If unrecoverable, falls back to a power-only ($\Delta v$) signature mode or triggers SAFE-DOWN. |
+| **RX Inertial Measurement Unit (IMU)** <br/> *(Subsystem II.B.1.a)* | **2. Excessive Bias Drift or Noise** | Radiation effects (TID/SEE); thermal instability; aging of the instrument. | L: IMU provides inaccurate acceleration/rotation data. <br/> S: Sensor Fusion Engine (EKF) state covariance grows. Kinematic Signature Estimator produces a noisy or biased $\widehat{\Delta\mathbf{v}}$. <br/> M: **False authentication failure.** RX rejects a valid TX, potentially leading to loss of command link and mission failure if autonomous recovery is not possible. | 1. **EKF Innovation Monitoring:** The EKF detects persistent inconsistency between IMU propagation and updates from Star Tracker and GNSS. <br/> 2. **Cross-Modal Residual Monitor:** Detects mismatch between expected torque (from optics) and measured angular acceleration. | **Design:** Use of high-grade, radiation-hardened IMU. Redundant IMUs (typically 3-4 in a full GNC suite). <br/> **Operational:** EKF identifies and excludes the faulty IMU from the solution. System continues in a gracefully degraded mode. CQMgr is notified of higher uncertainty in $\widehat{\Delta\mathbf{v}}$. |
+| **RX Signature Verifier & Decision Logic** <br/> *(Subsystem II.B.2.c)* | **3. Software Bug (False Positive)** | Logic error; memory corruption (SEU); floating-point exception. | L: The comparator incorrectly validates a mismatched signature. <br/> S: An unauthorized or spoofed signal is authenticated. <br/> M: **CRITICAL: System compromise.** An adversary gains control of the authenticated channel, potentially leading to vehicle loss. | 1. **Multi-Node Consensus (Highest Level):** External observers do not confirm the kinematic signature, flagging a discrepancy. <br/> 2. **Cross-Modal Residual Monitor:** The spoofed signal is unlikely to be consistent across all physical domains (thermal, torque, optical), triggering an anomaly flag. | **Design:** Rigorous software V&V (formal methods, diverse implementation). Redundant flight computers running independent checks. Use of memory scrubbing and ECC. <br/> **Operational:** Any disagreement from multi-node consensus or a cross-modal residual flag MUST override the verifier's "pass" decision and trigger SAFE-DOWN. |
+| **RX Signature Verifier & Decision Logic** <br/> *(Subsystem II.B.2.c)* | **4. Software Bug (False Negative)** | Same causes as above. | L: The comparator incorrectly rejects a perfectly matched signature. <br/> S: A legitimate TX is locked out. <br/> M: **Mission failure due to loss of command/control.** Same mission effect as IMU failure but caused by software. | 1. **Ground-in-the-Loop:** Mission control sees repeated, valid AUTH-BURST attempts failing and can diagnose the issue. <br/> 2. **Heartbeat/Logging:** On-board logs show that the estimated signature $\widehat{\Delta\mathbf{v}}$ did match the predicted $\Delta\mathbf{v}(\mathcal{S}_K)$ but the logic failed. | **Design:** Same as above. <br/> **Operational:** A "safe command" bypass mechanism, requiring multi-step, ground-based authentication, could allow for a software patch to be uploaded. The system can be commanded to a lower-security, data-only mode to restore basic comms. |
+| **Key Management Unit (KMU)** <br/> *(Subsystems I.A.2 / II.A.2)* | **5. Session Key Corruption** | Single Event Upset (SEU) in the Secure Key Store RAM. | L: Key on one side (e.g., RX) is flipped. <br/> S: RX cannot correctly re-generate the *expected* signature $\mathcal{S}_K$. The predicted $\Delta\mathbf{v}$ will be completely different from the one the TX is sending. <br/> M: **Authentication failure.** System behaves as if communicating with an invalid partner. | 1. **Key Checksum/Hash:** Store a hash of the key alongside the key itself. A mismatch detects corruption. <br/> 2. **Protocol-Level:** Consistent authentication failures with a new key will trigger a re-keying event (KEYING state). | **Design:** Use of Error Correcting Code (ECC) memory for the Secure Key Store. <br/> **Operational:** If corruption is detected via hash check or repeated auth failures, the CQMgr flushes the suspect key and initiates a new QKD/PQC key exchange session. |
+| **Cross-Modal Residual Monitor** <br/> *(Subsystem II.B.2.d)* | **6. Incorrect Physics Model** | Pre-launch parameters (e.g., surface reflectivity $\alpha$, thermal capacitance) are inaccurate or change on-orbit. | L: The monitor generates false alarms by flagging valid signals as physically inconsistent. <br/> S: The system may incorrectly enter SAFE-DOWN during a valid session. <br/> M: Reduced system availability; potential for mission interruption if false alarms are frequent. | 1. **System Health Monitoring:** Telemetry shows a persistent, small residual in one specific cross-modal check, while all other checks (including primary signature verification) are nominal. | **Design:** Include an on-orbit calibration mode (e.g., `AC-DT Calibrate`). <br/> **Operational:** The system can be commanded to perform a calibration sequence where a known beam pattern is used to update the physics model parameters ($\alpha$, thermal coefficients, etc.) in the Signature Prediction Unit and the Cross-Modal Monitor. |
+
+### **Executive Summary of FMECA Findings**
+
+The preliminary FMECA confirms the robustness of the Cryptoquantics architecture. Key findings include:
+
+1.  **High Detectability:** Most critical failures are inherently detectable because the system is deeply integrated with the spacecraft's GNC and physics models. A failure in one subsystem creates a cascade of verifiable inconsistencies in others, a principle at the heart of the Cross-Modal Residual Monitor.
+2.  **Security as a Safety Feature:** The very mechanisms designed to thwart intelligent adversaries (e.g., Multi-Node Consensus, Cross-Modal checks) also serve as powerful tools for detecting internal system failures, providing a dual benefit.
+3.  **Criticality of the Verifier:** The software for the `Signature Verifier & Decision Logic` is the most critical single point of failure. A false positive is a catastrophic security breach, while a false negative is a mission-ending lockout. This highlights the need for the highest levels of software assurance, redundancy, and independent external checks (multi-node consensus) for this module.
+4.  **Graceful Degradation:** The architecture supports graceful degradation. For instance, the loss of an IMU or the FSM does not necessarily lead to total system failure but can transition the system to a reduced-capability or simpler authentication mode.
+
+This FMECA provides confidence that the Cryptoquantics system is not only secure but also resilient, which is a prerequisite for its adoption in high-value space missions. The next steps would be to expand this analysis to all subsystems and derive quantitative Risk Priority Numbers (RPNs) to guide detailed design and testing efforts.
+
+
+
+# Cryptoquantics System: Requirements Traceability Matrix (RTM)
+
+## Overview
+This Requirements Traceability Matrix (RTM) establishes the linkage between system requirements, their implementation in subsystems, and verification methods. It ensures that all requirements are properly allocated and tested, providing a complete trace from high-level needs to design elements and test procedures.
+
+---
+
+## Requirements Traceability Matrix
+
+| Req ID | Requirement Description | Source | Subsystem(s) Responsible | Design Element(s) | Verification Method(s) |
+|--------|------------------------|--------|--------------------------|-------------------|-----------------------|
+| **RQ-PAT-001** | Pointing error during AUTH-BURST ≤ 10 µrad (1σ) | System Specification | TX: PAT Control (I.C) | Fine Steering Mirror (I.B.3.c), PAT Control Unit (I.C.1) | TV-1 (Link + Δv co-mode test), TV-3 (Multi-node consensus) |
+| **RQ-PAT-002** | Pointing jitter PSD shall not degrade BER beyond 10⁻⁶ | System Specification | TX: PAT Control (I.C) | Fine Steering Mirror (I.B.3.c), PAT Control Unit (I.C.1) | TV-1 (Link + Δv co-mode test), jitter PSD measurement |
+| **RQ-EPS-010** | TX peak optical power limited to P_max with slew ≤ dP/dt_max | System Specification | TX: EPS (I.D) | Power Conditioning Unit (I.D.2), Power Modulator (I.B.2.b) | TV-1 (Link + Δv co-mode test), power slew rate measurement |
+| **RQ-TCS-011** | Optics bench ΔT over 60s AUTH-BURST ≤ 0.5°C | System Specification | TX: TCS (I.E) | Heat Rejection System (I.E.1), Thermal Stability Control (I.E.2) | TV-1 (Link + Δv co-mode test), thermal imaging |
+| **RQ-VNV-020** | RX Δv estimator (EKF/RTS) achieve σ_Δv ≤ 0.05 mm/s over 600s | System Specification | RX: GNC (II.B) | Sensor Fusion Engine (II.B.2.a), Kinematic Signature Estimator (II.B.2.b) | TV-1 (Link + Δv co-mode test), IMU calibration |
+| **RQ-VNV-021** | AUTH-CHECK use ε_Δv ≤ 3σ_Δv and confidence 1-β ≥ 0.999 | System Specification | RX: CQ-V&V (II.A) | Signature Verifier (II.B.2.c), Signature Prediction Unit (II.A.3) | TV-1 (Link + Δv co-mode test), statistical analysis |
+| **RQ-VNV-022** | Multi-node consensus ε_cons ≤ 0.1 mm/s | System Specification | RX: CQ-V&V (II.A) | Multi-Node Consensus Checker (II.A.3) | TV-3 (Multi-node consensus test) |
+| **RQ-SEC-030** | Session keys derived via QKD or PQC (NIST-selected) with forward secrecy | Security Specification | TX: CQ-CTRL (I.A), RX: CQ-V&V (II.A) | QKD/PQC Module (I.A.2.a, II.A.2.a), Secure Key Store (I.A.2.b, II.A.2.b) | TV-3 (Multi-node consensus), key exchange protocol test |
+| **RQ-SEC-031** | Δv pattern S_K produced by keyed PRF seeded from session key; context bound | Security Specification | TX: CQ-CTRL (I.A), RX: CQ-V&V (II.A) | PRF Engine (I.A.3.a, II.A.3.a), Context Acquisition Module (I.A.3.b) | TV-1 (Link + Δv co-mode test), cryptographic validation |
+| **RQ-SEC-032** | Δv mismatch or consensus failure trigger SAFE-DOWN within 10 ms | Security Specification | RX: CQ-V&V (II.A) | Signature Verifier (II.B.2.c), CQMgr-RX (II.A.1) | TV-1 (Link + Δv co-mode test), timing measurement |
+| **RQ-SAF-040** | No-illumination masks enforced; beam cut-off < 5 ms on PAT loss or target out-of-bounds | Safety Specification | TX: CQ-CTRL (I.A), TX: PAT (I.C) | CQMgr-TX (I.A.1), PAT Control Unit (I.C.1) | TV-1 (Link + Δv co-mode test), safety system test |
+| **RQ-PQP-001** | Any Cryptoquantics-PQP mode shall specify momentum sink/source | Physics Specification | TX: PAYLOAD (I.B), RX: GNC (II.B) | Force Application Mechanism (II.2.1), Momentum Ledger Auditor (II.2.1) | TV-4 (Momentum ledger check) |
+| **RQ-PQP-002** | Measured thrust shall satisfy F ≤ P_rad/c within uncertainty | Physics Specification | TX: PAYLOAD (I.B), RX: GNC (II.B) | Force Vector Calculator (II.2.1), Kinematic Signature Estimator (II.B.2.b) | TV-4 (Momentum ledger check) |
+| **RQ-DCE-010** | DCE operation shall demonstrate photon emission signatures | Physics Specification | TX: PAYLOAD (I.B) | Dynamical Casimir Emitter (II.2.1) | TV-DCE-1 (Bench test) |
+| **RQ-CAS-020** | Casimir forces may be used for internal actuation; not claimed as free-space thrust | Physics Specification | TX: PAYLOAD (I.B), RX: GNC (II.B) | Force Application Mechanism (II.2.1) | Design review, physics analysis |
+| **RQ-CQ-AUTH-030** | Δv/Δω pattern key-derived (QKD/PQC) and pass consensus verification | Security Specification | RX: CQ-V&V (II.A) | Signature Prediction Unit (II.A.3), Multi-Node Consensus Checker (II.A.3) | TV-3 (Multi-node consensus) |
+
+---
+
+## Traceability Analysis
+
+### Completeness Assessment
+- **Coverage**: All requirements from the original specification (Section 8) have been traced to design elements and verification methods.
+- **Allocation**: Requirements are properly allocated to responsible subsystems:
+  - PAT requirements allocated to TX PAT subsystem
+  - V&V requirements allocated to RX GNC and CQ-V&V subsystems
+  - Security requirements allocated to CQ-CTRL and CQ-V&V subsystems
+  - Physics requirements allocated to Payload and GNC subsystems
+  - Safety requirements allocated to CQ-CTRL and PAT subsystems
+
+### Verification Coverage
+- **Test Methods**: Each requirement has at least one verification method:
+  - TV-1 (Link + Δv co-mode test) covers multiple requirements
+  - TV-3 (Multi-node consensus) covers consensus-related requirements
+  - TV-4 (Momentum ledger check) covers physics requirements
+  - Additional specialized tests for specific requirements
+- **Analysis Methods**: Some requirements are verified through analysis rather than testing (e.g., RQ-CAS-020)
+
+### Critical Requirements
+The most critical requirements based on safety and security impact are:
+1. **RQ-SEC-032** (SAFE-DOWN trigger) - Critical for system security
+2. **RQ-SAF-040** (Beam cut-off) - Critical for system safety
+3. **RQ-PQP-001** (Momentum ledger) - Critical for physics compliance
+4. **RQ-VNV-021** (AUTH-CHECK confidence) - Critical for authentication reliability
+
+These requirements have multiple verification methods and are implemented in multiple design elements for redundancy.
+
+---
+
+## Interface Control Document (ICD) Framework
+
+To support the RTM, here's a framework for the Interface Control Documents (ICDs) that would be developed next:
+
+### ICD Structure
+1. **Interface Identification**
+   - Interface Name
+   - Interface Type (Electrical, Optical, Data, etc.)
+   - Participating Subsystems
+
+2. **Interface Characteristics**
+   - Physical Characteristics (connectors, pinouts, wavelengths)
+   - Electrical Characteristics (voltage levels, power)
+   - Data Characteristics (protocol, format, rate)
+   - Timing Characteristics (latency, synchronization)
+
+3. **Interface Requirements**
+   - Performance Requirements
+   - Environmental Requirements
+   - Safety Requirements
+   - Security Requirements
+
+4. **Verification Methods**
+   - Test Procedures
+   - Analysis Methods
+   - Inspection Methods
+
+### Key Interfaces to Document
+1. **IFX-DATA-OPT** (TX Optical Payload ↔ RX Communications Payload)
+   - Optical power levels, wavelengths, modulation formats
+   - Data rates, protocols, FEC schemes
+   - Timing requirements
+
+2. **IFX-THR-CTRL** (TX CQ-CTRL ↔ TX Optical Payload)
+   - Power control commands
+   - Beam steering commands
+   - Timing requirements
+
+3. **IFX-ADCS-PAT** (TX PAT ↔ TX Optical Payload)
+   - Pointing commands
+   - Tracking feedback
+   - Jitter control
+
+4. **IFX-V&V** (RX GNC ↔ RX CQ-V&V)
+   - Δv/Δω estimates
+   - Uncertainty measures
+   - Timestamps
+
+5. **IFX-QKD/PQC** (TX KMU ↔ RX KMU)
+   - Key exchange protocol
+   - Key format
+   - Security parameters
+
+6. **IFX-EPS** (EPS ↔ All Power Consumers)
+   - Power budgets
+   - Voltage levels
+   - Protection requirements
+
+7. **IFX-TCS** (TCS ↔ Thermal Sensors/Actuators)
+   - Temperature setpoints
+   - Control signals
+   - Monitoring data
+
+---
+
+## Next Steps
+
+1. **Develop Detailed ICDs**: Create comprehensive Interface Control Documents for each interface identified above.
+
+2. **Quantify Verification Methods**: Define specific pass/fail criteria for each verification method in the RTM.
+
+3. **Perform Risk Assessment**: Use the FMECA and RTM to identify high-risk areas requiring additional design attention.
+
+4. **Create Test Procedures**: Develop detailed test procedures for each verification method, including test setups, equipment, and step-by-step instructions.
+
+5. **Implement Configuration Management**: Establish a system to track changes to requirements, design elements, and verification methods.
+
+This RTM provides a solid foundation for ensuring that the Cryptoquantics system meets all its requirements and that all requirements are properly verified. Combined with the FMECA, it forms a comprehensive framework for system validation and risk management.
