@@ -776,7 +776,7 @@ typedef enum {
 
 ### **D.1 Reference implementation**
 
-Available at: https://github.com/aqua/aqua-format
+Available at: https://github.com/aqua/standards/internal_proposed/
 
 ### **D.2 Migration tool**
 
