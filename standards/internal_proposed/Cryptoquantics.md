@@ -1,10 +1,11 @@
 # Cryptoquantic Links: Physical Layer Authentication and Propulsion Assist via Momentum-Coupled Information Channels
 
 **Authors:**  
-Amedeo Pelliccia
-
+Amedeo Pelliccia  
 **Version:** v1.0 (Camera-ready)  
 **Program Context:** AMPEL360 · AQUA V. · UTCS-compliant · S1000D-ready
+
+> **Note:** Equations are shown in LaTeX for readability and copy/paste. For rendered math, see [docs/cryptoquantics.pdf](link-to-pdf) or the equation images below. GitHub does not natively render LaTeX equations in Markdown files.
 
 ---
 
@@ -40,34 +41,46 @@ Cryptoquantics establishes three coupled channels between the transmitter (TX) a
 ### 2.1 Classical and Quantum Channels
 
 The primary high-bandwidth channel is a standard **classical data link**, typically an optical laser channel, modulated to carry mission data with FEC. Its performance follows the familiar link budget:
-\[
-\mathrm{SNR} \approx \frac{(R_p P_r)^2}{N_0 B}, \qquad
-R \lesssim B \log_2(1+\mathrm{SNR}) \tag{1}
-\]
-where \(R_p\) is photodetector responsivity, \(P_r\) received optical power, \(B\) bandwidth, and \(N_0\) noise PSD [6]. For session keying we recommend a **quantum channel** using QKD (e.g., BB84) [7]. Alternatively, NIST-standardized PQC may be used where QKD is impractical.
+
+LaTeX: `$$ \mathrm{SNR} \approx \frac{(R_p P_r)^2}{N_0 B}, \qquad R \lesssim B \log_2(1+\mathrm{SNR}) \tag{1} $$`
+
+<img width="796" height="142" alt="image" src="https://github.com/user-attachments/assets/686c3fbb-ac33-44d5-99c6-c196181a9f24" />
+
+
+where $R_p$ is photodetector responsivity, $P_r$ received optical power, $B$ bandwidth, and $N_0$ noise PSD [6]. For session keying we recommend a **quantum channel** using QKD (e.g., BB84) [7]. Alternatively, NIST-standardized PQC may be used where QKD is impractical.
 
 ### 2.2 Cinematic Channel: Physics and Observability
 
-The **cinematic channel** uses controlled photon momentum as the information carrier. The force \(\mathbf{F}(t)\) from an optical beam of power \(P(t)\) with incidence unit vector \(\hat{\mathbf{n}}(t)\) on a spacecraft of mass \(m\) is:
-\[
-\mathbf{F}(t) = \frac{\alpha P(t)}{c}\,\hat{\mathbf{n}}(t) \tag{2}
-\]
-with \(c\) the speed of light and \(\alpha \in [1,2]\) the reflectivity coefficient (\(\alpha=1\) absorption, \(\alpha=2\) perfect reflection). The induced velocity change over interval \(T\) is:
-\[
-\Delta \mathbf{v} = \frac{1}{m} \int_{t_0}^{t_0+T} \mathbf{F}(t)\,dt \tag{3}
-\]
+The **cinematic channel** uses controlled photon momentum as the information carrier. The force $\mathbf{F}(t)$ from an optical beam of power $P(t)$ with incidence unit vector $\hat{\mathbf{n}}(t)$ on a spacecraft of mass $m$ is:
+
+LaTeX: `$$ \mathbf{F}(t) = \frac{\alpha P(t)}{c}\,\hat{\mathbf{n}}(t) \tag{2} $$`
+
+<img width="398" height="152" alt="image" src="https://github.com/user-attachments/assets/2d4b72c4-3257-406d-848b-b75088e19ff1" />
+
+
+with $c$ the speed of light and $\alpha \in [1,2]$ the reflectivity coefficient ($\alpha=1$ absorption, $\alpha=2$ perfect reflection). The induced velocity change over interval $T$ is:
+
+LaTeX: `$$ \Delta \mathbf{v} = \frac{1}{m} \int_{t_0}^{t_0+T} \mathbf{F}(t)\,dt \tag{3} $$`
+
+<img width="510" height="160" alt="image" src="https://github.com/user-attachments/assets/efe37648-aaa3-4588-bd9c-c1f0a5f59ae3" />
+
 
 Despite the small absolute force (e.g., 10 kW → ≈ 67 μN), the resulting acceleration is measurable by modern spacecraft instrumentation. We define an **acceleration SNR**:
-\[
-\mathrm{SNR}_a = \frac{a_{\mathrm{sig}}^2}{\sigma_a^2} \tag{4}
-\]
-where \(a_{\mathrm{sig}}\) is mean acceleration from the cryptoquantic signal and \(\sigma_a^2\) is the variance of the fused acceleration noise (IMU + OD). For binary power modulation with symbol time \(T_s\) and noise correlation time \(T_n\), the bit error probability is:
-\[
-P_b \approx Q\!\left(\sqrt{2\,\mathrm{SNR}_a\,\frac{T_s}{T_n}}\right) \tag{5}
-\]
+
+LaTeX: `$$ \mathrm{SNR}_a = \frac{a_{\mathrm{sig}}^2}{\sigma_a^2} \tag{4} $$`
+
+<img width="336" height="160" alt="image" src="https://github.com/user-attachments/assets/f077ee7e-4120-42ff-983c-5beba55b844d" />
+
+
+where $a_{\mathrm{sig}}$ is mean acceleration from the cryptoquantic signal and $\sigma_a^2$ is the variance of the fused acceleration noise (IMU + OD). For binary power modulation with symbol time $T_s$ and noise correlation time $T_n$, the bit error probability is:
+
+LaTeX: `$$ P_b \approx Q\!\left(\sqrt{2\,\mathrm{SNR}_a\,\frac{T_s}{T_n}}\right) \tag{5} $$`
+
+<img width="504" height="180" alt="image" src="https://github.com/user-attachments/assets/e1e81c48-e756-4d7b-ab94-11a455b4362c" />
+
 This bounds the cinematic channel as a **low-rate** but robust authentication channel.
 
-> **Momentum ledger (physics bound).** Any thrust claim must satisfy \(F \le P_{\mathrm{rad}}/c\) with explicit accounting of momentum exchange (photons, environment, or remote beamer).
+> **Momentum ledger (physics bound).** Any thrust claim must satisfy $F \le P_{\mathrm{rad}}/c$ with explicit accounting of momentum exchange (photons, environment, or remote beamer).
 
 ---
 
@@ -93,14 +106,18 @@ stateDiagram-v2
 
 ### 3.2 Signature Construction & Verification
 
-A session key \(K\) (QKD/PQC) seeds a PRF \(f_K\) that generates control tuples:
-\[
-\mathcal{S}_K \!=\! \{(P_i,\theta_i,\phi_i,T_i)\}_{i=1}^N \!=\! f_K(\text{context}) \tag{6}
-\]
-Context includes mission time, ephemerides, session ID. TX executes \(\mathcal{S}_K\) during **AUTH‑BURST**. RX’s V&V fuses IMU, star tracker, and OD to estimate \(\widehat{\Delta \mathbf{v}}\). Authentication succeeds if:
-\[
-\left\| \widehat{\Delta \mathbf{v}} - \Delta \mathbf{v}(\mathcal{S}_K) \right\| \le \varepsilon_{\Delta v}, \quad \Pr \ge 1-\beta \tag{7}
-\]
+A session key $K$ (QKD/PQC) seeds a PRF $f_K$ that generates control tuples:
+
+LaTeX: `$$ \mathcal{S}_K \!=\! \{(P_i,\theta_i,\phi_i,T_i)\}_{i=1}^N \!=\! f_K(\text{context}) \tag{6} $$`
+
+<img width="722" height="112" alt="image" src="https://github.com/user-attachments/assets/e02cb368-0cd2-467a-90d4-4ec6f113da74" />
+
+
+Context includes mission time, ephemerides, session ID. TX executes $\mathcal{S}_K$ during **AUTH‑BURST**. RX's V&V fuses IMU, star tracker, and OD to estimate $\widehat{\Delta \mathbf{v}}$. Authentication succeeds if:
+
+LaTeX: `$$ \left\| \widehat{\Delta \mathbf{v}} - \Delta \mathbf{v}(\mathcal{S}_K) \right\| \le \varepsilon_{\Delta v}, \quad \Pr \ge 1-\beta \tag{7} $$`
+
+<img width="680" height="150" alt="image" src="https://github.com/user-attachments/assets/bea2ea10-a161-492d-b666-55135dd61df1" />
 
 ### 3.3 ToO‑MAC Scheduler (Talk‑and‑Thrust)
 
@@ -124,16 +141,18 @@ for slot in session:
 
 ### 4.1 Physics-Conditioned GAN (PC‑GAN)
 
-Adversary trains a generator \(G_\theta(z,c)\) to synthesize sensor time series (optical, IMU, star tracker, thermal) that mimic a valid session. We augment the discriminator with **physics-residual validators** and penalize violations:
-\[
-\mathcal{L}_G = \mathcal{L}_{\mathrm{adv}} + \sum_i \lambda_i\|R_i\|^2 \tag{8}
-\]
-with residuals \(R_i\) for orbital dynamics, attitude torque closure, and thermal‑power consistency.
+Adversary trains a generator $G_\theta(z,c)$ to synthesize sensor time series (optical, IMU, star tracker, thermal) that mimic a valid session. We augment the discriminator with **physics-residual validators** and penalize violations:
+
+LaTeX: `$$ \mathcal{L}_G = \mathcal{L}_{\mathrm{adv}} + \sum_i \lambda_i\|R_i\|^2 \tag{8} $$`
+
+<img width="486" height="154" alt="image" src="https://github.com/user-attachments/assets/e02918d9-0bdd-4c19-b5c1-3aeb374aae05" />
+
+with residuals $R_i$ for orbital dynamics, attitude torque closure, and thermal‑power consistency.
 
 ### 4.2 Layered Defenses
 
-1) **Multi-node physical consensus:** ≥3 observers confirm the same Δv/Δω within \(\varepsilon_{\mathrm{cons}}\).  
-2) **Randomized beam geometry:** key‑derived micro‑offsets \((\delta\theta,\delta\phi,\delta P)\) below BER impact but above gyro noise.  
+1) **Multi-node physical consensus:** ≥3 observers confirm the same Δv/Δω within $\varepsilon_{\mathrm{cons}}$.  
+2) **Randomized beam geometry:** key‑derived micro‑offsets $(\delta\theta,\delta\phi,\delta P)$ below BER impact but above gyro noise.  
 3) **Cross‑modal residuals:** absorbed power ↔ ΔT; offset ↔ torque ↔ gyro drift; external laser ranging for OD cross‑check.
 
 ---
@@ -157,10 +176,10 @@ with residuals \(R_i\) for orbital dynamics, attitude torque closure, and therma
 
 ## 6. Verification & Validation (V&V)
 
-- **TV‑1 (Link + Δv co-mode):** AUTH‑BURST with BER ≤ target and \(\|\widehat{\Delta v}-\Delta v_{\text{pred}}\|\le 3\sigma\).  
+- **TV‑1 (Link + Δv co-mode):** AUTH‑BURST with BER ≤ target and $\|\widehat{\Delta v}-\Delta v_{\text{pred}}\|\le 3\sigma$.  
 - **TV‑2 (Sensor spoof resilience):** HIL injection; detect TPR ≥ 0.99, FAR ≤ 1e−3.  
-- **TV‑3 (Multi-node consensus):** two sats + ground confirm Δv within \(\varepsilon_{\mathrm{cons}}\).  
-- **TV‑4 (Momentum ledger check):** verify \(F \le P_{\mathrm{rad}}/c\); audit power, thermal, radiation.
+- **TV‑3 (Multi-node consensus):** two sats + ground confirm Δv within $\varepsilon_{\mathrm{cons}}$.  
+- **TV‑4 (Momentum ledger check):** verify $F \le P_{\mathrm{rad}}/c$; audit power, thermal, radiation.
 
 ---
 
@@ -168,7 +187,7 @@ with residuals \(R_i\) for orbital dynamics, attitude torque closure, and therma
 
 Cryptoquantics elevates the physical layer to an authentication primitive. Limitations are the low capacity of the cinematic channel and dependence on sensor noise floors. Near-term work: (i) optimal co-optimization of data rate and Δv under thermal/PAT constraints; (ii) extension to modulated thermal radiation as an auxiliary covert channel; (iii) on-orbit demos combining station-keeping assist with periodic AUTH‑BURSTs.
 
-**PQP Pathway (Physics-compliant):** Propulsion assist today is photon-pressure based. Longer term, **Dynamical Casimir Emission (DCE)** may serve as a photon source for thrust \(F=P_{\mathrm{DCE}}/c\) (still a photon rocket by momentum ledger). Pure “reactionless” Casimir drives in vacuum are excluded by conservation bounds.
+**PQP Pathway (Physics-compliant):** Propulsion assist today is photon-pressure based. Longer term, **Dynamical Casimir Emission (DCE)** may serve as a photon source for thrust $F=P_{\mathrm{DCE}}/c$ (still a photon rocket by momentum ledger). Pure "reactionless" Casimir drives in vacuum are excluded by conservation bounds.
 
 ---
 
@@ -195,29 +214,29 @@ Cryptoquantics integrates cryptographic protocols with the physics of photon mom
 
 ## Annex A — Nomenclature
 
-- \(B\): Channel bandwidth (Hz)  
-- \(c\): Speed of light (m/s)  
-- \(\hat{\mathbf{n}}\): Beam incidence unit vector  
-- \(N_0\): Noise power spectral density (W/Hz)  
-- \(P, P_r, P_{\mathrm{rad}}\): Optical power (W)  
-- \(Q(\cdot)\): Gaussian tail function  
-- \(R\): Data rate (bit/s)  
-- \(R_p\): Photodetector responsivity (A/W)  
-- \(\alpha\): Reflectivity factor (1–2)  
-- \(\mathbf{F}\): Force (N)  
-- \(m\): Spacecraft mass (kg)  
-- \(\Delta \mathbf{v}\): Velocity change (m/s)  
-- \(\mathrm{SNR}, \mathrm{SNR}_a\): Signal‑to‑noise ratios  
-- \(T_s\): Symbol time; \(T_n\): Noise correlation time
+- $B$: Channel bandwidth (Hz)  
+- $c$: Speed of light (m/s)  
+- $\hat{\mathbf{n}}$: Beam incidence unit vector  
+- $N_0$: Noise power spectral density (W/Hz)  
+- $P, P_r, P_{\mathrm{rad}}$: Optical power (W)  
+- $Q(\cdot)$: Gaussian tail function  
+- $R$: Data rate (bit/s)  
+- $R_p$: Photodetector responsivity (A/W)  
+- $\alpha$: Reflectivity factor (1–2)  
+- $\mathbf{F}$: Force (N)  
+- $m$: Spacecraft mass (kg)  
+- $\Delta \mathbf{v}$: Velocity change (m/s)  
+- $\mathrm{SNR}, \mathrm{SNR}_a$: Signal‑to‑noise ratios  
+- $T_s$: Symbol time; $T_n$: Noise correlation time
 
 ---
 
 ## Annex B — EKF Measurement Model (Δv/Δω)
 
-State vector \(x=[\mathbf{r},\mathbf{v},\mathbf{q},\boldsymbol\omega, \ldots]^T\).  
-Control input \(u=\{P,\hat{\mathbf{n}},\mathrm{dwell}\}\).  
+State vector $x=[\mathbf{r},\mathbf{v},\mathbf{q},\boldsymbol\omega, \ldots]^T$.  
+Control input $u=\{P,\hat{\mathbf{n}},\mathrm{dwell}\}$.  
 Process: rigid‑body + two‑body orbit + perturbations; measurement: IMU (accel, gyro), star tracker (quaternion), GNSS/OD.  
-Residuals validated against predicted \(\Delta \mathbf{v}(u)\) and \(\Delta \boldsymbol\omega(u)\) for AUTH‑BURST acceptance.
+Residuals validated against predicted $\Delta \mathbf{v}(u)$ and $\Delta \boldsymbol\omega(u)$ for AUTH‑BURST acceptance.
 
 ---
 
@@ -235,4 +254,3 @@ Residuals validated against predicted \(\Delta \mathbf{v}(u)\) and \(\Delta \bol
 - **PR**: *Start Secure Session*, *Auth‑Burst*, *Safe‑Down*  
 - **DS**: Functional description + power/thermal budgets  
 - **V&V**: TV‑1/2/3/4 with acceptance criteria
-
