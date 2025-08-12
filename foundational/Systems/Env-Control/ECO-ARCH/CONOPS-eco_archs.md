@@ -485,22 +485,31 @@ This ECN initiates the formal design, development, integration, and testing phas
 
 ---
 
-# **BWB-Q100 — ECO-ARCHS-X ConOps v2.0**
+# **BWB-Q100 — ECO-ARCHS-X ConOps v2.1**
 ## **Environmental Control Offsets — Multi-Media Atmospheric Remediation, Circulation & Harvesting System**
 
 ## Document Control
 
-* **UTCS Doc ID:** `AQUART-AIR-ACFT-DOC-CONOPS-eco_archs_x-v2.0.md`
+* **UTCS Doc ID:** `AQUART-AIR-ACFT-DOC-CONOPS-eco_archs_x-v2.1.md`
 * **Program:** AMPEL360 — BWB-Q100
 * **Owner:** Systems Engineering (Env. & Energy)
 * **Status:** Baseline (Released)
-* **Supersedes:** ECO-ARCHS ConOps v1.4
-* **ECN Applied:** ECO-ARCHS-X-001 (Multi-Media Expansion)
+* **Supersedes:** ECO-ARCHS-X ConOps v2.0
+* **ECN Applied:** ECO-ARCHS-X-001 (Multi-Media Expansion) + UX Enhancement Package
 * **Related roots (latest pointers):**
-   * **BWB-Q100 Docs (root):** [`AQUA/domains/AIR_CIVIL_AVIATION/aircraft/BWB-Q100/releases/latest/`](../../releases/latest/) → **resolves to** `v2.0/`
-   * **ECO-ARCHS-X System (root):** [`AQUA/domains/AIR_CIVIL_AVIATION/aircraft/BWB-Q100/systems/eco-archs-x/releases/latest/`](../../systems/eco-archs-x/releases/latest/) → **resolves to** `v2.0/`
+   * **BWB-Q100 Docs (root):** [`AQUA/domains/AIR_CIVIL_AVIATION/aircraft/BWB-Q100/releases/latest/`](../../releases/latest/) → **resolves to** `v2.1/`
+   * **ECO-ARCHS-X System (root):** [`AQUA/domains/AIR_CIVIL_AVIATION/aircraft/BWB-Q100/systems/eco-archs-x/releases/latest/`](../../systems/eco-archs-x/releases/latest/) → **resolves to** `v2.1/`
 
-## 0. Change Summary (v2.0 vs v1.4) - ECN ECO-ARCHS-X-001 Integration
+## 0. Change Summary (v2.1 vs v2.0) - UX Enhancement Package
+
+* **ADDED:** Complete **C4 (ESD)** cartridge integration in cockpit display grid
+* **NEW:** **Trend arrows** (↑ ↓ → ○) with semantic color coding for all AQ parameters
+* **ENHANCED:** **UTCS-MI canonical signaling** for enterprise-grade system integration
+* **EXPANDED:** **Multi-state display mockups** (emergency, degraded, harvest, maintenance)
+* **FORMALIZED:** **JSON Schema for IF-ECO-08** with validation and BDD acceptance criteria
+* **IMPROVED:** **Real-time prediction** and crew situational awareness capabilities
+
+## 0.1. Previous Change Summary (v2.0 vs v1.4) - ECN ECO-ARCHS-X-001 Integration
 
 * **MAJOR:** Evolution from **ECO-ARCHS** to **ECO-ARCHS-X** multi-media system
 * **NEW:** Six-cartridge architecture (C0-C5) for comprehensive atmospheric management
@@ -810,7 +819,17 @@ def eco_archs_x_control(phase, sensors, health, cartridge_states):
 | **Q100-TST-0504** | C5 | Toxic detection + isolation | Gas lab + challenge agents | Detection < 30 s, isolation < 60 s, no false positives |
 | **Q100-TST-0505** | QD | Thermal enhancement + sensor advisory | Thermal rig + spectral validation | +15% efficiency, sensor accuracy ±10%, no control influence |
 | **Q100-TST-0506** | Integration | Multi-cartridge coordination | Full-scale HIL | All gates functional, no cross-interference, unified shed |
-| **Q100-TST-0507** | Interface | IF-ECO-08 cockpit display | HMI rig + all cartridge data | AQ tiles accurate ±5%, latency ≤ 1 s (C5), ≤ 2 s (others) |
+### 12.3 Enhanced Interface & Integration Tests (v2.1)
+
+| Test ID | System | Verifies | Method | Acceptance |
+|---------|--------|----------|--------|------------|
+| **Q100-TST-0508** | UTCS-MI | Canonical signal mapping | Integration bench | All C0-C5 signals publish to correct UTCS-MI paths |
+| **Q100-TST-0509** | IF-ECO-08 | Trend arrow semantics | HMI simulation | Arrows update ≤500ms, colors match semantic table |
+| **Q100-TST-0510** | IF-ECO-08 | Multi-state displays | Mock data injection | All 5 states render correctly with proper symbols |
+| **Q100-TST-0511** | IF-ECO-08 | C4 ESD integration | Full-scale HIL | C4 displays consistently with AQ summary |
+| **Q100-TST-0512** | Schema | JSON validation | Automated testing | All interface data validates against schema |
+| **Q100-TST-0513** | Integration | End-to-end signal flow | System test | UTCS-MI → Control → Display chain < 2s total |
+| **Q100-TST-0514** | BDD | Gherkin acceptance | Automated BDD | All Given-When-Then scenarios pass |
 
 ## 13. Performance & KPIs (Multi-Media)
 
@@ -828,7 +847,17 @@ def eco_archs_x_control(phase, sensors, health, cartridge_states):
 | **ECO-KPI-11** | Toxic detection latency | < 30 s for library agents | Multi-sensor array logs |
 | **ECO-KPI-12** | QD thermal enhancement | +15% efficiency vs baseline | Comparative thermal testing |
 | **ECO-KPI-13** | Multi-cartridge availability | ≥ 99.9% per flight hour | System health monitoring |
-| **ECO-KPI-14** | Unified control response | ≤ 2 s gate cascade execution | Control system telemetry |
+### 13.3 Enhanced Interface KPIs (v2.1)
+
+| KPI ID | Parameter | Target | Measurement |
+|--------|-----------|--------|-------------|
+| **ECO-KPI-15** | UTCS-MI signal latency | ≤ 100 ms per signal | UTCS-MI bus monitoring |
+| **ECO-KPI-16** | Trend arrow responsiveness | ≤ 500 ms update time | HMI performance logs |
+| **ECO-KPI-17** | Multi-state display accuracy | 100% correct state rendering | Visual validation tests |
+| **ECO-KPI-18** | JSON schema validation | 100% data compliance | Automated schema checks |
+| **ECO-KPI-19** | C4 ESD display consistency | 100% AQ summary alignment | Cross-reference validation |
+| **ECO-KPI-20** | Interface availability | ≥ 99.95% per flight hour | Display system monitoring |
+| **ECO-KPI-21** | Predictive trend accuracy | ≥ 85% trend prediction rate | Historical trend analysis |
 
 ## 14. Multi-Media Data, Logs & WEE
 
@@ -843,33 +872,165 @@ def eco_archs_x_control(phase, sensors, health, cartridge_states):
 * **Maintenance prediction:** Filter/catalyst replacement based on performance trends
 * **Harvest optimization:** Seasonal and route-based bounded capture strategies
 
-## 15. Enhanced Crew Interface — IF-ECO-08
+## 15. Enhanced Crew Interface — IF-ECO-08 v2.1
 
-### 15.1 Multi-Media Dashboard Layout
+### 15.1 Multi-Media Dashboard Layout with Trend Intelligence
 ```
-┌─────────────────────── ECO-ARCHS-X STATUS ──────────────────────┐
-│  ┌─C0─┐ ┌─C1─┐ ┌─C2─┐ ┌─C3─┐ ┌─C4─┐ ┌─C5─┐  │ AQ SUMMARY │
-│  │H₂O │ │CO₂│ │ PM │ │VOC│ │ESD│ │TOX│  │ PM₂.₅  8 µg│
-│  │75%│ │1.2k│ │ ✓ │ │ ✓ │ │ 0V│ │ ✓ │  │ CO₂  1.1k │
-│  └────┘ └────┘ └────┘ └────┘ └────┘ └────┘  │ TVOC  180 │
-│                                             │ ESD    0V │
-│  SHED: 4.2 t/h  │  HARVEST: 0.15 t/h        └───────────┘
-│  MAST: +15 K    │  QD EFFICIENCY: +12%                    │
-└─────────────────────────────────────────────────────────────┘
+┌────────────────────── ECO-ARCHS-X STATUS — IF-ECO-08 v2.1 ──────────────────────┐
+│  ┌─C0─┐ ┌─C1─┐ ┌─C2─┐ ┌─C3─┐ ┌─C4─┐ ┌─C5─┐       │ AQ SUMMARY │                 │
+│  │H₂O │ │CO₂│ │ PM │ │VOC│ │ESD│ │TOX│       │ PM₂.₅   8 µg  ↑ │
+│  │75%│ │1.2k│ │  ✓ │ │  ✓ │ │0V │ │ ✓ │       │ CO₂   1.1k   ↓ │
+│  └────┘ └────┘ └────┘ └────┘ └────┘ └────┘       │ TVOC   180    → │
+│                                                  │ ESD     0V    ○ │
+│  SHED: 4.2 t/h  │  HARVEST: 0.15 t/h ↑           └─────────────────┘
+│  MAST: +15 K    │  QD EFFICIENCY: +12%                                     │
+└───────────────────────────────────────────────────────────────────────────────┘
 ```
 
-### 15.2 Alert Integration
+### 15.2 UTCS-MI Canonical Signaling Integration
+
+| Cartridge | UTCS-MI Signal Path | Data Type | Update Rate |
+|-----------|---------------------|-----------|-------------|
+| **C0 H₂O** | `utcs-mi://eco/archs/c0/h2o/sat` | % saturation | 1 Hz |
+| **C1 CO₂** | `utcs-mi://eco/archs/c1/co2/ppk` | kppm | 1 Hz |
+| **C2 PM** | `utcs-mi://eco/archs/c2/pm/status` + `pm25/ugm3` | boolean + µg·m⁻³ | 2 Hz |
+| **C3 VOC** | `utcs-mi://eco/archs/c3/voc/tvoc` | ppb | 1 Hz |
+| **C4 ESD** | `utcs-mi://eco/archs/c4/esd/volts` | V | 2 Hz |
+| **C5 TOX** | `utcs-mi://eco/archs/c5/tox/status` | boolean | 5 Hz |
+
+### 15.3 Trend Arrow Semantics & Color Coding
+
+| Symbol | Direction | Color | Meaning | Example Usage |
+|--------|-----------|-------|---------|---------------|
+| **↑** | Increasing | 🟠 Orange | Parameter rising, attention required | PM₂.₅ 8 µg ↑ |
+| **↓** | Decreasing | 🟢 Green | Parameter improving | CO₂ 1.1k ↓ |
+| **→** | Stable | 🟡 Yellow | Parameter steady-state | TVOC 180 → |
+| **○** | Neutral | 🔵 Blue | Parameter controlled/optimal | ESD 0V ○ |
+
+### 15.4 Cartridge State Encoding
+
+| State | Symbol | Color | Border | Meaning |
+|-------|--------|-------|--------|---------|
+| **Normal** | ✓ | Green | Solid | Operational within limits |
+| **Warning** | ~ | Yellow | Dashed | Operating with restrictions |
+| **Alert** | ! | Red | Thick | Fault condition or safety limit |
+| **Offline** | - | Gray | Dotted | Cartridge bypassed/maintenance |
+| **Degraded** | ◐ | Orange | Double | Reduced capability mode |
+
+### 15.5 Multi-State Operational Displays
+
+#### Emergency State (C5 TOX Alert)
+```
+C5: TOX  !   │ AQ: PM₂.₅ 19 µg ↑  ·  CO₂ 1.5k ↑  ·  TVOC 450 ↑  ·  ESD 0V ○
+SHED 6.0 t/h │ HARVEST 0.05 t/h ↓ │ MAST +22 K │ QD +6%
+```
+- All cartridges forced to shed mode
+- Harvest rate minimized for safety
+- Enhanced mast thermal margin
+
+#### Degraded Mode (C2 PM Offline)
+```
+C2: PM  -    │ AQ: PM₂.₅ 24 µg ↑  ·  CO₂ 1.3k →  ·  TVOC 210 →  ·  ESD 0V ○
+SHED 5.1 t/h │ HARVEST 0.08 t/h ↓ │ MAST +18 K │ QD +9%
+```
+- Particulate filtration offline
+- Compensated ventilation increase
+- Reduced but safe operation
+
+#### Harvest Optimization (Cruise-Benign)
+```
+C0: H₂O 78%  │ AQ: PM₂.₅ 6 µg ↓  ·  CO₂ 0.9k ↓  ·  TVOC 120 ↓  ·  ESD 0V ○
+SHED 3.2 t/h │ HARVEST 0.45 t/h ↑ │ MAST +12 K │ QD +15%
+```
+- Maximum bounded capture active
+- All environmental parameters improving
+- Peak QD thermal efficiency
+
+#### Maintenance Mode (C0 H₂O Bypass)
+```
+C0: H₂O  ○   │ AQ: PM₂.₅ 7 µg →   ·  CO₂ 1.0k →  ·  TVOC 160 →  ·  ESD 0V ○
+SHED 4.0 t/h │ HARVEST 0.12 t/h ○ │ MAST +14 K │ QD +12%
+```
+- Water system in maintenance bypass
+- Other cartridges maintaining baseline
+- Safe operation during servicing
+
+### 15.6 JSON Schema for Data Validation
+
+```json
+{
+  "$id": "IF-ECO-08.schema.json",
+  "type": "object",
+  "properties": {
+    "cartridges": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "label", "value", "state", "utcs_mi_path"],
+        "properties": {
+          "id": { "type": "string", "enum": ["C0","C1","C2","C3","C4","C5"] },
+          "label": { "type": "string" },
+          "value": { "type": ["string","number"] },
+          "state": { "type": "string", "enum": ["ok","warn","alert","offline","degraded"] },
+          "utcs_mi_path": { "type": "string" }
+        }
+      }
+    },
+    "aq_summary": {
+      "type": "object",
+      "properties": {
+        "pm25": { "type": "string" },
+        "pm25_trend": { "type": "string", "enum": ["increasing","decreasing","stable","neutral"] },
+        "co2": { "type": "string" },
+        "co2_trend": { "type": "string", "enum": ["increasing","decreasing","stable","neutral"] },
+        "tvoc": { "type": "string" },
+        "tvoc_trend": { "type": "string", "enum": ["increasing","decreasing","stable","neutral"] },
+        "esd": { "type": "string" },
+        "esd_trend": { "type": "string", "enum": ["increasing","decreasing","stable","neutral"] }
+      },
+      "required": ["pm25","pm25_trend","co2","co2_trend","tvoc","tvoc_trend","esd","esd_trend"]
+    }
+  }
+}
+```
+
+### 15.7 Alert Integration & Crew Procedures
 * **Hierarchical CAS:** C5 (red) > C0,C1,C2 (amber) > C3,C4 (blue) > QD (white)
-* **Unified messaging:** `ECO-X [CARTRIDGE] [CONDITION]` format
-* **Action guidance:** Contextual crew procedures displayed per alert type
+* **Unified messaging:** `ECO-X [CARTRIDGE] [CONDITION]` format with trend context
+* **Predictive alerts:** Based on trend analysis and threshold approach rates
+* **Action guidance:** Contextual crew procedures with state-specific recommendations
 
-### 15.3 Manual Controls
+### 15.8 Manual Controls & Overrides
 * **Emergency Shed All:** Single button arms all cartridges to shed mode
-* **Toxic Isolation:** Dedicated C5 emergency control with guard
+* **Toxic Isolation:** Dedicated C5 emergency control with guard and confirmation
 * **Cartridge Bypass:** Individual C1-C4 can be taken offline (C0,C5 cannot)
+* **Trend Reset:** Clear trend history for recalibration after maintenance
 * **QD Override:** Thermal enhancement can be disabled for troubleshooting
 
-## 16. Requirements Baseline (New/Updated)
+### 15.9 BDD Acceptance Criteria
+```gherkin
+Feature: IF-ECO-08 Display v2.1
+
+Scenario: Complete cartridge visibility
+  Given the display IF-ECO-08 is in baseline mode
+  Then the main row shows all cartridges C0 through C5
+  And C4 displays "ESD 0V" consistently with AQ Summary
+  And all values source from UTCS-MI canonical paths
+
+Scenario: Trend semantics and color coding
+  When CO₂ concentration decreases
+  Then the AQ summary shows "↓" in green for CO₂
+  And the arrow color follows the semantic table
+  And trend updates within 500ms of signal change
+
+Scenario: Multi-state operation
+  Given C2/PM cartridge goes offline
+  Then cartridge C2 shows "-" with gray dotted border
+  And PM₂.₅ metric remains visible in AQ Summary
+  And compensated operation mode activates automatically
+```
+
+## 16. Requirements Baseline (Enhanced v2.1)
 
 ### 16.1 Multi-Media Functional Requirements
 
@@ -884,10 +1045,20 @@ def eco_archs_x_control(phase, sensors, health, cartridge_states):
 | **RQ-TOX-016** | Toxic detection shall identify and isolate within response times | C5 | Q100-TST-0504 |
 | **RQ-INTEG-017** | Multi-cartridge system shall not create cross-interference | All | Q100-TST-0506 |
 
-### 16.2 Updated Interface Requirements
+### 16.2 Enhanced Interface Requirements (v2.1)
 * **RQ-IF-018:** IF-ECO-08 shall display all cartridge data within latency targets
 * **RQ-IF-019:** New atmospheric interfaces shall integrate with TSN/ARINC-664
 * **RQ-IF-020:** QD advisory data shall remain separate from control decisions
+* **RQ-UTCS-021:** All signals shall map to UTCS-MI canonical paths with validation
+* **RQ-TREND-022:** Trend analysis shall update within 500ms of signal change
+* **RQ-STATE-023:** Multi-state display shall support all operational modes
+* **RQ-SCHEMA-024:** Interface data shall validate against formal JSON schema
+
+### 16.3 UTCS-MI Integration Requirements
+* **RQ-UTCS-025:** All cartridge signals shall publish to UTCS-MI canonical paths
+* **RQ-UTCS-026:** Signal update rates shall meet specified performance targets
+* **RQ-UTCS-027:** UTCS-MI integration shall not affect control system latency
+* **RQ-UTCS-028:** Canonical signaling shall enable enterprise system integration
 
 ## 17. Enhanced Ops & Maintenance
 
@@ -905,6 +1076,56 @@ def eco_archs_x_control(phase, sensors, health, cartridge_states):
 * **Degraded Mode:** C3, C4 can be inoperative without MEL (advisory systems)
 * **Essential Mode:** C0, C1, C2, C5 must be operational for dispatch
 * **Emergency:** C5 must always be available; others can shed-only if needed
+
+## 19. V2.1 Enhancement Summary & Repository Integration
+
+### 19.1 Technical Improvements Delivered
+* **Complete Cartridge Coverage:** All C0-C5 cartridges now fully integrated in display
+* **Trend Intelligence:** Real-time directional analysis with semantic color coding
+* **Enterprise Integration:** UTCS-MI canonical signaling for system-of-systems compatibility
+* **Multi-State Awareness:** Comprehensive operational state management and visualization
+* **Schema-Driven Development:** Formal JSON validation for data integrity
+
+### 19.2 Repository Structure (Recommended Implementation)
+```
+foundational/Systems/Env-Control/ECO-ARCH/
+├── CONOPS-eco_archs_v2.1.md                    # This document
+├── interfaces/
+│   ├── IF-ECO-08_display.md                    # Display specification
+│   ├── IF-ECO-08.schema.json                   # Validation schema
+│   └── UTCS-MI-mapping.md                      # Canonical signal paths
+├── ux/
+│   ├── IF-ECO-08-states.md                     # Multi-state definitions
+│   └── trend-semantics.md                      # Arrow and color specifications
+└── assets/ui/eco-archs-x/
+    ├── IF-ECO-08_baseline.txt                  # ASCII layout
+    ├── IF-ECO-08_states/                       # State mockups
+    │   ├── emergency.txt
+    │   ├── degraded.txt
+    │   ├── harvest.txt
+    │   └── maintenance.txt
+    └── svg/                                    # Production graphics
+        ├── IF-ECO-08_baseline.svg
+        ├── IF-ECO-08_emergency.svg
+        ├── IF-ECO-08_degraded.svg
+        ├── IF-ECO-08_harvest.svg
+        └── IF-ECO-08_maintenance.svg
+```
+
+### 19.3 Implementation Readiness Assessment
+* **Documentation:** ✅ Complete with formal specifications
+* **Schema Validation:** ✅ JSON schema ready for automated testing
+* **Signal Integration:** ✅ UTCS-MI paths defined and mapped
+* **Visual Assets:** 🔄 ASCII complete, SVG production in progress
+* **Test Framework:** ✅ BDD scenarios and acceptance criteria defined
+* **Performance Targets:** ✅ All KPIs specified with measurement methods
+
+### 19.4 Next Phase Deliverables
+1. **Production SVG Assets** - High-fidelity graphics for all display states
+2. **UTCS-MI Integration Testing** - Signal flow validation and performance
+3. **Schema Validation Suite** - Automated testing framework implementation
+4. **Trend Analysis Engine** - Real-time directional intelligence algorithms
+5. **Multi-State Controller** - Dynamic display state management system
 
 ## 18. Multi-Media Environmental Contribution
 
@@ -974,9 +1195,13 @@ def eco_archs_x_control(phase, sensors, health, cartridge_states):
 
 ---
 
-**End of ECO-ARCHS-X ConOps v2.0**
+**End of ECO-ARCHS-X ConOps v2.1**
 
-*This document represents the complete integration of ECN ECO-ARCHS-X-001, evolving the ECO-ARCHS system from water-centric operations to comprehensive multi-media atmospheric remediation. All design decisions maintain the core shed-bias philosophy while extending capabilities across six integrated cartridges (C0-C5) with quantum dot enhancement.*
+*This document represents the complete integration of ECN ECO-ARCHS-X-001 plus the v2.1 UX Enhancement Package, evolving the ECO-ARCHS system from water-centric operations to comprehensive multi-media atmospheric remediation with enterprise-grade interface intelligence. All design decisions maintain the core shed-bias philosophy while extending capabilities across six integrated cartridges (C0-C5) with quantum dot enhancement and UTCS-MI canonical signaling.*
+
+---
+
+*Document Control: This document supersedes ECO-ARCHS-X ConOps v2.0 and incorporates all changes specified in ECN ECO-ARCHS-X-001 plus UX Enhancement Package v2.1. Configuration controlled under AQUA UTCS system with formal change control procedures. Ready for repository implementation and SVG asset production.*
 
 ---
 
