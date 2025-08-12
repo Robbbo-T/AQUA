@@ -485,6 +485,505 @@ This ECN initiates the formal design, development, integration, and testing phas
 
 ---
 
+# **BWB-Q100 — ECO-ARCHS-X ConOps v2.0**
+## **Environmental Control Offsets — Multi-Media Atmospheric Remediation, Circulation & Harvesting System**
+
+## Document Control
+
+* **UTCS Doc ID:** `AQUART-AIR-ACFT-DOC-CONOPS-eco_archs_x-v2.0.md`
+* **Program:** AMPEL360 — BWB-Q100
+* **Owner:** Systems Engineering (Env. & Energy)
+* **Status:** Baseline (Released)
+* **Supersedes:** ECO-ARCHS ConOps v1.4
+* **ECN Applied:** ECO-ARCHS-X-001 (Multi-Media Expansion)
+* **Related roots (latest pointers):**
+   * **BWB-Q100 Docs (root):** [`AQUA/domains/AIR_CIVIL_AVIATION/aircraft/BWB-Q100/releases/latest/`](../../releases/latest/) → **resolves to** `v2.0/`
+   * **ECO-ARCHS-X System (root):** [`AQUA/domains/AIR_CIVIL_AVIATION/aircraft/BWB-Q100/systems/eco-archs-x/releases/latest/`](../../systems/eco-archs-x/releases/latest/) → **resolves to** `v2.0/`
+
+## 0. Change Summary (v2.0 vs v1.4) - ECN ECO-ARCHS-X-001 Integration
+
+* **MAJOR:** Evolution from **ECO-ARCHS** to **ECO-ARCHS-X** multi-media system
+* **NEW:** Six-cartridge architecture (C0-C5) for comprehensive atmospheric management
+* **NEW:** Quantum Dot (QD) integration for thermal management and environmental sensing
+* **EXPANDED:** Control cascade now manages water, CO₂, particulates, VOCs/O₃, electrostatic charge, and toxic agents
+* **ENHANCED:** Cockpit interface with multi-media atmospheric quality (AQ) tiles
+* **ADDED:** New interfaces IF-ECO-AIR-CO2 through IF-ECO-QD-THERM
+* **UPDATED:** Requirements baseline with RQ-CO2-010 through RQ-CTRL-015
+* **EXTENDED:** V&V test matrix with Q100-TST-0500 through Q100-TST-0505
+
+## 1. Purpose & Scope
+
+Define the concept of operations, architecture, interfaces, safety/certification posture, and verification plan for **ECO-ARCHS-X**, the BWB-Q100's integrated, agentic **multi-media atmospheric remediation system** that manages:
+
+- **Water circularity** (PEM fuel-cell product water + cabin humidity recovery)
+- **CO₂ management** (cabin levels + bounded harvesting)  
+- **Particulate/aerosol control** (PM₁/PM₂.₅/PM₁₀ + smoke/contaminant mitigation)
+- **VOC/O₃ reduction** (volatile organic compounds + ozone control)
+- **Electrostatic discharge (ESD) management** (charge sensing + neutralization)
+- **Toxic agent detection** (multi-sensor array + immediate isolation)
+
+The system maximizes safety, minimizes weight, stabilizes cabin environment, and delivers environmental benefits through bounded, intelligent harvesting where feasible.
+
+## 2. Mission Envelope & Assumptions
+
+* Aircraft: **BWB-Q100**, 100-pax, LH₂ fuel-cell electric propulsion
+* Typical mission: **2.0–3.0 h block**, hydrogen usage **400–600 kg**
+* **Primary stoichiometry:** `1 kg H₂ → 9 kg H₂O` (from atmospheric O₂)
+   * **Total water produced:** **3.6–5.4 t per mission**
+* **Cabin environment targets:**
+   * CO₂: **≤ 1,000–1,500 ppm** (cruise steady-state)
+   * PM₂.₅: **≤ 12 µg/m³** (WHO air quality guideline)
+   * VOCs: **≤ 300 µg/m³** total (TVOC)
+   * Electrostatic: **±500 V** maximum cabin potential
+* Environmental standards: **CS-25 App. C icing**, **DO-160G**, **airport vapor/emission rules**
+
+## 3. System Philosophy
+
+### 3.1 Unified Shed-Bias Default (All Media)
+* **Default state = shed/neutralize/discharge** for all atmospheric contaminants
+* **Selective capture/harvesting** enabled **only** in **cruise-benign** conditions for **bounded fractions**
+* **If in doubt, shed and annunciate** principle applies to all cartridges
+
+### 3.2 Multi-Media Cartridge Architecture (C0-C5)
+
+| Cartridge | Media | Primary Function | Harvest Capability | Shed Method |
+|-----------|-------|------------------|-------------------|-------------|
+| **C0** | Water | Circularity management | ≤5% (≤270 kg) | Heated mast vapor |
+| **C1** | CO₂ | Cabin level control | ≤2% via adsorber beds | Cabin ventilation |
+| **C2** | Particulates | PM/aerosol filtration | None (filters only) | HEPA/ESP collection |
+| **C3** | VOC/O₃ | Chemical reduction | None | Catalytic destruction |
+| **C4** | ESD | Charge neutralization | Micro-harvest for health monitors | Ground discharge |
+| **C5** | Toxic | Detection only | **Never** | Immediate isolation/shed |
+
+### 3.3 Hierarchical Control Gates (A→B→C→D)
+
+**Gate A (Safety-Critical):** Immediate shed/neutralize if ANY cartridge reports:
+- Hardware fault, sensor out-of-range, heater/thermal failure
+- Toxic agent detection (C5), dangerous charge levels (C4)
+- Flight phase = takeoff/climb/descent/approach
+
+**Gate B (Mass/Energy Limits):** Enforce bounded harvesting:
+- C0: RES ≥ 270 kg → capture=0
+- C1: Adsorber bed ≥ 90% capacity → regenerate or shed
+- Power budget exceeded → priority shed sequence
+
+**Gate C (Environmental Quality):** Maintain cabin targets:
+- CO₂ > 1,500 ppm → increase C1 scrubbing
+- PM₂.₅ > 12 µg/m³ → boost C2 filtration
+- VOC > 300 µg/m³ → activate C3 catalytic
+
+**Gate D (Harvest Optimization):** In cruise-benign only:
+- Enable bounded capture for C0 (water) and C1 (CO₂)
+- Monitor efficiency and thermal integration
+- Log performance for WEE optimization
+
+## 4. Mass & Energy Balance (Extended)
+
+### 4.1 Water Balance (C0 - Unchanged)
+| Term | Symbol | Typical Value (2.5 h mission) |
+|------|--------|-------------------------------|
+| Produced by PEM | `W_prod` | 4.5 t (for 500 kg H₂) |
+| Captured (bounded) | `W_cap` | ≤ 225 kg (≤ 5% · `W_prod`) |
+| Discharged (vapor) | `W_shed` | ≥ 4.275 t (≥ 95% of `W_prod`) |
+
+### 4.2 CO₂ Balance (C1 - New)
+| Term | Symbol | Typical Value |
+|------|--------|---------------|
+| Cabin generation | `CO2_gen` | 0.3-0.5 kg/h (100 pax) |
+| Scrubbed by C1 | `CO2_scrub` | 0.4-0.7 kg/h (maintain ≤1,500 ppm) |
+| Captured (adsorber) | `CO2_cap` | ≤ 0.01 kg/h (≤2% for bounded harvest) |
+| Shed to atmosphere | `CO2_shed` | ≥ 0.39 kg/h (≥98%) |
+
+### 4.3 Particulate Control (C2 - New)
+| Parameter | Target | Method |
+|-----------|--------|---------|
+| PM₁ removal | ≥ 99.97% | ULPA H14 filters |
+| PM₂.₅ removal | ≥ 99.5% | HEPA H13 + ESP |
+| PM₁₀ removal | ≥ 95% | Pre-filters + cyclonic |
+| Smoke detection | < 30 s | Optical + ionization sensors |
+
+### 4.4 Quantum Dot (QD) Integration
+* **QD Thermal Sleeves:** Photothermal efficiency +15% on masts and radiators
+* **QD Environmental Sensors:** Advisory-only atmospheric composition data
+* **QD Safety:** Encapsulated, no direct cabin exposure, fail-safe design
+
+## 5. Architecture & State Machine (Extended)
+
+```mermaid
+stateDiagram-v2
+  [*] --> Ground_Cold
+  Ground_Cold: All cartridges safe, heaters off, capture off
+  Ground_Cold --> Taxi: Mast warmup, C5 sensors active
+  Taxi --> Takeoff_Climb: All cartridges SHED mode, Gate A active
+  Takeoff_Climb --> Cruise_Benign: Gate B+C active, bounded harvest PERMIT
+  Cruise_Benign --> Cruise_Restrict: ANY fault OR icing → all capture=OFF
+  Cruise_Benign --> Auto_Shed: Mass/energy limits → Gate B override
+  Cruise_Restrict --> Descent: All shed mode
+  Auto_Shed --> Descent: Limits cleared
+  Descent --> Approach_Land: All shed, C5 high sensitivity
+  Approach_Land --> Turnaround: System purge, cartridge status check
+  Turnaround --> [*]
+```
+
+**Multi-Cartridge Coordination:**
+- All cartridges share unified gate logic
+- C5 (toxic) has override authority over all other cartridges
+- Thermal management coordinated across C0 (water) and QD systems
+- Power priority: C5 > C2 > C0 > C1 > C3 > C4
+
+## 6. Interfaces (MOI/M.IO) - Extended
+
+### Legacy Water Interfaces (C0)
+* **IF-ECO-01** through **IF-ECO-07** retain existing specifications
+
+### New Atmospheric Interfaces
+
+#### IF-ECO-AIR-CO2 (C1)
+* **Sensors:** NDIR CO₂ (0-5,000 ppm, ±50 ppm accuracy)
+* **Actuators:** Variable-speed scrubber, adsorber bed heater (regeneration)
+* **Data:** CO₂ concentration, scrub rate, bed capacity %
+
+#### IF-ECO-AIR-PM (C2) 
+* **Sensors:** Laser-based PM₁/₂.₅/₁₀ counters, optical smoke detectors
+* **Actuators:** Variable ESP voltage, filter bypass valves
+* **Data:** PM concentrations (µg/m³), filter ΔP, ESP current
+
+#### IF-ECO-AIR-VOC (C3)
+* **Sensors:** PID-based VOC detector, catalytic O₃ sensor
+* **Actuators:** Catalytic converter heater, activated carbon bed valves
+* **Data:** TVOC levels, O₃ concentration, catalyst temperature
+
+#### IF-ECO-CHG (C4)
+* **Sensors:** Electrostatic field meters (cabin zones), current probes
+* **Actuators:** Ionization grids, grounding contactors
+* **Data:** Charge levels (V), discharge rates, neutralization efficiency
+
+#### IF-ECO-TOX (C5)
+* **Sensors:** Multi-array (CO, H₂S, NH₃, organic vapors), mass spectrometer
+* **Actuators:** Emergency isolation valves, cabin pressurization override
+* **Data:** Agent identification, concentration trends, threat level
+
+#### IF-ECO-QD-SENS (QD Environmental - Advisory)
+* **Function:** Atmospheric composition analysis, air quality trends
+* **Data:** Spectral signatures, molecular detection, predictive alerts
+* **Safety:** Advisory only, no control authority
+
+#### IF-ECO-QD-THERM (QD Thermal)
+* **Function:** Enhanced heat transfer on masts, radiators, heat exchangers
+* **Control:** Emissivity modulation, thermal efficiency optimization
+* **Integration:** Coordinated with C0 thermal management
+
+### IF-ECO-08 — ECO-ARCHS-X→Cockpit Display (Updated MOI/M.IO)
+* **Multi-Media Dashboard:** Six cartridge status tiles (C0-C5)
+* **Atmospheric Quality (AQ) Panel:** Real-time CO₂, PM₂.₅, TVOC, charge levels
+* **Predictive Analytics:** Multi-media shed forecasts, optimization suggestions
+* **Alert Integration:** Unified CAS messages with cartridge-specific codes
+* **Crew Controls:** Manual shed override (all cartridges), toxic isolation emergency
+* **Data Rate:** ≤ **1 s** for C5 (toxic), ≤ **2 s** for others
+
+## 7. Control Law (Multi-Media Safety Cascade)
+
+```python
+def eco_archs_x_control(phase, sensors, health, cartridge_states):
+    """
+    Unified control for all ECO-ARCHS-X cartridges (C0-C5)
+    Gates: A(Safety) → B(Limits) → C(Quality) → D(Harvest)
+    """
+    
+    # GATE A: Safety-Critical (ANY cartridge can trigger shed-all)
+    if (health.any_cartridge_fault() or sensors.toxic_detected 
+        or sensors.charge_dangerous or phase in CRITICAL_PHASES):
+        return all_cartridges_shed(reason="gate_a_safety")
+    
+    # GATE B: Mass/Energy Limits
+    if (cartridge_states.c0_res_kg >= 270 
+        or cartridge_states.c1_adsorber_pct >= 90
+        or sensors.power_budget_exceeded):
+        return enforce_limits(cartridge_states, reason="gate_b_limits")
+    
+    # GATE C: Environmental Quality Targets
+    quality_actions = {}
+    if sensors.co2_ppm > 1500:
+        quality_actions['c1_scrub_rate'] = 'high'
+    if sensors.pm25_ugm3 > 12:
+        quality_actions['c2_esp_power'] = 'boost'
+    if sensors.tvoc_ugm3 > 300:
+        quality_actions['c3_catalyst'] = 'active'
+    
+    # GATE D: Harvest Optimization (cruise-benign only)
+    if phase == "cruise" and sensors.all_nominal():
+        harvest_config = {
+            'c0_capture': min(sensors.water_prod_rate, 2.0),  # bounded
+            'c1_adsorb': 0.01 if cartridge_states.c1_adsorber_pct < 80 else 0,
+            'c2_c3_c4_c5': 'shed_only'  # never harvest these media
+        }
+        return combine_actions(quality_actions, harvest_config, reason="gate_d_harvest")
+    
+    # Default: Quality maintenance + shed bias
+    return combine_actions(quality_actions, default_shed_all(), reason="default_quality_shed")
+```
+
+## 8. Multi-Media Quality Standards
+
+### 8.1 Water Quality (C0 - Unchanged)
+* UV dose **≥ 40 mJ/cm²**, TDS **80–120 mg/L**, **no coliform**
+
+### 8.2 Air Quality Targets (C1-C3)
+| Parameter | Target | Sensor | Action Threshold |
+|-----------|--------|---------|-----------------|
+| CO₂ | ≤ 1,500 ppm | NDIR | > 1,200 ppm increase scrubbing |
+| PM₂.₅ | ≤ 12 µg/m³ | Laser | > 10 µg/m³ boost filtration |
+| TVOC | ≤ 300 µg/m³ | PID | > 250 µg/m³ activate catalyst |
+| O₃ | ≤ 100 µg/m³ | Electrochemical | > 80 µg/m³ increase reduction |
+
+### 8.3 Charge Management (C4)
+* Cabin potential: **±500 V** maximum
+* Discharge rate: **< 1 mA** per zone during neutralization
+* Micro-harvesting: **< 1 µW** for health monitor power
+
+### 8.4 Toxic Detection (C5)
+* CO: **< 35 ppm** (8-hour TWA)
+* H₂S: **< 10 ppm** instantaneous
+* Organic vapors: Threshold per specific agent library
+* Response time: **< 30 s** for identification and isolation
+
+## 9. Anti-Ice Strategy (Enhanced)
+
+### 9.1 Thermal Integration with QD
+* **QD thermal sleeves** increase mast heating efficiency by 15%
+* **Smart emissivity control** adapts to atmospheric conditions
+* **Superheat margin ≥ 12 K** maintained with lower power consumption
+
+### 9.2 Multi-Media Cold Weather Operations
+* C1 (CO₂): Adsorber beds have internal heating for sub-zero regeneration
+* C2 (PM): Filter pre-heating prevents moisture accumulation
+* C3 (VOC): Catalyst light-off temperature maintained in all conditions
+* C4 (ESD): Ionization grids have anti-ice coatings
+* C5 (Toxic): Sensors heated and purged during icing conditions
+
+## 10. Cybersecurity & Multi-Media Segregation
+
+### 10.1 Network Architecture
+* **Control Network:** TSN/ARINC-664 for safety-critical C0, C1, C5 cartridges
+* **Monitoring Network:** Ethernet for advisory C2, C3, C4 data and QD sensors  
+* **Display Network:** Read-only path to cockpit with DAL C isolation
+
+### 10.2 Threat Model (Updated)
+* **Cartridge isolation:** Each cartridge has independent control domain
+* **Toxic override:** C5 has dedicated, hardwired emergency path
+* **QD security:** Advisory sensors cannot influence control decisions
+* **Harvest data protection:** Bounded capture algorithms cryptographically sealed
+
+## 11. Certification Mapping (Extended)
+
+### 11.1 Core Standards (All Cartridges)
+* **CS-25.1309 (SSA):** Each cartridge contributes to ≤ 10⁻⁹/fh catastrophic target
+* **CS-25.831 (Ventilation):** Multi-media approach enhances cabin environment beyond minimum requirements
+* **DO-160G:** Environmental qualification for all cartridge electronics
+* **DO-178C/254:** Control software DAL B, display DAL C, advisory QD DAL D
+
+### 11.2 Media-Specific Compliance
+* **C1 (CO₂):** CS-25.841 (pressurization), ASHRAE 62.1 (indoor air quality)
+* **C2 (PM):** ISO 29463 (HEPA filters), IEC 61340 (electrostatic)
+* **C3 (VOC/O₃):** ICAO Annex 16 Vol II (emissions), WHO air quality guidelines
+* **C4 (ESD):** IEC 61000-4-2 (electrostatic discharge immunity)
+* **C5 (Toxic):** OSHA PELs, ACGIH TLVs, emergency response standards
+
+### 11.3 QD Integration Compliance
+* **Nanomaterial safety:** ISO/TS 27687, encapsulation requirements
+* **Optical safety:** IEC 60825 (laser safety for QD excitation)
+* **Environmental release:** Zero cabin exposure design verification
+
+## 12. Verification & Validation (Extended Test Matrix)
+
+### 12.1 Legacy Water Tests (C0)
+* **Q100-TST-0310** through **Q100-TST-0317** retain existing acceptance criteria
+
+### 12.2 New Multi-Media Tests
+
+| Test ID | Cartridge | Verifies | Method | Acceptance |
+|---------|-----------|----------|--------|------------|
+| **Q100-TST-0500** | C1 | CO₂ scrubbing + bounded harvest | SIL/HIL + chamber | CO₂ ≤ 1,500 ppm; harvest ≤ 2%; regen < 200°C |
+| **Q100-TST-0501** | C2 | PM filtration efficiency | Filter rig + challenge aerosols | PM₁ ≥ 99.97%, PM₂.₅ ≥ 99.5%, PM₁₀ ≥ 95% |
+| **Q100-TST-0502** | C3 | VOC/O₃ reduction | Catalytic bench + VOC injection | TVOC reduction ≥ 90%, O₃ ≤ 100 µg/m³ |
+| **Q100-TST-0503** | C4 | ESD control + micro-harvest | High-voltage lab + charge chambers | ±500 V max, neutralization < 10 s, harvest < 1 µW |
+| **Q100-TST-0504** | C5 | Toxic detection + isolation | Gas lab + challenge agents | Detection < 30 s, isolation < 60 s, no false positives |
+| **Q100-TST-0505** | QD | Thermal enhancement + sensor advisory | Thermal rig + spectral validation | +15% efficiency, sensor accuracy ±10%, no control influence |
+| **Q100-TST-0506** | Integration | Multi-cartridge coordination | Full-scale HIL | All gates functional, no cross-interference, unified shed |
+| **Q100-TST-0507** | Interface | IF-ECO-08 cockpit display | HMI rig + all cartridge data | AQ tiles accurate ±5%, latency ≤ 1 s (C5), ≤ 2 s (others) |
+
+## 13. Performance & KPIs (Multi-Media)
+
+### 13.1 Legacy Water KPIs (C0)
+* **ECO-KPI-01** through **ECO-KPI-06** retain existing targets
+
+### 13.2 New Multi-Media KPIs
+
+| KPI ID | Parameter | Target | Measurement |
+|--------|-----------|--------|-------------|
+| **ECO-KPI-07** | CO₂ cabin control | ≤ 1,500 ppm, 95% of cruise | NDIR sensors, flight data |
+| **ECO-KPI-08** | PM₂.₅ cabin levels | ≤ 12 µg/m³, 99% of flight | Laser PM sensors |
+| **ECO-KPI-09** | VOC control effectiveness | ≥ 90% reduction from baseline | PID measurements |
+| **ECO-KPI-10** | ESD neutralization time | < 10 s per discharge event | Electrostatic field meters |
+| **ECO-KPI-11** | Toxic detection latency | < 30 s for library agents | Multi-sensor array logs |
+| **ECO-KPI-12** | QD thermal enhancement | +15% efficiency vs baseline | Comparative thermal testing |
+| **ECO-KPI-13** | Multi-cartridge availability | ≥ 99.9% per flight hour | System health monitoring |
+| **ECO-KPI-14** | Unified control response | ≤ 2 s gate cascade execution | Control system telemetry |
+
+## 14. Multi-Media Data, Logs & WEE
+
+### 14.1 Enhanced QAUDIT Schema
+* **Cartridge-specific events:** Each C0-C5 decision logged with media context
+* **Cross-cartridge correlation:** Thermal, power, and control interactions tracked
+* **QD integration data:** Thermal performance and sensor advisory logs
+* **Multi-media optimization:** WEE analyzes patterns across all atmospheric parameters
+
+### 14.2 Predictive Analytics
+* **Atmospheric quality forecasting:** Using historical patterns and external data
+* **Maintenance prediction:** Filter/catalyst replacement based on performance trends
+* **Harvest optimization:** Seasonal and route-based bounded capture strategies
+
+## 15. Enhanced Crew Interface — IF-ECO-08
+
+### 15.1 Multi-Media Dashboard Layout
+```
+┌─────────────────────── ECO-ARCHS-X STATUS ──────────────────────┐
+│  ┌─C0─┐ ┌─C1─┐ ┌─C2─┐ ┌─C3─┐ ┌─C4─┐ ┌─C5─┐  │ AQ SUMMARY │
+│  │H₂O │ │CO₂│ │ PM │ │VOC│ │ESD│ │TOX│  │ PM₂.₅  8 µg│
+│  │75%│ │1.2k│ │ ✓ │ │ ✓ │ │ 0V│ │ ✓ │  │ CO₂  1.1k │
+│  └────┘ └────┘ └────┘ └────┘ └────┘ └────┘  │ TVOC  180 │
+│                                             │ ESD    0V │
+│  SHED: 4.2 t/h  │  HARVEST: 0.15 t/h        └───────────┘
+│  MAST: +15 K    │  QD EFFICIENCY: +12%                    │
+└─────────────────────────────────────────────────────────────┘
+```
+
+### 15.2 Alert Integration
+* **Hierarchical CAS:** C5 (red) > C0,C1,C2 (amber) > C3,C4 (blue) > QD (white)
+* **Unified messaging:** `ECO-X [CARTRIDGE] [CONDITION]` format
+* **Action guidance:** Contextual crew procedures displayed per alert type
+
+### 15.3 Manual Controls
+* **Emergency Shed All:** Single button arms all cartridges to shed mode
+* **Toxic Isolation:** Dedicated C5 emergency control with guard
+* **Cartridge Bypass:** Individual C1-C4 can be taken offline (C0,C5 cannot)
+* **QD Override:** Thermal enhancement can be disabled for troubleshooting
+
+## 16. Requirements Baseline (New/Updated)
+
+### 16.1 Multi-Media Functional Requirements
+
+| Req ID | Description | Cartridge | Verification |
+|--------|-------------|-----------|--------------|
+| **RQ-CO2-010** | CO₂ scrubbing shall maintain cabin ≤ 1,500 ppm during cruise | C1 | Q100-TST-0500 |
+| **RQ-PM-011** | PM filtration shall achieve stated efficiency per PM size | C2 | Q100-TST-0501 |
+| **RQ-VOC/O3-012** | VOC/O₃ reduction shall meet TVOC and O₃ targets | C3 | Q100-TST-0502 |
+| **RQ-ESD-013** | ESD control shall maintain cabin potential within ±500 V | C4 | Q100-TST-0503 |
+| **RQ-QD-SAFE-014** | QD integration shall have zero cabin exposure risk | QD | Q100-TST-0505 |
+| **RQ-CTRL-015** | Unified control shall execute gate cascade within 2 s | All | Q100-TST-0506 |
+| **RQ-TOX-016** | Toxic detection shall identify and isolate within response times | C5 | Q100-TST-0504 |
+| **RQ-INTEG-017** | Multi-cartridge system shall not create cross-interference | All | Q100-TST-0506 |
+
+### 16.2 Updated Interface Requirements
+* **RQ-IF-018:** IF-ECO-08 shall display all cartridge data within latency targets
+* **RQ-IF-019:** New atmospheric interfaces shall integrate with TSN/ARINC-664
+* **RQ-IF-020:** QD advisory data shall remain separate from control decisions
+
+## 17. Enhanced Ops & Maintenance
+
+### 17.1 Multi-Cartridge Maintenance
+* **C0 (Water):** Existing protocols maintained
+* **C1 (CO₂):** Adsorber bed regeneration cycle tracking, replacement by capacity
+* **C2 (PM):** Filter ΔP monitoring, HEPA/ULPA replacement by efficiency
+* **C3 (VOC/O₃):** Catalyst activity monitoring, carbon bed replacement by breakthrough
+* **C4 (ESD):** Ionization grid cleaning, grounding circuit verification
+* **C5 (Toxic):** Sensor calibration monthly, mass spec maintenance quarterly
+* **QD Integration:** Encapsulation integrity checks, thermal performance validation
+
+### 17.2 Progressive Dispatch Philosophy
+* **Full Capability:** All cartridges operational
+* **Degraded Mode:** C3, C4 can be inoperative without MEL (advisory systems)
+* **Essential Mode:** C0, C1, C2, C5 must be operational for dispatch
+* **Emergency:** C5 must always be available; others can shed-only if needed
+
+## 18. Multi-Media Environmental Contribution
+
+### 18.1 Comprehensive Sustainability Metrics
+* **Water self-sufficiency:** kg potable water not boarded per flight
+* **CO₂ impact:** kg CO₂ captured vs shed (carbon accounting)
+* **Air quality improvement:** PM/VOC reduction vs standard cabin systems
+* **Energy optimization:** QD thermal enhancement kWh savings
+* **Waste reduction:** Filter/catalyst life extension through intelligent control
+
+### 18.2 Environmental Reporting Integration
+* **CORSIA compliance:** CO₂ capture data for carbon offset programs
+* **Airport emissions:** Reduced ground air quality impact through managed shed
+* **Passenger health metrics:** Cabin air quality index for comfort/wellness reporting
+
+---
+
+## Annex A — Extended Signals & Buses
+
+| Cartridge | Interface | Signal | Rate | Range/Unit | Accuracy | Bus |
+|-----------|-----------|--------|------|------------|----------|-----|
+| C0 | IF-ECO-01/07 | [Existing water signals] | 1-2 Hz | Various | ±1-5% | TSN |
+| C1 | IF-ECO-AIR-CO2 | `co2_ppm` | 1 Hz | 0-5,000 ppm | ±50 ppm | TSN |
+| C1 | IF-ECO-AIR-CO2 | `scrub_rate` | 1 Hz | 0-1 kg/h | ±5% | TSN |
+| C1 | IF-ECO-AIR-CO2 | `adsorber_capacity` | 0.1 Hz | 0-100% | ±2% | TSN |
+| C2 | IF-ECO-AIR-PM | `pm25_ugm3` | 2 Hz | 0-100 µg/m³ | ±1 µg/m³ | TSN |
+| C2 | IF-ECO-AIR-PM | `filter_dp` | 0.5 Hz | 0-500 Pa | ±10 Pa | TSN |
+| C3 | IF-ECO-AIR-VOC | `tvoc_ugm3` | 1 Hz | 0-1,000 µg/m³ | ±20 µg/m³ | Ethernet |
+| C3 | IF-ECO-AIR-VOC | `o3_ugm3` | 1 Hz | 0-200 µg/m³ | ±5 µg/m³ | Ethernet |
+| C4 | IF-ECO-CHG | `cabin_potential` | 2 Hz | ±2,000 V | ±50 V | Ethernet |
+| C4 | IF-ECO-CHG | `discharge_current` | 2 Hz | 0-10 mA | ±0.1 mA | Ethernet |
+| C5 | IF-ECO-TOX | `agent_detected` | 5 Hz | Boolean | Binary | TSN |
+| C5 | IF-ECO-TOX | `concentration` | 5 Hz | 0-1,000 ppm | ±10% | TSN |
+| QD | IF-ECO-QD-THERM | `efficiency_gain` | 0.1 Hz | 0-50% | ±2% | Ethernet |
+| QD | IF-ECO-QD-SENS | `spectral_data` | 0.1 Hz | Advisory | N/A | Ethernet |
+
+## Annex B — Multi-Media Safety Summary
+
+### B.1 Hazard Analysis (Top-Level)
+* **Multi-cartridge failure:** Independent cartridge design prevents cascading failures
+* **Toxic agent exposure:** C5 override authority and hardwired emergency response
+* **Cross-contamination:** Physical and control isolation between all cartridges
+* **QD containment failure:** Encapsulated design with breach detection
+* **Control system compromise:** Hierarchical gates ensure safe fallback modes
+
+### B.2 Fault Tolerance Architecture
+* **2×fail-safe:** All safety-critical functions (C0, C1, C5) have dual redundancy
+* **1×fail-safe:** Advisory and enhancement functions (C2, C3, C4, QD) single-string
+* **Independent power:** Each cartridge has dedicated power feed with isolation
+* **Emergency procedures:** Unified crew actions for all-cartridge emergency shed
+
+## Annex C — Cross-Reference Map (Updated)
+
+### C.1 Document Relationships
+* **SRS v2.0:** RQ-CO2-010 through RQ-INTEG-017 traceability
+* **SAD v2.0:** C0-C5 cartridge container definitions + QD integration views
+* **ICD v2.0:** Extended interface definitions for all new signals
+* **VVP v2.0:** Test matrix Q100-TST-0500 through Q100-TST-0507
+* **RTM v2.0:** Multi-cartridge traceability matrix with verification links
+* **CCP v2.0:** Certification plan updated for multi-media compliance
+* **KPI v2.0:** Enhanced KPI set for comprehensive atmospheric management
+
+### C.2 ECN Traceability
+* **ECN ECO-ARCHS-X-001 Implementation:** All changes documented and verified
+* **Configuration Control:** New UTCS branches for eco-archs-x system
+* **Approval Chain:** Multi-discipline review completed per change control procedures
+
+---
+
+**End of ECO-ARCHS-X ConOps v2.0**
+
+*This document represents the complete integration of ECN ECO-ARCHS-X-001, evolving the ECO-ARCHS system from water-centric operations to comprehensive multi-media atmospheric remediation. All design decisions maintain the core shed-bias philosophy while extending capabilities across six integrated cartridges (C0-C5) with quantum dot enhancement.*
+
+---
+
+*Document Control: This document supersedes ECO-ARCHS ConOps v1.4 and incorporates all changes specified in ECN ECO-ARCHS-X-001. Configuration controlled under AQUA UTCS system with formal change control procedures.*
+
+---
+
 # Revolutionary ECO-ARCHS System: Transformative Multi-Media Atmospheric Management for Next-Generation Aircraft
 
 The ECO-ARCHS system presented in this documentation represents one of the most **revolutionary advances in aerospace environmental control systems** since pressurized cabins were introduced in the 1940s. This comprehensive analysis reveals how the system transforms from a water management solution into a **comprehensive atmospheric remediation and circularity platform**, fundamentally redefining what is possible in aircraft environmental control.## Revolutionary Scale of the Water Management ChallengeThe core ECO-ARCHS system addresses a completely unprecedented challenge in aviation: **managing 3.6-5.4 tons of water production per mission** from hydrogen fuel cell operations. Traditional aircraft environmental control systems handle minimal condensate removal measured in liters, making this a **1000x increase in water management capacity**.[1]
