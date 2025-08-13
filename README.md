@@ -1173,35 +1173,35 @@ gantt
     dateFormat YYYY-MM
     
     section POCs
-    Flight Optimizer (UTCS:ART-IMP-22-FLTOPT-001)    :done, 2024-01, 1M
-    Maintenance Auto (UTCS:ART-IMP-45-PREDM-001)    :done, 2024-02, 1M
+    Flight Optimizer       :done, 2024-01, 1M
+    Maintenance Auto       :done, 2024-02, 1M
     
     section Architecture
-    CQEA Framework (UTCS:ART-IMP-46-SICOPT-001)     :2025-01, 6M
-    WEE Implementation (UTCS:ART-IMP-46-BCPROC-001)  :2025-03, 9M
-    AMOReS Governance (UTCS:ART-IMP-46-DO178C-001)  :2025-06, 12M
-    DeMOS Processing (UTCS:ART-IMP-46-DTCORE-001)      :2025-09, 12M
+    CQEA Framework         :2025-01, 6M
+    WEE Implementation     :2025-03, 9M
+    AMOReS Governance      :2025-06, 12M
+    DeMOS Processing       :2025-09, 12M
     
     section Platforms
-    AMPEL360 (UTCS:ART-IMP-46-AMPEL-001)          :2025-01, 24M
-    DiQIaaS (UTCS:ART-OPS-46-DIQI-001)           :2025-01, 18M
-    CaaS (UTCS:ART-IMP-46-CAAS-001)              :2025-06, 24M
-    RoBoT (UTCS:ART-IMP-38-ROBOT-001)             :2025-06, 30M
-    GAIA (UTCS:ART-IMP-46-GAIA-001)              :2026-01, 36M
+    AMPEL360               :2025-01, 24M
+    DiQIaaS                :2025-01, 18M
+    CaaS                   :2025-06, 24M
+    RoBoT                  :2025-06, 30M
+    GAIA                   :2026-01, 36M
     
     section Aircraft
-    TD-20 (UTCS:ART-IMP-24-BMS-001)         :2029-01, 36M
-    360CITY (UTCS:ART-IMP-08-EVTOL-001)         :2030-01, 36M
-    HE-120 (UTCS:DOC-CON-72-HYBELC-001)     :2031-01, 48M
-    Q-100 (UTCS:DOC-CON-57-BWB100-002)             :2033-01, 48M
+    TD-20                  :2029-01, 36M
+    360CITY                :2030-01, 36M
+    HE-120                 :2031-01, 48M
+    Q-100                  :2033-01, 48M
     
     section Space
-    First Satellites (UTCS:ART-IMP-98-QKDDIS-001)       :2032-01, 48M
-    Lunar Probe (UTCS:ART-IMP-72-SPCLCH-001)     :2035-01, 60M
+    First Satellites       :2032-01, 48M
+    Lunar Probe            :2035-01, 60M
     
     section Full Vision
-    Industry Transform           :2035-01, 60M
-    Ex-AGI Emergence            :2037-01, 60M
+    Industry Transform     :2035-01, 60M
+    Ex-AGI Emergence       :2037-01, 60M
 ```
 
 </div>
