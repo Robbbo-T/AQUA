@@ -710,11 +710,3 @@ Se desaconseja firmemente la práctica de enviar un identificador UTCS como part
 
 ---
 
-### **¿Por qué este anexo es necesario?**
-
-*   **Cierra el Ciclo de Gobernanza:** El estándar define *qué* es un artefacto válido. Este anexo define *cómo* se deben crear de forma válida los artefactos generados por IA.
-*   **Mitiga el Riesgo de la IA:** Reconoce explícitamente las debilidades de los LLMs (inconsistencia, alucinaciones) y establece un marco de trabajo para mitigarlas.
-*   **Asegura la Calidad:** Al forzar el uso de plantillas, aseguramos que la "ingeniería de prompts" experta se realice una sola vez (al crear la plantilla) y luego se reutilice, elevando la calidad de todos los artefactos generados.
-*   **Preserva la Integridad Sistémica (Axioma I):** Es la defensa final contra la entropía y la inconsistencia que los LLMs pueden introducir en un ecosistema altamente estructurado.
-
-**En resumen:** No hay que cambiar las secciones normativas, pero **sí debemos añadir este anexo**. Es la lección más importante que hemos aprendido de nuestro experimento práctico.
