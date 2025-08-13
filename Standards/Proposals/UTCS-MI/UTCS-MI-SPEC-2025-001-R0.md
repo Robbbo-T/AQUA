@@ -1,4 +1,4 @@
-# **Especificación Técnica UTCS-MI v5.0 — Estándar Definitivo**
+# **Especificación Técnica UTCS-MI v5.1 — Estándar Definitivo**
 **Estándar Universal de Contenido Técnico - Interfaz Humano-Máquina**  
 **Protocolo de Génesis para Aplicaciones Clásicas Quantum-Extensibles**
 
@@ -7,7 +7,7 @@
 ## **Identificador UTCS del Documento (Autogénesis)**
 
 ```yaml
-EstándarUniversal:Especificacion-Autogenesis-UTCS-MI-00.00-EstandarTecnico-0001-v5.0-EstandarTransversal-GeneracionHumana-CROSS-AQUA-CORE-a0b1c2d3-RestoDeVidaUtil
+EstándarUniversal:[Especificacion][Autogenesis][UTCS-MI][00.00][EstandarTecnico][0001][v5.1][EstandarTransversal][GeneracionHumana][CROSS][AQUA-CORE][a0b1c2d3][RestoDeVidaUtil]
 ```
 
 **Este documento ES la autogénesis del ecosistema AQUA - el hash madre de todo lo generable**
@@ -17,7 +17,7 @@ EstándarUniversal:Especificacion-Autogenesis-UTCS-MI-00.00-EstandarTecnico-0001
 **Documento normativo con anclajes canónicos (`§x.y.z`) y estructura ISO/IEC.**
 
 _Generado_: 2025-08-14T00:00:00Z  
-_Versión_: **5.0-definitiva**  
+_Versión_: **5.1-definitiva**  
 _Estado_: **NORMATIVO**  
 _Naturaleza_: **AUTOGÉNESIS - El origen de todo artefacto en AQUA**
 
@@ -39,7 +39,7 @@ Esta definición establece que:
 
 ## **Prefacio**
 
-El **Estándar Universal de Contenido Técnico - Interfaz Humano-Máquina (UTCS-MI) v5.0** representa el documento de **autogénesis** del ecosistema AQUA OS. Este documento no solo define un estándar; **ES** el acto primordial de creación del cual deriva todo lo demás.
+El **Estándar Universal de Contenido Técnico - Interfaz Humano-Máquina (UTCS-MI) v5.1** representa el documento de **autogénesis** del ecosistema AQUA OS. Este documento no solo define un estándar; **ES** el acto primordial de creación del cual deriva todo lo demás.
 
 Como artefacto de autogénesis:
 - Es el único documento con fase "Autogenesis"
@@ -59,7 +59,7 @@ Principios fundamentales:
 
 La proliferación de sistemas complejos en aplicaciones aeroespaciales modernas, junto con la madurez alcanzada por los sistemas de IA generativa, requiere un marco unificado para la identificación, procedencia, trazabilidad y consumo automatizado de contenidos técnicos.
 
-**UTCS-MI v5.0** no es simplemente un sistema de identificación. Es el **protocolo de génesis** que:
+**UTCS-MI v5.1** no es simplemente un sistema de identificación. Es el **protocolo de génesis** que:
 - **Da origen** a cada artefacto con identidad única
 - **Codifica** el ADN digital inmutable
 - **Habilita** la extensibilidad cuántica
@@ -187,7 +187,7 @@ entrelazamientos_principales:
 
 ## §1.1 — Objetivo
 
-El **Estándar Universal de Contenido Técnico v5.0** establece:
+El **Estándar Universal de Contenido Técnico v5.1** establece:
 
 1. El protocolo de génesis fundamental para el ecosistema AQUA
 2. La estructura del identificador UTCS-MI de 13 campos
@@ -317,34 +317,37 @@ Una implementación conforme **DEBE**:
 
 ### Sintaxis:
 ```
-EstándarUniversal:<Campo1>-<Campo2>-<Campo3>-<Campo4>-<Campo5>-<Campo6>-<Campo7>-<Campo8>-<Campo9>-<Campo10>-<Campo11>-<Campo12>-<Campo13>
+EstándarUniversal:[Campo1][Campo2][Campo3][Campo4][Campo5][Campo6][Campo7][Campo8][Campo9][Campo10][Campo11][Campo12][Campo13][Campo14][Campo15]
 ```
+*   **Nota**: `Campo14` y `Campo15` son opcionales. El identificador puede tener 13, 14 o 15 campos.
 
 ### Estructura de Campos:
 
 | Pos | Campo | Descripción | Ejemplo |
 |:----|:------|:------------|:--------|
 | 0 | Prefijo | Siempre "EstándarUniversal:" | EstándarUniversal: |
-| 1 | Clase | Tipo de artefacto | Especificacion |
-| 2 | Fase | Fase de origen | Autogenesis |
-| 3 | Regulación | Estándar base | UTCS-MI |
-| 4 | Capítulo | Sección numérica | 00.00 |
-| 5 | Categoría | Descripción funcional | EstandarTecnico |
-| 6 | Secuencia | Número único | 0001 |
-| 7 | Versión | Versión semántica | v5.0 |
-| 8 | Programa | Producto del portfolio | EstandarTransversal |
-| 9 | Método | Método generación | GeneracionHumana |
-| 10 | Dominio | Dominio operacional | CROSS |
-| 11 | ID Físico | Contribuyente | AQUA-CORE |
-| 12 | Hash | Hash contenido | a0b1c2d3 |
-| 13 | Periodo | Validez temporal | RestoDeVidaUtil |
+| 1 | Clase | Tipo de artefacto | [Especificacion] |
+| 2 | Fase | Fase de origen | [Autogenesis] |
+| 3 | Regulación | Estándar base | [UTCS-MI] |
+| 4 | Capítulo | Sección numérica | [00.00] |
+| 5 | Categoría | Descripción funcional | [EstandarTecnico] |
+| 6 | Secuencia | Identificador único | |
+| 7 | Versión | Versión semántica | [v5.1] |
+| 8 | Programa | Producto del portfolio | [EstandarTransversal] |
+| 9 | Método | Método generación | [GeneracionHumana] |
+| 10 | Dominio | Dominio operacional | [CROSS] |
+| 11 | ID Físico | Contribuyente | [AQUA-CORE] |
+| 12 | Hash | Hash contenido | [a0b1c2d3] |
+| 13 | Periodo | Validez temporal | [RestoDeVidaUtil] |
+| 14 | (Opcional) Variante | Configuración específica | [EdicionClaridad] |
+| 15 | (Opcional) Instancia | Despliegue específico | [RevisionFinal] |
 
 ## §6.2 — El Identificador de Autogénesis
 
 Este documento tiene el ÚNICO identificador con fase "Autogenesis":
 
 ```
-EstándarUniversal:Especificacion-Autogenesis-UTCS-MI-00.00-EstandarTecnico-0001-v5.0-EstandarTransversal-GeneracionHumana-CROSS-AQUA-CORE-a0b1c2d3-RestoDeVidaUtil
+EstándarUniversal:[Especificacion][Autogenesis][UTCS-MI][00.00][EstandarTecnico][0001][v5.1][EstandarTransversal][GeneracionHumana][CROSS][AQUA-CORE][a0b1c2d3][RestoDeVidaUtil]
 ```
 
 Este ES el hash madre del ecosistema.
@@ -565,35 +568,52 @@ Este ES el hash madre del ecosistema.
 ```python
 def validar_sintaxis_utcs(identificador: str) -> bool:
     """
-    Valida la estructura sintáctica del identificador UTCS v5.0
+    Valida la estructura sintáctica del identificador UTCS v5.1
+    Aplica la regla de que TODOS los campos (obligatorios y opcionales)
+    están encerrados en corchetes literales [].
     """
     # 1. Verificar prefijo
     if not identificador.startswith("EstándarUniversal:"):
         return False
     
-    # 2. Separar y contar campos
-    sin_prefijo = identificador[18:]
-    campos = sin_prefijo.split("-")
+    # 2. Remover prefijo
+    contenido_desde_primer_corchete = identificador[len("EstándarUniversal:"):]
     
-    if len(campos) != 13:
+    # 3. Validar que empieza y termina con corchetes
+    if not (contenido_desde_primer_corchete.startswith('[') and contenido_desde_primer_corchete.endswith(']')):
         return False
     
-    # 3. Validaciones específicas
-    # Versión debe empezar con 'v'
-    if not campos[6].startswith("v"):
+    # 4. Remover los corchetes externos y dividir por '][' para obtener los campos
+    # Esto asume que el identificador es como [Campo1][Campo2]...[CampoN]
+    campos_str_list = contenido_desde_primer_corchete[1:-1].split('][')
+    
+    # 5. Validar la cantidad de campos
+    # 13 campos obligatorios. Puede haber 14 (con Variante) o 15 (con Variante e Instancia).
+    if not (len(campos_str_list) == 13 or len(campos_str_list) == 14 or len(campos_str_list) == 15):
+        return False
+            
+    # Validaciones específicas de formato (Versión, Hash, etc.)
+    # Los valores de los campos ya están "limpios" (sin corchetes) aquí.
+    
+    # Versión (campo 7)
+    if not campos_str_list[6].startswith("v"):
         return False
     
-    # Hash debe tener 8 caracteres
-    if len(campos[11]) != 8:
+    # Hash (campo 12)
+    if len(campos_str_list[11]) != 8:
         return False
     
-    # No acrónimos prohibidos
-    acronimos_prohibidos = ['BWB', 'HE', 'Q100', 'UAV', 'VTOL', 'QKD']
-    for acronimo in acronimos_prohibidos:
-        if acronimo in identificador:
-            return False
-    
-    return True
+    # No acrónimos prohibidos en los VALORES de los campos
+    acronimos_prohibidos_en_valores = [
+        'BWB', 'HE', 'Q100', 'Q250', 'UAV', 'VTOL', 'HALE', 'HAPS', 'QKD', 'AI', 'MRO', 
+        'POC', 'MVP', 'API', 'CEO', 'CTO', 'CFO'
+    ]
+    for campo_val in campos_str_list:
+        # Asegurarse de que el valor del campo no contenga acrónimos prohibidos
+        if any(acr in campo_val for acr in acronimos_prohibidos_en_valores):
+            return False 
+            
+    return True # Sintaxis básica OK. La validación semántica irá después.
 ```
 
 ## §8.2 — Validación Semántica por Entrelazamiento
@@ -602,6 +622,7 @@ def validar_sintaxis_utcs(identificador: str) -> bool:
 def validar_entrelazamiento(campos: dict) -> bool:
     """
     Valida coherencia entre campos entrelazados
+    (Asume que 'campos' es un diccionario con valores ya limpios, sin corchetes)
     """
     # Autogenesis solo para este documento
     if campos['fase'] == 'Autogenesis':
@@ -617,7 +638,7 @@ def validar_entrelazamiento(campos: dict) -> bool:
         if campos['fase'] not in ['Implementacion', 'Integracion']:
             return False
         if campos['metodo'] == 'GeneracionHumana':
-            return False  # Demasiado complejo para humanos solos
+            return False  # Demasiado complejo para generación puramente humana
             
     return True
 ```
@@ -687,7 +708,7 @@ paso_8_validacion:
   unicidad: "OK - secuencia 0042 disponible"
   
 paso_9_identificador:
-  resultado: "EstándarUniversal:Requisito-Concepto-CS25-25.1309-AutonomiaMinimaCuatroMilKilometros-0042-v1.0-BlendedWingBodyQuantum100-GeneracionHumana-AIR-IND-Maria-b2c3d4e5-Concepto-DiseñoPreliminar"
+  resultado: "EstándarUniversal:[Requisito][Concepto][CS25][25.1309][AutonomiaMinimaCuatroMilKilometros][0042][v1.0][BlendedWingBodyQuantum100][GeneracionHumana][AIR][IND-Maria][b2c3d4e5][Concepto-DiseñoPreliminar]"
   
 paso_10_registro:
   timestamp: "2025-08-14T10:30:00Z"
@@ -714,7 +735,7 @@ paso_10_registro:
 
 ```yaml
 Necesito: "Un procedimiento de mantenimiento"
-Resultado: "EstándarUniversal:Procedimiento-Mantenimiento-ATA-32-00-InspeccionTrenAterrizaje-0001-v1.0-HybridElectric120-GeneracionHumana-AIR-AQUA-MNT-c3d4e5f6-Mantenimiento-Retiro"
+Resultado: "EstándarUniversal:[Procedimiento][Mantenimiento][ATA][32-00][InspeccionTrenAterrizaje][0001][v1.0][HybridElectric120][GeneracionHumana][AIR][AQUA-MNT][c3d4e5f6][Mantenimiento-Retiro]"
 ```
 
 ## §10.2 — Guías por Rol
@@ -770,7 +791,7 @@ evidencia_certificacion:
   regulacion: "CS25" o "FAR25"
   categoria: "EvidenciaCumplimientoSistemaX"
   identificador: "AQUA-CERT"
-  periodo: "Validacion" # Solo válido en validación
+  periodo: "[Validacion]" # Solo válido en validación
 ```
 
 ### §10.2.4 — Para Contribuyentes Open Source
@@ -781,7 +802,7 @@ evidencia_certificacion:
 contribucion_individual:
   identificador_fisico:
     opcion_1: "IND-TuNombre" # Si quieres reconocimiento
-    opcion_2: "IND-a1b2c3d4" # Si prefieres anonimato
+    opcion_2: "IND-hash" # Si prefieres anonimato
   
 contribucion_ia_asistida:
   metodo: "GeneracionHybrida"
@@ -853,40 +874,57 @@ print(f"Hash UTCS: {hash_utcs}")
 
 ```javascript
 function validarUTCS(identificador) {
-    // Verificar estructura básica
-    if (!identificador.startsWith("EstándarUniversal:")) {
+    // 1. Verificar prefijo
+    if (!identificador.startsWith("EstándarUniversal:[")) {
         return false;
     }
     
-    // Contar campos
-    const campos = identificador.substring(18).split("-");
-    if (campos.length !== 13) {
+    // 2. Remover prefijo y el corchete inicial del primer campo, y el corchete final
+    let contenido = identificador.substring("EstándarUniversal:[".length, identificador.length - 1);
+    
+    // 3. Dividir por '][' para obtener los campos
+    const campos = contenido.split('][');
+    
+    // 4. Contar campos: debe ser 13, 14 o 15
+    if (campos.length < 13 || campos.length > 15) {
         return false;
     }
     
-    // Verificar no acrónimos
-    const acronimosProhibidos = ['BWB', 'HE', 'UAV', 'VTOL'];
-    for (let acronimo of acronimosProhibidos) {
-        if (identificador.includes(acronimo)) {
-            console.error(`Acrónimo prohibido: ${acronimo}`);
+    // 5. Validaciones específicas de formato (Versión, Hash)
+    // Asumiendo que campos[6] es la versión y campos[11] es el hash
+    if (!campos[6].startsWith("v")) { // Versión
+        return false;
+    }
+    if (campos[11].length !== 8) { // Hash
+        return false;
+    }
+    
+    // 6. Validar que no haya acrónimos prohibidos en ningún campo
+    const acronimosProhibidos = [
+        'BWB', 'HE', 'Q100', 'Q250', 'UAV', 'VTOL', 'HALE', 'HAPS', 'QKD', 'AI', 'MRO', 
+        'POC', 'MVP', 'API', 'CEO', 'CTO', 'CFO'
+    ];
+    for (let i = 0; i < campos.length; i++) {
+        const valorCampo = campos[i];
+        if (acronimosProhibidos.some(acr => valorCampo.includes(acr))) {
             return false;
         }
     }
     
-    return true;
+    return true; // Sintaxis básica OK. La validación semántica (catálogos, entrelazamiento) iría después.
 }
 ```
 
 ### §10.4.3 — Plantilla Excel
 
-| A | B | C | D | E | F | G | H | I | J | K | L | M |
-|:--|:--|:--|:--|:--|:--|:--|:--|:--|:--|:--|:--|:--|
-| Clase | Fase | Regulación | Capítulo | Categoría | Secuencia | Versión | Programa | Método | Dominio | ID Físico | Hash | Periodo |
-| [Dropdown] | [Dropdown] | [Dropdown] | [Validado] | [CamelCase] | [Auto] | vX.Y | [Dropdown] | [Dropdown] | [Dropdown] | [Texto] | [8 car] | [Selector] |
+| A | B | C | D | E | F | G | H | I | J | K | L | M | N | O |
+|:--|:--|:--|:--|:--|:--|:--|:--|:--|:--|:--|:--|:--|:--|:--|
+| Clase | Fase | Regulación | Capítulo | Categoría | Secuencia | Versión | Programa | Método | Dominio | ID Físico | Hash | Periodo | (Opc.) Variante | (Opc.) Instancia |
+| [Dropdown] | [Dropdown] | [Dropdown] | [Validado] | [CamelCase] | [Auto] | vX.Y | [Dropdown] | [Dropdown] | [Dropdown] | [Texto] | [8 car] | [Selector] | [Texto] | [Texto] |
 
-**Fórmula para celda N1 (Identificador Completo):**
+**Fórmula para celda P1 (Identificador Completo):**
 ```excel
-="EstándarUniversal:"&A2&"-"&B2&"-"&C2&"-"&D2&"-"&E2&"-"&F2&"-"&G2&"-"&H2&"-"&I2&"-"&J2&"-"&K2&"-"&L2&"-"&M2
+="EstándarUniversal:["&A2&"]["&B2&"]["&C2&"]["&D2&"]["&E2&"]["&F2&"]["&G2&"]["&H2&"]["&I2&"]["&J2&"]["&K2&"]["&L2&"]["&M2&"]"&SI(N2<>"","["&N2&"]","")&SI(O2<>"","["&O2&"]","")
 ```
 
 ---
@@ -914,7 +952,7 @@ campos:
   12_hash: "b2c3d4e5"
   13_periodo: "Concepto-DiseñoPreliminar"
 
-identificador_completo: "EstándarUniversal:Requisito-Concepto-CS25-25.1309-AutonomiaMinimaCuatroMilKilometros-0042-v1.0-BlendedWingBodyQuantum100-GeneracionHumana-AIR-AQUA-REQ-b2c3d4e5-Concepto-DiseñoPreliminar"
+identificador_completo: "EstándarUniversal:[Requisito][Concepto][CS25][25.1309][AutonomiaMinimaCuatroMilKilometros][0042][v1.0][BlendedWingBodyQuantum100][GeneracionHumana][AIR][AQUA-REQ][b2c3d4e5][Concepto-DiseñoPreliminar]"
 ```
 
 ## §11.2 — Ejemplo: Código Cuántico
@@ -937,7 +975,7 @@ campos:
   12_hash: "f5g6h7i8"
   13_periodo: "Implementacion-RestoDeVidaUtil"
 
-identificador_completo: "EstándarUniversal:CodigoCuantico-Implementacion-CQEA-18.03-AlgoritmoQAOAOptimizacionRutas-0234-v2.3-PlatformDigitalIntelligence-GeneracionHybrida-CROSS-AI-Claude-x7y8-f5g6h7i8-Implementacion-RestoDeVidaUtil"
+identificador_completo: "EstándarUniversal:[CodigoCuantico][Implementacion][CQEA][18.03][AlgoritmoQAOAOptimizacionRutas][0234][v2.3][PlatformDigitalIntelligence][GeneracionHybrida][CROSS][AI-Claude-x7y8][f5g6h7i8][Implementacion-RestoDeVidaUtil]"
 ```
 
 ## §11.3 — Ejemplo: Certificado de Validación
@@ -960,7 +998,7 @@ campos:
   12_hash: "j9k0l1m2"
   13_periodo: "Validacion"
 
-identificador_completo: "EstándarUniversal:Certificado-Validacion-DO178C-6.4.3-CumplimientoNivelASoftwareControl-0567-v1.0-HybridElectric120-GeneracionHumana-AIR-AQUA-CERT-j9k0l1m2-Validacion"
+identificador_completo: "EstándarUniversal:[Certificado][Validacion][DO178C][6.4.3][CumplimientoNivelASoftwareControl][0567][v1.0][HybridElectric120][GeneracionHumana][AIR][AQUA-CERT][j9k0l1m2][Validacion]"
 ```
 
 ---
@@ -973,7 +1011,7 @@ identificador_completo: "EstándarUniversal:Certificado-Validacion-DO178C-6.4.3-
 ### Endpoints Principales
 
 ```yaml
-base_url: "https://api.aqua.systems/utcs/v5"
+base_url: "https://api.aqua.systems/utcs/v5.1"
 
 endpoints:
   validacion:
@@ -997,7 +1035,7 @@ endpoints:
 ### Ejemplo de Llamada
 
 ```bash
-curl -X POST https://api.aqua.systems/utcs/v5/generar \
+curl -X POST https://api.aqua.systems/utcs/v5.1/generar \
   -H "Content-Type: application/json" \
   -d '{
     "clase": "Requisito",
@@ -1010,8 +1048,7 @@ curl -X POST https://api.aqua.systems/utcs/v5/generar \
     "dominio": "AIR",
     "identificador_fisico": "IND-Maria",
     "periodo": "Concepto-DiseñoPreliminar"
-  }'
-```
+  }'```
 
 ## §12.2 — SDK Python
 
@@ -1090,10 +1127,11 @@ graph LR
 ## Anexo C — Checklist de Validación
 
 - [ ] ¿El identificador empieza con "EstándarUniversal:"?
-- [ ] ¿Tiene exactamente 13 campos separados por guiones?
+- [ ] ¿Tiene entre 13 y 15 campos?
 - [ ] ¿La versión empieza con "v"?
 - [ ] ¿El hash tiene exactamente 8 caracteres?
-- [ ] ¿NO contiene acrónimos prohibidos?
+- [ ] ¿NO contiene acrónimos prohibidos en los valores de los campos?
+- [ ] ¿TODOS los campos (obligatorios y opcionales) están encerrados en corchetes `[]`?
 - [ ] ¿La clase es válida según catálogo?
 - [ ] ¿La fase es válida según catálogo?
 - [ ] ¿El programa existe en el portfolio?
@@ -1105,7 +1143,7 @@ graph LR
 
 ---
 
-**FIN DEL DOCUMENTO UTCS-MI v5.0 DEFINITIVO**
+**FIN DEL DOCUMENTO UTCS-MI v5.1 DEFINITIVO**
 
 **Documento de Autogénesis del Ecosistema AQUA**
 
@@ -1115,7 +1153,7 @@ _Con este documento, todo cobra existencia._
 
 ---
 
-_Versión_: **5.0-definitiva**  
+_Versión_: **5.1-definitiva**  
 _Estado_: **NORMATIVO**  
 _Hash Madre_: **a0b1c2d3**  
 _Entrada en vigor_: **2025-09-01**  
