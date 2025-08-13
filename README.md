@@ -584,6 +584,35 @@ graph LR
 ### **1.7 Stage 7: RETURN - Data-Driven Next-Gen Design**
 *Axioms Embodied*: Return (II), AQUA Pattern (Return).
 
+```mermaid
+%%{init: {'themeVariables': {
+  'fontFamily': 'Inter, Arial, sans-serif',
+  'fontSize': '16px',
+  'textColor': '#15191d'
+}} }%%
+flowchart LR
+    %% Ciclo de Vida AQUA Pattern + extensiones
+
+    A(@@IMAGINE@@<br>Concepto Quantum-Secure<br><small>CQEA Planning</small>):::a1
+    B(@@DIGITIZE@@<br>Simulación Multi-Física<br><small>+DeMOS Twins</small>):::a2
+    C(@@PHYSICALIZE@@<br>Prototipo Manufactura<br><small>+RoBoT Assembly</small>):::a3
+    D(@@EMBED@@<br>IoT Sensor Integration<br><small>+WEE Capture</small>):::a4
+    E(@@EXTEND@@<br>Mantenimiento Red<br><small>+AMOReS Compliance</small>):::a5
+    F(@@ENTANGLE@@<br>Integración ATC Quantum<br><small>+Quantum Extensions</small>):::a6
+    G(@@RETURN@@<br>Data-Driven NextGen Design<br><small>+WEE Wisdom</small>):::a7
+
+    A --> B --> C --> D --> E --> F --> G --> A
+
+    %% Colores de etapas
+    classDef a1 fill:#fef6ed,stroke:#EA580C,color:#222;
+    classDef a2 fill:#e1f5fe,stroke:#0ea5e9,color:#222;
+    classDef a3 fill:#ede9fe,stroke:#7c3aed,color:#222;
+    classDef a4 fill:#fef2f2,stroke:#dc2626,color:#222;
+    classDef a5 fill:#ecfdf5,stroke:#059669,color:#222;
+    classDef a6 fill:#f3e8ff,stroke:#a21caf,color:#222;
+    classDef a7 fill:#f1f5f9,stroke:#475569,color:#222;
+```
+
 **Description**: Cycle completes as operational data flows back to AMPEL360. Every lesson learned becomes next generation's foundation, every failure prevented, every success amplified.
 
 **NEW EXTENSION - WEE Wisdom Extraction:**
@@ -610,6 +639,59 @@ graph LR
 | **ENTANGLE** | ATC Optimization | Per-ANSP / Subscription | €12M | +Quantum entanglement | `EstándarUniversal:[CodigoCuantico][Implementacion][IEEE][2030.5][ATCQuantum][0098][v1.0][GaiaQuantumKeyDistribution][GeneracionHybrida][SPACE][AI-Claude-q13][m5n6o7p8][Implementacion-Integracion]` |
 | **RETURN** | Data Analytics | Subscription / Project | €3M | +WEE wisdom extraction | `EstándarUniversal:[Codigo][Operaciones][ISO9001][7.1.6][WisdomExtraction][0046][v2.0][InfraestructuraCompartida][GeneracionHybrida][CROSS][AI-GPT4-x10][q9r0s1t2][Operaciones-RestoDeVidaUtil]` |
 | **TOTAL** | **Unified AQUA Platform** | **Recurring + Project** | **€32.5M+ (per segment)** | **+40% via extensions** |
+
+```mermaid
+%%{init: {'themeVariables': {
+  'fontFamily': 'Inter, Arial, sans-serif',
+  'fontSize': '16px',
+  'fontWeight': 'bold',
+  'textColor': '#15191d',
+  'nodeTextColor': '#222',
+  'edgeLabelBackground':'#fff'
+}} }%%
+graph TB
+    %% AQUA OS: 8-Layer Architecture + Extensiones
+
+    subgraph "AQUA OS – 8 Capas + Extensiones"
+      L8["Layer 8:<br/><b>Business Intelligence<br>& Strategic Management</b><br>Analytics • ROI • Strategy • AMOReS Regulatory (Compliance, Ethics)<br><i>AMOReS</i>"]:::governance
+      L7["Layer 7:<br/><b>Digital-Industrial Operations</b><br>Manufacturing • MRO • Supply Chain<br><i>WEE Learning Integration</i>"]:::operations
+      L6["Layer 6:<br/><b>Digital Twin & Simulation</b><br>Multi-physics Models • Predictive Analytics<br><i>DeMOS Processing</i>"]:::twin
+      L5["Layer 5:<br/><b>AI/ML & Agent Infrastructure</b><br>Neural Nets • Autonomous Agents<br><i>WEE Pattern Recog.</i>"]:::ai
+      L4["Layer 4:<br/><b>Robotics & Physical Automation</b><br>Control • Precision Actuation"]:::robotics
+      L3["Layer 3:<br/><b>Cyber-Physical Integration</b><br>IoT • Edge • Sensors<br><i>CQEA Extension Points</i>"]:::cyber
+      L2["Layer 2:<br/><b>Aerospace Domain</b><br>Flight • Avionics • Vehicle Control<br><i>CQEA: Foundation</i>"]:::aero
+      L1["Layer 1:<br/><b>Quantum Enhancement Foundation</b><br>QPU • Algorithms • PQC<br><i>CQEA: Quantum Extensions</i>"]:::quantum
+    end
+
+    L8 --> L7 --> L6 --> L5 --> L4 --> L3 --> L2 --> L1
+
+    %% Leyendas/colores
+    classDef governance fill:#99ff99,stroke:#333,stroke-width:3px,color:#15191d;
+    classDef operations fill:#BDFFDB,stroke:#333,stroke-width:2px,color:#15191d;
+    classDef twin fill:#cce6ff,stroke:#333,stroke-width:2px,color:#15191d;
+    classDef ai fill:#b3eeff,stroke:#333,stroke-width:2px,color:#15191d;
+    classDef robotics fill:#f5eafc,stroke:#333,stroke-width:1px,color:#15191d;
+    classDef cyber fill:#ffe9bd,stroke:#333,stroke-width:1px,color:#15191d;
+    classDef aero fill:#fde1c9,stroke:#333,stroke-width:1px,color:#15191d;
+    classDef quantum fill:#ffccff,stroke:#333,stroke-width:3px,color:#15191d;
+
+    %% Destacar las integraciones transversales
+    WEE{{"WEE<br>Wisdom Evolution Engine"}}:::ai
+    AMORES{{"AMOReS<br>Governance"}}:::governance
+    DeMOS{{"DeMOS<br>Dual Metrics & Twins"}}:::twin
+    CQEA{{"CQEA<br>Classical+Quantum"}}:::quantum
+
+    %% Opcional: mostrar cómo las herramientas se cruzan el stack
+    WEE -.-> L5
+    WEE -.-> L7
+    DeMOS -.-> L6
+    DeMOS -.-> L8
+    AMORES -.-> L8
+    AMORES -.-> L5
+    CQEA -.-> L1
+    CQEA -.-> L3
+    CQEA -.-> L2
+```
 
 ---
 
@@ -862,40 +944,50 @@ RoBoT Product Line:
 <div align="center">
 
 ```mermaid
-graph TB
-    subgraph "AQUA PLATFORM ECOSYSTEM + EXTENSIONS"
-        AMPEL["AMPEL360<br/>Design Platform<br/>+CQEA Design<br/>Engine: EstándarUniversal:\[Aplicacion\]\[Produccion\]..."]
-        DIQ["DiQIaaS<br/>Operations Platform<br/>+WEE Learning<br/>Fleet API: EstándarUniversal:\[Interfaz\]\[Produccion\]..."]
-        CAAS["CaaS<br/>Certification Platform<br/>+AMOReS Compliance<br/>Checker: EstándarUniversal:\[Aplicacion\]\[Produccion\]..."]
-        ROBOT["RoBoT<br/>Manufacturing Platform<br/>+DeMOS Metrics<br/>Controller: EstándarUniversal:\[Aplicacion\]\[Produccion\]..."]
-        GAIA["GAIA<br/>Control Platform<br/>+Quantum Coordination<br/>Mission: EstándarUniversal:\[Aplicacion\]\[Produccion\]..."]
-        
-        subgraph "Integration Layer + Extensions"
-            DATA["Unified Data Lake<br/>EstándarUniversal:\[ConjuntoDeDatos\]\[Operaciones\]..."]
-            AI["Central AI/ML<br/>EstándarUniversal:\[Codigo\]\[Operaciones\]..."]
-            QUANTUM["Quantum Processing<br/>EstándarUniversal:\[CodigoCuantico\]\[Implementacion\]..."]
-            SENTIENT["Sentient Models<br/>EstándarUniversal:\[Codigo\]\[Implementacion\]..."]
-            WEE["WEE Learning Engine<br/>EstándarUniversal:\[Codigo\]\[Operaciones\]..."]
-            AMORES["AMOReS Governance<br/>EstándarUniversal:\[Codigo\]\[Validacion\]..."]
-        end
-        
-        AMPEL --> DATA
-        DIQ --> DATA
-        CAAS --> DATA
-        ROBOT --> DATA
-        GAIA --> DATA
-        DATA --> AI
-        DATA --> QUANTUM
-        AI --> SENTIENT
-        QUANTUM --> WEE
-        SENTIENT --> AMORES
+%%{init: {'themeVariables': {
+  'fontFamily': 'Inter, Arial, sans-serif',
+  'fontSize': '15px',
+  'fontWeight': 'bold',
+  'textColor': '#15191d',
+  'nodeTextColor': '#222',
+  'edgeLabelBackground':'#fff'
+}} }%%
+flowchart TB
+    subgraph "Plataformas AQUA + Motores Centrales"
+      AMPEL["AMPEL360<br>Diseño<br><small><i>CQEA Design Engine</i></small>"]:::plat
+      DIQ["DiQIaaS<br>Operaciones<br><small><i>WEE Learning Fleet</i></small>"]:::plat
+      CAAS["CaaS<br>Certificación<br><small><i>AMOReS Compliance</i></small>"]:::plat
+      ROBOT["RoBoT<br>Manufactura<br><small><i>DeMOS Métricas</i></small>"]:::plat
+      GAIA["GAIA<br>Control/Misiones<br><small><i>Quantum Coordination</i></small>"]:::plat
+
+      subgraph "Motores centrales y datos"
+        DATA["Data Lake<br><small><i>Unificado</i></small>"]:::data
+        AI["AI/ML Core"]:::engine
+        QUANT["Quantum Core"]:::engine
+        SENT["Sentient Models"]:::engine
+        WEE["WEE<br>Learning Engine"]:::weem
+        AMORES["AMOReS<br>Governance"]:::amores
+      end
     end
-    
-    style AMPEL fill:#e1f5fe
-    style DIQ fill:#b3e5fc
-    style CAAS fill:#81d4fa
-    style ROBOT fill:#4fc3f7
-    style GAIA fill:#29b6f6
+
+    AMPEL --> DATA
+    DIQ --> DATA
+    CAAS --> DATA
+    ROBOT --> DATA
+    GAIA --> DATA
+
+    DATA --> AI
+    DATA --> QUANT
+    AI --> SENT
+    QUANT --> WEE
+    SENT --> AMORES
+
+    %% Clases para colores
+    classDef plat fill:#e8fbf7,stroke:#0891b2,stroke-width:2px,color:#15191d;
+    classDef data fill:#e0e6fb,stroke:#5145CD,stroke-width:2px,color:#222;
+    classDef engine fill:#fff7eb,stroke:#d97706,stroke-width:2px,color:#15191d;
+    classDef weem fill:#fffaeb,stroke:#92400e,stroke-width:2px,color:#15191d;
+    classDef amores fill:#f6fee3,stroke:#7cb342,stroke-width:2px,color:#15191d;
 ```
 
 </div>
