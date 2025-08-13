@@ -1,712 +1,1130 @@
-# **Especificación Técnica UTCS-MI v4.0 — Completa**
+# **Especificación Técnica UTCS-MI v5.0 — Estándar Definitivo**
 **Estándar Universal de Contenido Técnico - Interfaz Humano-Máquina**  
-**Documento normativo con anclajes canónicos (`§x.y.z`) y estructura ISO/IEC.**
-
-_Generado_: 2025-08-12T00:00:00Z  
-_Versión_: **4.0**  
-_Estado_: **NORMATIVO**
+**Protocolo de Génesis para Aplicaciones Clásicas Quantum-Extensibles**
 
 ---
 
-**Front matter (no numerado)**
+## **Identificador UTCS del Documento (Autogénesis)**
 
-## Prefacio
+```yaml
+EstándarUniversal:Especificacion-Autogenesis-UTCS-MI-00.00-EstandarTecnico-0001-v5.0-EstandarTransversal-GeneracionHumana-CROSS-AQUA-CORE-a0b1c2d3-RestoDeVidaUtil
+```
 
-El **Estándar Universal de Contenido Técnico - Interfaz Humano-Máquina (UTCS-MI) v4.0** forma parte integral del ecosistema AQUA OS y su arquitectura de Aplicaciones Clásicas Quantum-Extensibles (CQEA). Este estándar habilita la interoperabilidad semántica y la gobernanza completa de todos los artefactos técnicos y contractuales.
+**Este documento ES la autogénesis del ecosistema AQUA - el hash madre de todo lo generable**
 
-La extensión **Work Order & Contract Envelope (WOCE)** convierte cada identificador en un contrato ejecutable, revolucionando la industria mediante micro-contratos automatizados, validación determinista de calidad y gestión del ciclo de vida contractual.
+---
 
-## Introducción
+**Documento normativo con anclajes canónicos (`§x.y.z`) y estructura ISO/IEC.**
 
-La proliferación de sistemas complejos en aplicaciones aeroespaciales modernas, junto con la llegada de la IA generativa, requiere un marco unificado para la identificación, **procedencia**, trazabilidad y consumo automatizado de contenidos técnicos. **UTCS-MI v4.0** establece este marco mediante identificadores **semánticamente ricos y legibles por humanos** que son compatibles tanto con sistemas tradicionales como con arquitecturas emergentes basadas en inteligencia artificial.
+_Generado_: 2025-08-14T00:00:00Z  
+_Versión_: **5.0-definitiva**  
+_Estado_: **NORMATIVO**  
+_Naturaleza_: **AUTOGÉNESIS - El origen de todo artefacto en AQUA**
 
-La innovación disruptiva de WOCE permite que cada identificador funcione como un contrato ejecutable con validación automática, pagos condicionados a evidencias verificables, y trazabilidad completa desde requisito hasta entrega.
+---
 
-## Avisos de conformidad y propiedad intelectual
+## **Definición Canónica Fundamental**
 
-Este documento está bajo licencia AQUA OS Open Source License v2.0. Las implementaciones conformes **deben** declarar explícitamente su adhesión a esta estándar **versión 4.0** y mantener la trazabilidad de conformidad según se especifica en §14.
+**UTCS-MI es una cadena de envolventes entendidos como conjunto de atributos admitidos en categorías o campos que se encuentran en estado de superposiciones entrelazadas y cuyo colapso es condicionado por ingeniería de instrucción.**
+
+Esta definición establece que:
+- Cada identificador existe inicialmente como un espacio de posibilidades
+- Los campos mantienen relaciones de entrelazamiento
+- El proceso de generación representa un colapso guiado
+- La ingeniería de instrucción determina el resultado final
+
+**UTCS-MI es el protocolo de génesis que da origen, estructura y gobierna cada instancia de una Classical Quantum-Extensible Application (CQEA).**
+
+---
+
+## **Prefacio**
+
+El **Estándar Universal de Contenido Técnico - Interfaz Humano-Máquina (UTCS-MI) v5.0** representa el documento de **autogénesis** del ecosistema AQUA OS. Este documento no solo define un estándar; **ES** el acto primordial de creación del cual deriva todo lo demás.
+
+Como artefacto de autogénesis:
+- Es el único documento con fase "Autogenesis"
+- Define el protocolo por el cual él mismo existe
+- Establece las reglas para la génesis de todos los demás artefactos
+- Es el hash madre del ecosistema AQUA
+
+Principios fundamentales:
+- **Cero acronimización**: Legibilidad humana absoluta
+- **Envolventes entrelazadas**: Coherencia garantizada
+- **Protocolo de génesis**: Todo artefacto nace, no se etiqueta
+- **Open source**: Acepta contribuciones de cualquier fuente válida
+
+---
+
+## **Introducción**
+
+La proliferación de sistemas complejos en aplicaciones aeroespaciales modernas, junto con la madurez alcanzada por los sistemas de IA generativa, requiere un marco unificado para la identificación, procedencia, trazabilidad y consumo automatizado de contenidos técnicos.
+
+**UTCS-MI v5.0** no es simplemente un sistema de identificación. Es el **protocolo de génesis** que:
+- **Da origen** a cada artefacto con identidad única
+- **Codifica** el ADN digital inmutable
+- **Habilita** la extensibilidad cuántica
+- **Garantiza** la gobernanza desde el nacimiento
+
+---
+
+<a id='sec-0'></a>
+# **§0 — Modelo Conceptual de Envolventes Entrelazadas**
+
+## §0.1 — Definición de Envolvente
+
+Una **envolvente** es una capa semántica que encapsula un conjunto de atributos posibles para un aspecto específico del artefacto. Cada envolvente:
+- Contiene un catálogo de valores admitidos
+- Mantiene relaciones de coherencia con otras envolventes
+- Puede estar en superposición hasta su observación/definición
+- Actúa como un gen en el ADN digital del artefacto
+
+## §0.2 — Las 13 Envolventes Definitivas
+
+```yaml
+estructura_envolventes:
+  posicion_1:
+    nombre: "Clase de Artefacto"
+    descripcion: "Naturaleza semántica del artefacto"
+    valores: [Requisito, Especificacion, Procedimiento, Plan, Analisis, 
+             Resultado, ModeloVisual, Codigo, CodigoCuantico, ConjuntoDeDatos,
+             OrdenDeTrabajo, Contrato, Plantilla, Informe, Configuracion,
+             Interfaz, Registro, Certificado, Leccion, Aplicacion]
+    
+  posicion_2:
+    nombre: "Fase de Origen"
+    descripcion: "Fase del ciclo de vida donde se origina"
+    valores: [Autogenesis, Concepto, DiseñoPreliminar, DiseñoDetallado,
+             Implementacion, Integracion, Produccion, Verificacion,
+             Validacion, Operaciones, Mantenimiento, Retrofit,
+             Sostenibilidad, Retiro, RestoDeVidaUtil]
+    
+  posicion_3:
+    nombre: "Regulación de Referencia"
+    descripcion: "Normativa o estándar base"
+    valores: [ATA, CS25, FAR25, CS23, FAR23, DO178C, DO254, DO326A, DO356A,
+             S1000D, ASD2000M, ISO9001, ISO27001, ISO26262, ISO31000, AS9100,
+             MILSTD810, MILSTD461, MILSTD1553, STANAG, UTCS-MI, AQUA, CQEA,
+             AMORES, WEE, ARP4754, ARP4761, API, IEEE, RTCA]
+    
+  posicion_4:
+    nombre: "Capítulo-Sección"
+    descripcion: "Ubicación específica en la regulación"
+    formato: "Variable según regulación"
+    
+  posicion_5:
+    nombre: "Categoría Descriptiva"
+    descripcion: "Descripción funcional específica"
+    formato: "CamelCase sin espacios ni acrónimos"
+    
+  posicion_6:
+    nombre: "Secuencia de Unicidad"
+    descripcion: "Identificador único secuencial"
+    formato: "NNNN (0001-9999)"
+    
+  posicion_7:
+    nombre: "Versión de Evolución"
+    descripcion: "Versión evolutiva del artefacto"
+    formato: "vX.Y"
+    
+  posicion_8:
+    nombre: "Programa del Portfolio"
+    descripcion: "Producto específico o estándar transversal"
+    valores: [Ver catálogo completo en §7]
+    
+  posicion_9:
+    nombre: "Método de Generación"
+    descripcion: "Método de creación del artefacto"
+    valores: [GeneracionHumana, GeneracionHybrida, GeneracionAuto]
+    
+  posicion_10:
+    nombre: "Dominio de Aplicación"
+    descripcion: "Dominio operacional principal"
+    valores: [AIR, SPACE, DEFENSE, GROUND, CROSS]
+    
+  posicion_11:
+    nombre: "Identificador Físico"
+    descripcion: "Identificador del contribuyente (open source)"
+    formato: "Variable según tipo de contribuyente"
+    
+  posicion_12:
+    nombre: "Hash del Contenido"
+    descripcion: "Hash SHA256 truncado del contenido"
+    formato: "8 caracteres hexadecimales"
+    
+  posicion_13:
+    nombre: "Periodo de Validez"
+    descripcion: "Rango de fases donde aplica"
+    formato: "FaseInicio-FaseFin o RestoDeVidaUtil"
+```
+
+## §0.3 — Matriz de Entrelazamiento
+
+```yaml
+entrelazamientos_principales:
+  Autogenesis:
+    restriccion: "Solo permitido para este documento"
+    implica:
+      - Clase: "Especificacion"
+      - Regulacion: "UTCS-MI"
+      - Capitulo: "00.00"
+      - Periodo: "RestoDeVidaUtil"
+  
+  CodigoCuantico:
+    fases_permitidas: [Implementacion, Integracion]
+    metodos_prohibidos: [GeneracionHumana]
+    nota: "Demasiado complejo para generación puramente humana"
+  
+  GeneracionAuto:
+    clases_tipicas: [ConjuntoDeDatos, Resultado, Informe, Registro]
+    clases_prohibidas: [OrdenDeTrabajo, Contrato]
+    nota: "Contratos requieren intervención humana"
+```
 
 ---
 
 <a id='sec-1'></a>
-# §1 — Alcance
+# **§1 — Alcance**
 
-<a id='sec-1.1'></a>
 ## §1.1 — Objetivo
 
-1.1.1 El **Estándar Universal de Contenido Técnico** **establecerá** el marco normativo para la identificación inequívoca, **gobernanza de la procedencia**, trazabilidad y consumo determinista por máquinas y humanos de contenidos técnicos dentro del ecosistema AQUA. Esto incluye su uso como un encabezado de prompt estandarizado (UPE) para modelos generativos (véase §9).
+El **Estándar Universal de Contenido Técnico v5.0** establece:
 
-1.1.2 El estándar **definirá** la estructura y la semántica del identificador **UTCS-MI v4.0** (véase §6), los catálogos controlados asociados (véase §7), y las reglas de validación. Este marco **asegurará** la interoperabilidad con sistemas de gestión de la trazabilidad de requisitos (`RTM`), documentos de interfaz de control, módulos de datos `S1000D`, plataformas de contenido como servicio (`CaaS`), y sistemas de gestión de activos y operaciones (`AMOReS`) (véase §10).
+1. El protocolo de génesis fundamental para el ecosistema AQUA
+2. La estructura del identificador UTCS-MI de 13 campos
+3. Los catálogos controlados sin acronimización
+4. El proceso de génesis mediante colapso de envolventes
+5. La integración con arquitectura CQEA
+6. Los mecanismos de trazabilidad al hash madre
 
-1.1.3 *[Sin cambios en esta sección]*
+## §1.2 — Aplicabilidad
 
-1.1.4 *[Sin cambios en esta sección]*
+### En el alcance:
+- Autogénesis del sistema (este documento)
+- Protocolo de génesis de artefactos
+- Identificación sin códigos ni acrónimos
+- Arquitectura CQEA
+- Filosofía open source
 
-<a id='sec-1.2'></a>
-## §1.2 — Aplicabilidad y exclusiones
-
-### 1.2.1 En el alcance (`shall`):
-
-- **Identificación de entidades técnicas**: **Clasificación semántica** de Requisitos, Especificaciones, Planes, Procedimientos, Resultados, Modelos, Código, Datos, Plantillas y Contratos (véase §7.1).
-- **Contratos ejecutables**: Órdenes de trabajo y contratos marco con validación automática (véase §20).
-- **Modelado de ciclo de vida completo**: Definición de la **Fase de Origen**, **Fase Canónica de liberación**, y **Fecha de Validez** de un artefacto. Se establece el principio de **Autoridad vs. Aplicabilidad** para gestionar la validez multifásica en los metadatos.
-- **Clasificación funcional explícita**: Mediante el uso de un **Sistema de Referencia** (ej: `ATA100`, `CS25`) y un **Capítulo** o sección dentro de ese estándar (véase §7.3).
-- **Trazabilidad de producto y dominio**: Vinculación explícita a un **Producto o Entidad** "dueño" y a un **Dominio de Aplicación** primario. La aplicabilidad múltiple se gestiona en los metadatos.
-- **Gobernanza de la procedencia**: Identificación del **Método de Generación** (`Convencional`, `Automático`, `Híbrido`, `Derivado`) directamente en el identificador (véase §7.7).
-- **Consumo por IA y sistemas**: Definición del uso de Encabezados de Prompt Universal (`UPE`) que aprovechan el identificador enriquecido y una librería de **Plantillas** direccionables (véase §9).
-
-### 1.2.2 Fuera de alcance (`shall not`):
-
-- Definir el contenido técnico interno de los sistemas.
-- Sustituir los sistemas de numeración como `ATA100` o `CS25`; el **Estándar** **actuará** como una metacapa que **los referencia explícitamente**.
-- *[Resto de la sección sin cambios]*
-
-### 1.2.3 Condiciones de conformidad (resumen):
-
-Las implementaciones que declaren conformidad con este estándar **deberán** producir identificadores **UTCS-MI v4.0** que sean válidos según las especificaciones de §6 y §8. Asimismo, **deberán** respetar todas las reglas de negocio, incluyendo la gestión de metadatos de aplicabilidad múltiple (véase §13.5).
-
-<a id='sec-1.3'></a>
-## §1.3 — Público objetivo
-
-1.3.1 Los **productores de identificadores** (incluyendo equipos de ingeniería, **IA generativas** y documentación) **deberán** generar identificadores **v4.0** válidos y completos de acuerdo con los requisitos especificados en §6–§8.
-
-1.3.2 Los **consumidores** (incluyendo parsers, sistemas `RTM`, `CaaS`, `AMOReS`, `LLM`/servicios de inferencia) **deberán** implementar la validación canónica de los identificadores **v4.0**, resolver las referencias de sistema, y aplicar las reglas de negocio sobre procedencia y ciclo de vida.
-
-1.3.3 Las **autoridades de gobernanza** (incluyendo el comité `AMOReS`) **utilizarán** el **Estándar** para la gestión de baselines, la asignación de `DAL` **basada en el Método de Generación**, y la auditoría de validez temporal.
-
-1.3.4 *[Sin cambios en esta sección]*
-
-<a id='sec-1.4'></a>
-## §1.4 — Límites y supuestos del estándar
-
-1.4.1 **Convenciones**: El idioma base para los valores de los catálogos en los identificadores **será** el español. Las unidades **seguirán** el Sistema Internacional (`SI`), las fechas **se conformarán** al formato `ISO-8601 UTC`, y el identificador **deberá** ser tratado como `case-insensitive` (insensible a mayúsculas/minúsculas) por los parsers, aunque su representación canónica sea en `CamelCase` para legibilidad.
-
-1.4.2 **Unicidad**: La unicidad de un identificador **se regirá** por la clave compuesta formada por **todos sus campos**, según lo definido en §6.3.
-
-1.4.3 **Compatibilidad**: El **Estándar v4.0** es una **versión mayor con cambios de ruptura** respecto a la v1.0. Las estrategias de migración se rigen por §11.
-
-1.4.4 **Seguridad y privacidad**: El identificador, al ser más descriptivo, **deberá** ser tratado como información sensible. Las políticas de acceso **deberán** controlar la visibilidad de los artefactos basándose en la información contenida en su identificador (ej: `ProductoOEntidad`, `DominioDeAplicación`).
-
-<a id='sec-2'></a>
-# §2 — Referencias normativas
-*[Esta sección se mantiene en gran parte, pero se actualiza la referencia a este propio documento.]*
-
-2.2.1 En caso de conflicto entre estándares referenciados, **se aplicará** la siguiente jerarquía de prioridad:
-1. **UTCS-MI v4.0** (este documento) - Autoridad máxima
-2. *[Resto sin cambios]*
-
-<a id='sec-3'></a>
-# §3 — Términos y definiciones
-*[Esta sección se actualizará significativamente para reflejar los nuevos conceptos.]*
-
-<a id='sec-3.1'></a>
-## §3.1 — Términos generales
-
-**Clase de Artefacto**: La naturaleza semántica de una entidad (ej: `Especificación`, `Procedimiento`).
-**Fase de Origen**: La fase del ciclo de vida en la que una entidad fue creada o concebida.
-**Fase Canónica**: La fase del ciclo de vida en la que una `Generación` específica de una entidad es formalmente aprobada y liberada.
-**Fecha de Validez**: La fecha de expiración de la validez de una `Generación` de una entidad.
-**Método de Generación**: El proceso principal utilizado para crear el contenido de una entidad (ej: `Convencional`, `Automático`).
-**Producto o Entidad**: La línea de producto o entidad organizacional que tiene la autoridad de diseño sobre una entidad.
-**Sistema de Referencia**: Un estándar externo publicado (ej: `ATA100`, `CS25`) utilizado como base para la clasificación funcional.
-**Aplicabilidad Múltiple (Multi-efectividad)**: La propiedad de un artefacto de ser válido y aplicable a más de un producto, dominio o fase de ciclo de vida. Se gestiona en los metadatos.
-**Plantilla (`TPLT`)**: Un artefacto que contiene una **Instrucción de Sistema** (para la IA) y una **Guía de Usuario** para generar nuevos artefactos de forma consistente.
-
-<a id='sec-3.3'></a>
-## §3.3 — Glosario UTCS específico
-
-**Identificador canónico**: Un identificador **UTCS-MI v4.0** válido según las reglas de §6-§8.
-**Estado de madurez**: Nivel de desarrollo de una entidad expresado mediante `EstadoDeVersión` (`Mapeo`, `Generación001`, etc.).
-**Coherencia inter-campos**: Validez de las relaciones semánticas entre campos (ej: `SistemaDeReferencia` ↔ `Capítulo` ↔ `Categoría`).
-
-<a id='sec-4'></a>
-# §4 — Símbolos y abreviaturas
-*[Esta sección se mantiene para abreviaturas de contexto, pero se enfatiza que los identificadores ya no las usan.]*
-
-<a id='sec-5'></a>
-# §5 — Conformidad
-*[Esta sección se actualiza para reflejar los nuevos requisitos de la v4.0.]*
-
-<a id='sec-5.1'></a>
-## §5.1 — Criterios de conformidad del productor de identificadores
-
-5.1.1 Un **productor conforme** **deberá**:
-a) Generar identificadores UTCS-MI **v4.0** que cumplan la sintaxis de §6.1.1.
-b) Respetar la semántica de los **13 campos obligatorios** definida en §6.2.
-c) Utilizar exclusivamente valores de los **catálogos controlados expandidos** (§7).
-d) Aplicar las reglas de coherencia (ej: `SistemaDeReferencia` ↔ `Capítulo`).
-e) **Poblar los metadatos asociados** para la aplicabilidad múltiple cuando corresponda (§13.5).
-f) Asignar correctamente el **`MétodoDeGeneración`** según la procedencia del contenido.
-
-<a id='sec-5.2'></a>
-## §5.2 — Criterios de conformidad del consumidor (parsers, LLMs)
-
-5.2.1 Un **consumidor conforme** **deberá**:
-a) Validar identificadores UTCS-MI **v4.0** según las reglas de §8.
-b) **Interpretar correctamente la semántica completa**, incluyendo la distinción entre `FaseDeOrigen` y `FaseCanónica`, y la `FechaDeValidez`.
-c) **Consultar los metadatos de aplicabilidad múltiple** para determinar el contexto de uso de un artefacto.
+### Fuera del alcance:
+- Contenido interno de los artefactos
+- Algoritmos específicos de IA
+- Implementación de sistemas cuánticos
 
 ---
 
-### **Revisión del Estándar Publicado (Paso 2 de 3)**
+<a id='sec-2'></a>
+# **§2 — Referencias Normativas**
 
-A continuación, se presentan las secciones §6, §7 y §8, completamente reescritas para el estándar **UTCS-MI v4.0**.
+Las siguientes referencias son indispensables para la aplicación de este documento:
+
+**Aeronáuticas:**
+- ATA 100 - Specification for Manufacturers Technical Data
+- EASA CS-25 - Certification Specifications for Large Aeroplanes
+- FAA FAR Part 25 - Airworthiness Standards
+
+**Software/Hardware:**
+- RTCA DO-178C - Software Considerations in Airborne Systems
+- RTCA DO-254 - Design Assurance Guidance for Airborne Electronic Hardware
+- RTCA DO-326A - Airworthiness Security Process
+- RTCA DO-356A - Cybersecurity Methods
+
+**Gestión:**
+- ISO 9001:2015 - Quality management systems
+- ISO/IEC 27001:2022 - Information security management
+- ISO 31000:2018 - Risk management
+
+**Documentos AQUA (derivados de este):**
+- CQEA Architecture Specification
+- AMOReS Governance Framework
+- WEE Learning Protocol
+
+---
+
+<a id='sec-3'></a>
+# **§3 — Términos y Definiciones**
+
+**Autogénesis**: El acto único e irrepetible de auto-creación del sistema UTCS-MI, representado exclusivamente por este documento.
+
+**Hash Madre**: El identificador del documento de autogénesis del cual deriva la existencia de todos los demás artefactos.
+
+**Artefacto**: Cualquier entidad técnica identificable mediante UTCS-MI.
+
+**Envolvente**: Capa semántica que encapsula atributos posibles.
+
+**Génesis**: Proceso mediante el cual un artefacto cobra existencia.
+
+**Colapso**: Proceso de reducir una envolvente en superposición a un valor único.
+
+**CQEA**: Classical Quantum-Extensible Application.
+
+**Identificador Físico**: Identificador único del contribuyente en sistema open source.
+
+**RestoDeVidaUtil**: Indicador de aplicabilidad perpetua desde creación.
+
+---
+
+<a id='sec-4'></a>
+# **§4 — Símbolos y Abreviaturas**
+
+## §4.1 — Nota Crítica
+
+Este estándar **PROHÍBE** el uso de acrónimos en identificadores. Los símbolos aquí listados son solo para el texto del documento.
+
+## §4.2 — Símbolos
+
+- `§` : Símbolo de sección
+- `:` : Separador después del prefijo
+- `-` : Separador entre campos
+- `.` : Separador en versiones y capítulos
+
+## §4.3 — Convenciones
+
+- **DEBE/SHALL**: Requisito obligatorio
+- **NO DEBE/SHALL NOT**: Prohibición absoluta
+- **DEBERÍA/SHOULD**: Recomendación fuerte
+- **PUEDE/MAY**: Opción permitida
+
+---
+
+<a id='sec-5'></a>
+# **§5 — Conformidad**
+
+## §5.1 — Criterios de Conformidad
+
+Una implementación conforme **DEBE**:
+
+1. Reconocer este documento como autogénesis
+2. Usar exactamente 13 campos obligatorios
+3. Prohibir toda acronimización
+4. Usar solo valores de catálogos definidos
+5. Mantener trazabilidad al hash madre
+6. Validar coherencia por entrelazamiento
+
+## §5.2 — Niveles de Conformidad
+
+**Nivel 1 - Básica**: Genera identificadores sintácticamente correctos
+
+**Nivel 2 - Completa**: Nivel 1 + validación de entrelazamientos
+
+**Nivel 3 - Extendida**: Nivel 2 + APIs + integración CQEA
 
 ---
 
 <a id='sec-6'></a>
-# **§6 — El Identificador del Estándar Universal: Estructura y Semántica v4.0**
+# **§6 — El Identificador como ADN Digital**
 
 ## §6.1 — Formato Canónico
 
-### §6.1.1 — Sintaxis y Estructura
+### Sintaxis:
+```
+EstándarUniversal:<Campo1>-<Campo2>-<Campo3>-<Campo4>-<Campo5>-<Campo6>-<Campo7>-<Campo8>-<Campo9>-<Campo10>-<Campo11>-<Campo12>-<Campo13>
+```
 
-6.1.1.1 El identificador **v4.0** **deberá** seguir la siguiente sintaxis de campos completos, diseñada para la legibilidad humana y el análisis por máquina. La estructura consta de 13 campos obligatorios y 2 opcionales.
+### Estructura de Campos:
 
-**`EstándarUniversal`**:`<ClaseDeArtefacto>`-`<FaseDeOrigen>`-`<SistemaDeReferencia>`-`<Capítulo>`-`<Categoría>`-`<Secuencia>`-`<EstadoDeVersión>`-`<ProductoOEntidad>`-`<MétodoDeGeneración>`-`<DominioDeAplicación>`-`<FaseCanónica>`-`<FechaDeValidez>`[-`<Variante>`[-`<Instancia>`]]
+| Pos | Campo | Descripción | Ejemplo |
+|:----|:------|:------------|:--------|
+| 0 | Prefijo | Siempre "EstándarUniversal:" | EstándarUniversal: |
+| 1 | Clase | Tipo de artefacto | Especificacion |
+| 2 | Fase | Fase de origen | Autogenesis |
+| 3 | Regulación | Estándar base | UTCS-MI |
+| 4 | Capítulo | Sección numérica | 00.00 |
+| 5 | Categoría | Descripción funcional | EstandarTecnico |
+| 6 | Secuencia | Número único | 0001 |
+| 7 | Versión | Versión semántica | v5.0 |
+| 8 | Programa | Producto del portfolio | EstandarTransversal |
+| 9 | Método | Método generación | GeneracionHumana |
+| 10 | Dominio | Dominio operacional | CROSS |
+| 11 | ID Físico | Contribuyente | AQUA-CORE |
+| 12 | Hash | Hash contenido | a0b1c2d3 |
+| 13 | Periodo | Validez temporal | RestoDeVidaUtil |
 
-### §6.1.2 — Separadores y Convenciones de Formato
+## §6.2 — El Identificador de Autogénesis
 
-6.1.2.1 El **prefijo** `EstándarUniversal:` es obligatorio y distingue al identificador.
-6.1.2.2 El **separador** de campos obligatorio es el guion (`-`).
-6.1.2.3 Los **valores de los campos** **deberán** provenir de los catálogos controlados definidos en §7. Para la legibilidad, se recomienda el uso de `CamelCase` en valores de varias palabras (ej: `ControlesFlyByWire`).
-6.1.2.4 Los sistemas consumidores **deberán** tratar los valores de los campos de forma insensible a mayúsculas/minúsculas (`case-insensitive`) para la validación lógica.
+Este documento tiene el ÚNICO identificador con fase "Autogenesis":
 
-## §6.2 — Semántica Detallada de los Campos
+```
+EstándarUniversal:Especificacion-Autogenesis-UTCS-MI-00.00-EstandarTecnico-0001-v5.0-EstandarTransversal-GeneracionHumana-CROSS-AQUA-CORE-a0b1c2d3-RestoDeVidaUtil
+```
 
-### §6.2.1 — `ClaseDeArtefacto`
-*   **Propósito:** Define la naturaleza semántica y el propósito fundamental del artefacto.
-*   **Catálogo:** Véase §7.1.
-
-### §6.2.2 — `FaseDeOrigen`
-*   **Propósito:** Indica la fase del ciclo de vida en la que el artefacto fue concebido o creado formalmente. Para artefactos diseñados para ser válidos en múltiples fases desde su inicio, se utiliza el valor `Perenne`.
-*   **Catálogo:** Véase §7.2.
-
-### §6.2.3 — `SistemaDeReferencia`
-*   **Propósito:** Especifica el estándar externo o interno que se utiliza como base para la clasificación funcional del artefacto.
-*   **Catálogo:** Véase §7.3.
-
-### §6.2.4 — `Capítulo`
-*   **Propósito:** Indica el capítulo, sección o identificador específico dentro del `SistemaDeReferencia`.
-*   **Formato:** Cadena alfanumérica (ej: `27`, `1309`, `A.12`).
-
-### §6.2.5 — `Categoría`
-*   **Propósito:** Proporciona una sub-clasificación descriptiva y legible por humanos dentro del contexto del `Capítulo`.
-*   **Formato:** Cadena `CamelCase` sin espacios.
-
-### §6.2.6 — `Secuencia`
-*   **Propósito:** Un número secuencial de tres dígitos que asegura la unicidad de artefactos similares dentro del mismo contexto.
-*   **Formato:** `001` a `999`.
-
-### §6.2.7 — `EstadoDeVersión`
-*   **Propósito:** Define la madurez y el estado de aprobación formal del artefacto.
-*   **Catálogo:** `Mapeo` (estado inicial, borrador) o `GeneraciónXXX` (versiones aprobadas). Véase §7.4.
-
-### §6.2.8 — `ProductoOEntidad`
-*   **Propósito:** Identifica la línea de producto o la entidad organizacional que tiene la autoridad de diseño ("dueño") sobre el artefacto.
-*   **Catálogo:** Véase §7.5.
-
-### §6.2.9 — `MétodoDeGeneración`
-*   **Propósito:** Especifica la procedencia del contenido del artefacto. Es un campo crítico para la auditoría y la confianza en la era de la IA generativa.
-*   **Catálogo:** Véase §7.6.
-
-### §6.2.10 — `DominioDeAplicación`
-*   **Propósito:** Indica el dominio principal para el cual el artefacto fue diseñado, determinando a menudo los estándares de rigor aplicados.
-*   **Catálogo:** Véase §7.7.
-
-### §6.2.11 — `FaseCanónica`
-*   **Propósito:** La fase del ciclo de vida en la que una `Generación` específica del artefacto fue formalmente aprobada, liberada y puesta bajo control de configuración.
-*   **Catálogo:** Véase §7.2 (excluyendo el valor `Perenne`).
-
-### §6.2.12 — `FechaDeValidez`
-*   **Propósito:** La fecha hasta la cual esta `Generación` del artefacto es considerada válida. Esencial para la gestión de obsolescencia.
-*   **Formato:** `YYYYMMDD` o el valor especial `Perpetua`.
-
-### §6.2.13 — `Variante` (Opcional)
-*   **Propósito:** Especifica una configuración o versión particular del artefacto.
-
-### §6.2.14 — `Instancia` (Opcional)
-*   **Propósito:** Identifica una instancia de despliegue o uso específica.
-
-## §6.3 — Reglas de Unicidad y Gobernanza de Metadatos
-
-### §6.3.1 — Clave Compuesta para Unicidad
-6.3.1.1 La **unicidad** de un identificador v4.0 **estará** determinada por la combinación de todos sus campos, obligatorios y opcionales.
-
-### §6.3.2 — Principio de Autoridad vs. Aplicabilidad
-6.3.2.1 El identificador canónico representa la **autoridad de diseño** (Producto, Dominio) y el **origen** (Fase) de un artefacto.
-6.3.2.2 La **aplicabilidad múltiple** (a otros productos, dominios o fases) **deberá** gestionarse a través de metadatos asociados explícitos y auditables en sistemas como AMOReS, según se detalla en §13.5.
-
-## §6.4 — Ejemplos Canónicos v4.0
-
-### 6.4.1 Ejemplo 1: Requisito de Software
-`EstándarUniversal:Requisito-Detallado-CS25-1309-ProtecciónEnvolvente-005-Generación002-Q100-Híbrido-Aviación-Preliminar-Perpetua`
-
-### 6.4.2 Ejemplo 2: Estándar de Seguridad Perenne
-`EstándarUniversal:Especificación-Perenne-ISO27001-A.12-SeguridadOperaciones-001-Generación001-Organizacional-Convencional-Transversal-Concepto-Perpetua`
-
-### 6.4.3 Ejemplo 3: Orden de Trabajo con Fecha Límite
-`EstándarUniversal:OrdenDeTrabajo-Operaciones-S1000D-4.2-ActualizarMóduloDatos-047-Mapeo-HE180-Automático-Aviación-Operaciones-20261231-MatrículaECABC`
-
-<a id='sec-7'></a>
-# **§7 — Catálogos Controlados v4.0**
-*[Esta sección define los valores permitidos para cada campo del identificador.]*
-
-## §7.1 — Catálogo `ClaseDeArtefacto`
-*   `Requisito`: Una declaración formal de una necesidad.
-*   `Especificación`: Cómo algo debe ser o funcionar.
-*   `Análisis`: Los resultados de un estudio.
-*   `Plan`: Una secuencia de actividades.
-*   `Procedimiento`: Instrucciones paso a paso.
-*   `Resultado`: La salida o evidencia de un proceso.
-*   `ModeloVisual`: Una representación CAD, UML, SysML, etc.
-*   `Código`: El código fuente, scripts o binarios.
-*   `ConjuntoDeDatos`: Una colección estructurada de datos (ej: JSON, YAML).
-*   `OrdenDeTrabajo`: Un contrato ejecutable (WOCE).
-*   `Contrato`: Un contrato marco (WOCE).
-*   `Plantilla`: Una plantilla para generar otros artefactos.
-
-## §7.2 — Catálogo `FaseDeOrigen` y `FaseCanónica`
-*   `Concepto`, `Preliminar`, `Detallado`, `Implementación`, `Producción`, `Verificación`, `Validación`, `Operaciones`, `Mantenimiento`, `Sostenibilidad`, `Retiro`.
-*   **Solo para `FaseDeOrigen`:** `Perenne`.
-
-## §7.3 — Catálogo `SistemaDeReferencia`
-*   `ATA100`: ATA Spec 100
-*   `CS25`: EASA Certification Specifications CS-25
-*   `FAR25`: FAA Federal Aviation Regulations Part 25
-*   `S1000D`: S1000D Specification
-*   `DO178C`: DO-178C Standard
-*   `DO254`: DO-254 Standard
-*   `ISO27001`: ISO/IEC 27001 Standard
-*   `AQUA`: Estándar interno de AQUA (para capítulos como 94, 98, 99).
-
-## §7.4 — Catálogo `EstadoDeVersión`
-*   `Mapeo`: Estado borrador, no aprobado.
-*   `Generación001` a `Generación999`: Versiones formales y aprobadas.
-
-## §7.5 — Catálogo `ProductoOEntidad`
-*   **Códigos de Producto:** `Q100`, `HE120`, `C360`, `GAIACOM`, `AQCRYPT`, etc. (gestionado por AMOReS).
-*   **Códigos de Entidad:** `Organizacional`, `Investigación`, `Plataforma`, `Financiero`, `PruebaDeConcepto`.
-
-## §7.6 — Catálogo `MétodoDeGeneración`
-*   `Convencional`: Creado principalmente por un humano.
-*   `Automático`: Creado principalmente por una IA generativa.
-*   `Híbrido`: Creado en colaboración significativa Humano-IA.
-*   `Derivado`: Generado por transformación determinista de otro artefacto.
-
-## §7.7 — Catálogo `DominioDeAplicación`
-*   `Aviación`, `Espacio`, `Tierra`, `Defensa`, `Transversal`.
-
-<a id='sec-8'></a>
-# **§8 — Validación del Identificador v4.0**
-*[La validación por expresión regular se vuelve impráctica. Se define un algoritmo lógico.]*
-
-## §8.1 — Algoritmo de Validación Canónico
-
-Un parser conforme **deberá** implementar un algoritmo que realice las siguientes comprobaciones en secuencia:
-
-1.  **Validación de Prefijo y Estructura:**
-    *   Verificar que la cadena comienza con `EstándarUniversal:`.
-    *   Dividir la cadena por el separador `-`.
-    *   Verificar que hay entre 13 (sin opcionales) y 15 (con opcionales) campos resultantes.
-
-2.  **Validación de Pertenencia a Catálogo:**
-    *   Para cada campo, verificar que su valor (tratado como `case-insensitive`) pertenece al catálogo controlado definido en §7.
-
-3.  **Validación de Formato de Campo:**
-    *   Verificar que `Capítulo` y `Secuencia` tienen el formato correcto.
-    *   Verificar que `FechaDeValidez` es una fecha `YYYYMMDD` válida o la cadena `Perpetua`.
-
-4.  **Validación de Coherencia Inter-campos:**
-    *   Verificar que la `Categoría` es una categoría registrada para la combinación `SistemaDeReferencia`-`Capítulo`.
-    *   Verificar que `FaseCanónica` no sea `Perenne`.
-    *   Otras reglas de negocio definidas en AMOReS.
-
-## §8.2 — Perfil de Errores y Códigos de Fallo
-*[Se actualiza la tabla de errores para reflejar la nueva estructura.]*
-*   **E001:** `ESTRUCTURA_INVALIDA`
-*   **E002:** `CLASE_DE_ARTEFACTO_INVALIDA`
-*   **E003:** `FASE_DE_ORIGEN_INVALIDA`
-*   **E004:** `SISTEMA_DE_REFERENCIA_INVALIDO`
-*   **E005:** `PRODUCTO_O_ENTIDAD_INVALIDO`
-*   ...y así sucesivamente para cada nuevo campo.
+Este ES el hash madre del ecosistema.
 
 ---
-Entendido. Procedo con el paso final de la revisión.
 
-En este último paso, actualizaremos las secciones restantes del estándar (`§9` hasta el final) para que sean plenamente coherentes con la nueva estructura y semántica del identificador **UTCS-MI v4.0**. Esto implica ajustar los ejemplos, las referencias y las descripciones de integración para reflejar el modelo de datos enriquecido.
+<a id='sec-7'></a>
+# **§7 — Catálogos Controlados**
+
+## §7.1 — Catálogo de Clases de Artefacto
+
+| Clase | Descripción | Fases Típicas |
+|:------|:------------|:--------------|
+| Requisito | Declaración de necesidad | Concepto, DiseñoPreliminar |
+| Especificacion | Definición técnica | Todas excepto Autogenesis* |
+| Procedimiento | Instrucciones paso a paso | Implementacion en adelante |
+| Plan | Secuencia de actividades | Todas |
+| Analisis | Estudio técnico | Todas |
+| Resultado | Evidencia de ejecución | Verificacion, Validacion |
+| ModeloVisual | Representación gráfica | DiseñoPreliminar en adelante |
+| Codigo | Software ejecutable | Implementacion en adelante |
+| CodigoCuantico | Software cuántico | Implementacion, Integracion |
+| ConjuntoDeDatos | Datos estructurados | Todas |
+| OrdenDeTrabajo | Contrato ejecutable | Todas |
+| Contrato | Acuerdo marco | Concepto en adelante |
+| Plantilla | Modelo para génesis | RestoDeVidaUtil |
+| Informe | Documento síntesis | Todas |
+| Configuracion | Parámetros sistema | Implementacion en adelante |
+| Interfaz | Punto de conexión | DiseñoDetallado en adelante |
+| Registro | Log de eventos | Operaciones en adelante |
+| Certificado | Evidencia cumplimiento | Validacion en adelante |
+| Leccion | Conocimiento capturado | Todas |
+| Aplicacion | CQEA ensamblada | Produccion en adelante |
+
+*Solo este documento puede tener Autogenesis
+
+## §7.2 — Catálogo de Fases
+
+| Fase | Descripción | Uso Especial |
+|:-----|:------------|:-------------|
+| **Autogenesis** | Auto-creación del sistema | **SOLO este documento** |
+| Concepto | Exploración inicial | Requisitos iniciales |
+| DiseñoPreliminar | Arquitectura 30% | Interfaces principales |
+| DiseñoDetallado | Diseño 100% | Especificaciones finales |
+| Implementacion | Construcción/codificación | Código y componentes |
+| Integracion | Ensamblaje de partes | Pruebas de integración |
+| Produccion | Manufactura/despliegue | Aplicaciones CQEA |
+| Verificacion | Comprobación técnica | Evidencias técnicas |
+| Validacion | Confirmación requisitos | Certificaciones |
+| Operaciones | Uso operacional | Registros y logs |
+| Mantenimiento | Soporte continuo | Actualizaciones |
+| Retrofit | Modernización | Upgrades mayores |
+| Sostenibilidad | Mejora continua | Optimizaciones |
+| Retiro | Fin de vida | Documentación final |
+| RestoDeVidaUtil | Aplicable siempre | Estándares, plantillas |
+
+## §7.3 — Catálogo de Métodos de Generación
+
+| Método | Descripción | Confianza | Validación |
+|:-------|:------------|:----------|:-----------|
+| GeneracionHumana | 100% creación humana | Máxima | Estándar |
+| GeneracionHybrida | Colaboración humano-IA | Media-Alta | Aumentada |
+| GeneracionAuto | Generación automática | Media-Baja | Exhaustiva |
+
+## §7.4 — Catálogo de Regulaciones
+
+### Aeronáuticas
+
+| Código | Nombre Completo | Formato Capítulo |
+|:-------|:----------------|:-----------------|
+| ATA | ATA 100 Specification | CC-SS (ej: 27-00) |
+| CS25 | EASA CS-25 Large Aeroplanes | 25.XXXX |
+| FAR25 | FAA FAR Part 25 | 25.XXXX |
+| CS23 | EASA CS-23 Normal Category | 23.XXXX |
+| FAR23 | FAA FAR Part 23 | 23.XXXX |
+
+### Software/Hardware
+
+| Código | Nombre Completo | Formato Capítulo |
+|:-------|:----------------|:-----------------|
+| DO178C | Software Considerations | X.Y.Z |
+| DO254 | Hardware Design Assurance | X.Y.Z |
+| DO326A | Airworthiness Security | X.Y.Z |
+| DO356A | Cybersecurity Methods | X.Y.Z |
+
+### AQUA/Internos
+
+| Código | Nombre Completo | Formato Capítulo |
+|:-------|:----------------|:-----------------|
+| UTCS-MI | Este estándar | XX.YY |
+| AQUA | Estándares AQUA | XX.YY |
+| CQEA | Arquitectura CQEA | XX.YY |
+| AMORES | Sistema AMOReS | XX.YY |
+| WEE | Wisdom Evolution Engine | XX.YY |
+
+## §7.5 — Catálogo de Programas del Portfolio
+
+### Productos Aeronáuticos
+
+| Código | Descripción |
+|:-------|:------------|
+| TechnologyDemonstrator20 | Demostrador tecnológico 20 pasajeros |
+| CityVerticalTakeOff360 | eVTOL urbano 4-6 pasajeros |
+| HybridElectric120 | Avión regional híbrido eléctrico 120 pasajeros |
+| HybridElectric180 | Avión mainstream híbrido eléctrico 180 pasajeros |
+| BlendedWingBodyQuantum100 | BWB hidrógeno líquido 100 pasajeros |
+| BlendedWingBodyQuantum250 | BWB hidrógeno líquido 250 pasajeros |
+| SuborbitalTransport360 | Transporte suborbital 12 pasajeros |
+| OrbitalTransport360Extended | Transporte orbital 12 pasajeros |
+
+### Productos Espaciales
+
+| Código | Descripción |
+|:-------|:------------|
+| GaiaCommunications | Satélites de comunicaciones |
+| GaiaEarthObservation | Satélites observación terrestre |
+| GaiaNavigation | Satélites de navegación |
+| GaiaDataRelay | Satélites relay de datos |
+| GaiaQuantumKeyDistribution | Satélites distribución claves cuánticas |
+| GaiaSurveillance | Satélites de vigilancia |
+| GaiaBroadcast | Satélites de broadcasting |
+| GaiaLunarProbe | Sonda de exploración lunar |
+| GaiaAsteroidProbe | Sonda de asteroides |
+| GaiaMarsProbe | Sonda marciana |
+| GaiaDeepSpaceProbe | Sonda espacio profundo |
+
+### Sistemas No Tripulados
+
+| Código | Descripción |
+|:-------|:------------|
+| GaiaTacticalSwift | UAV táctico 8 horas autonomía |
+| GaiaSurveillanceHawk | UAV vigilancia 24 horas |
+| GaiaStrikeEagle | UAV ataque 36 horas |
+| GaiaHighAltitudeCondor | HALE 48+ horas |
+| GaiaSolarPhoenix | HAPS solar 6 meses |
+| GaiaSwarmSystem | Sistema enjambre distribuido |
+| GaiaCargoTransport | UAV logística 500kg |
+| GaiaRescueSystem | UAV emergencias médicas |
+
+### Sistemas Robóticos
+
+| Código | Descripción |
+|:-------|:------------|
+| AquaAssemblerRobot | Robot ensamblaje aeronaves |
+| AquaInspectorRobot | Robot inspección con IA |
+| AquaWelderRobot | Robot soldadura composites |
+| AquaPainterRobot | Robot tratamiento superficies |
+| AquaHandlerRobot | Robot manejo materiales |
+| AquaMechanicRobot | Robot mantenimiento predictivo |
+| AquaRefuelerRobot | Robot repostaje autónomo |
+| AquaLoaderRobot | Robot manejo carga |
+| AquaTowerRobot | Robot control movimiento tierra |
+| AquaOrbitalRobot | Robot servicio satelital |
+| AquaLunarRobot | Robot operaciones lunares |
+| AquaMarsRobot | Robot exploración marciana |
+| AquaHazmatRobot | Robot respuesta química |
+| AquaRescueRobot | Robot búsqueda y rescate |
+| AquaFireRobot | Robot extinción incendios |
+
+### Productos Defensa/Ciberseguridad
+
+| Código | Descripción |
+|:-------|:------------|
+| AquaQuantumCryption | Sistema encriptación post-cuántica |
+| AquaQuantumShield | Firewall mejorado cuánticamente |
+| AquaQuantumDetection | Detección anomalías con IA |
+| AquaQuantumVault | Gestión claves cuánticas |
+
+### Plataformas Digitales
+
+| Código | Descripción |
+|:-------|:------------|
+| PlatformAmpel360 | Plataforma diseño generativo |
+| PlatformDigitalIntelligence | Plataforma inteligencia digital flota |
+| PlatformCertificationService | Plataforma certificación automatizada |
+| PlatformRobotControl | Plataforma control robótico |
+| PlatformGaiaMission | Plataforma gestión misiones |
+
+### Artefactos Transversales
+
+| Código | Descripción | Uso |
+|:-------|:------------|:----|
+| EstandarTransversal | Estándares y normativas | Como este documento |
+| InfraestructuraCompartida | Sistemas compartidos | Infraestructura común |
+| HerramientaDesarrollo | Herramientas de desarrollo | IDEs, compiladores |
+| PlantillaGenerica | Plantillas reutilizables | Templates |
+| ProcesoGenerico | Procesos multi-producto | Procesos comunes |
+
+## §7.6 — Catálogo de Dominios
+
+| Código | Dominio | Descripción |
+|:-------|:--------|:------------|
+| AIR | Aviación | Sistemas aeronáuticos |
+| SPACE | Espacio | Sistemas espaciales |
+| DEFENSE | Defensa | Aplicaciones militares |
+| GROUND | Terrestre | Transporte terrestre |
+| CROSS | Transversal | Múltiples dominios o no típicos |
+
+## §7.7 — Catálogo de Identificadores Físicos
+
+| Tipo | Formato | Ejemplos |
+|:-----|:--------|:---------|
+| Equipo AQUA | AQUA-XXX | AQUA-CORE, AQUA-ENG, AQUA-CERT |
+| Individuo Identificado | IND-Nombre | IND-Maria, IND-JohnDoe |
+| Individuo Anónimo | IND-hash | IND-a1b2c3d4 |
+| Agente IA | AI-Sistema-ID | AI-GPT4-x7y8, AI-Claude-z9a0 |
+| Bot Autónomo | BOT-AUTO-XXX | BOT-AUTO-001 |
+| Organización Externa | ORG-Nombre | ORG-MIT, ORG-NASA, ORG-ESA |
+| Colaboración | COLLAB-XXX | COLLAB-ABC |
+
+---
+
+<a id='sec-8'></a>
+# **§8 — Validación**
+
+## §8.1 — Algoritmo de Validación Sintáctica
+
+```python
+def validar_sintaxis_utcs(identificador: str) -> bool:
+    """
+    Valida la estructura sintáctica del identificador UTCS v5.0
+    """
+    # 1. Verificar prefijo
+    if not identificador.startswith("EstándarUniversal:"):
+        return False
+    
+    # 2. Separar y contar campos
+    sin_prefijo = identificador[18:]
+    campos = sin_prefijo.split("-")
+    
+    if len(campos) != 13:
+        return False
+    
+    # 3. Validaciones específicas
+    # Versión debe empezar con 'v'
+    if not campos[6].startswith("v"):
+        return False
+    
+    # Hash debe tener 8 caracteres
+    if len(campos[11]) != 8:
+        return False
+    
+    # No acrónimos prohibidos
+    acronimos_prohibidos = ['BWB', 'HE', 'Q100', 'UAV', 'VTOL', 'QKD']
+    for acronimo in acronimos_prohibidos:
+        if acronimo in identificador:
+            return False
+    
+    return True
+```
+
+## §8.2 — Validación Semántica por Entrelazamiento
+
+```python
+def validar_entrelazamiento(campos: dict) -> bool:
+    """
+    Valida coherencia entre campos entrelazados
+    """
+    # Autogenesis solo para este documento
+    if campos['fase'] == 'Autogenesis':
+        if campos['clase'] != 'Especificacion':
+            return False
+        if campos['regulacion'] != 'UTCS-MI':
+            return False
+        if campos['capitulo'] != '00.00':
+            return False
+            
+    # CodigoCuantico restricciones
+    if campos['clase'] == 'CodigoCuantico':
+        if campos['fase'] not in ['Implementacion', 'Integracion']:
+            return False
+        if campos['metodo'] == 'GeneracionHumana':
+            return False  # Demasiado complejo para humanos solos
+            
+    return True
+```
 
 ---
 
 <a id='sec-9'></a>
-# **§9 — Perfil para Modelos Generativos (UPE) v4.0**
-*[Esta sección se revisa para mostrar cómo el nuevo identificador enriquece la arquitectura de prompts.]*
+# **§9 — Proceso de Génesis**
 
-## §9.1 — El Encabezado de Prompt Universal (UPE)
+## §9.1 — Flujo de Génesis
 
-### §9.1.1 — Estructura UPE v4.0
-
-9.1.1.1 La estructura del UPE utiliza el identificador **v4.0** como una cabecera de metadatos rica, que permite al modelo de IA auto-contextualizarse antes de procesar el prompt.
-
-```
-[EstándarUniversal:Plantilla-Concepto-AQUA:General-EspecificaciónSoftware-001-Mapeo-Organizacional-Automático-Transversal-Concepto-Perpetua]
-lang=es-ES
-units=SI
-timezone=UTC
-output=markdown
-# --- Metadatos de Aplicabilidad Explícita ---
-applicability_prod: [Q100, HE120]
-applicability_app: [Aviación, Defensa]
-applicability_life: [Concepto, Preliminar, Detallado]
-# --- Contenido del Prompt ---
-...
+```mermaid
+flowchart TD
+    A[Identificar Necesidad] --> B[Seleccionar Plantilla]
+    B --> C[Crear Envolventes en Superposición]
+    C --> D[Aplicar Contexto del Proyecto]
+    D --> E[Heredar de Artefactos Padre]
+    E --> F[Entrada Usuario Dirigida]
+    F --> G[Colapso por Entrelazamiento]
+    G --> H[Validación de Coherencia]
+    H --> I[Asignación de Identificador]
+    I --> J[Cálculo de Hash]
+    J --> K[Registro en Ecosistema]
+    K --> L[Artefacto Vivo con ADN Digital]
 ```
 
-### §9.1.2 — Campos de Control
-9.1.2.1 Los campos de control como `audience`, `dal`, etc., pueden ser inferidos a menudo por el motor de IA a partir de la riqueza del propio identificador **v4.0** y la plantilla (`Plantilla`) referenciada, simplificando el UPE.
+## §9.2 — Ejemplo de Génesis Paso a Paso
 
-## §9.2 — Contrato de Respuesta
+```yaml
+paso_1_necesidad:
+  descripcion: "Necesito documentar un requisito de autonomía"
+  
+paso_2_plantilla:
+  plantilla: "PlantillaRequisitosAeronave"
+  reduce_espacio: "90% de opciones eliminadas"
+  
+paso_3_superposicion:
+  clase: [todas las 20 clases posibles]
+  fase: [todas las 15 fases posibles]
+  regulacion: [todas las 30 regulaciones posibles]
+  
+paso_4_contexto:
+  proyecto: "BlendedWingBodyQuantum100"
+  dominio: "AIR"
+  efecto: "Reduce opciones a aeronáuticas"
+  
+paso_5_herencia:
+  padre: "Especificacion de sistema"
+  hereda: 
+    - regulacion: "CS25"
+    - dominio: "AIR"
+    
+paso_6_entrada_usuario:
+  clase: "Requisito" # Usuario selecciona
+  fase: "Concepto" # Usuario selecciona
+  categoria: "AutonomiaMinimaCuatroMilKilometros" # Usuario escribe
+  
+paso_7_colapso:
+  efecto: "Entrelazamiento determina valores restantes"
+  automatico:
+    - periodo: "Concepto-DiseñoPreliminar" # Por ser requisito en concepto
+    - metodo: "GeneracionHumana" # Usuario lo está escribiendo
+    
+paso_8_validacion:
+  sintaxis: "OK - 13 campos presentes"
+  semantica: "OK - entrelazamientos coherentes"
+  unicidad: "OK - secuencia 0042 disponible"
+  
+paso_9_identificador:
+  resultado: "EstándarUniversal:Requisito-Concepto-CS25-25.1309-AutonomiaMinimaCuatroMilKilometros-0042-v1.0-BlendedWingBodyQuantum100-GeneracionHumana-AIR-IND-Maria-b2c3d4e5-Concepto-DiseñoPreliminar"
+  
+paso_10_registro:
+  timestamp: "2025-08-14T10:30:00Z"
+  blockchain: "aqua-chain:block:12345"
+  estado: "ACTIVO"
+```
 
-### §9.2.2 — Formato JSON
-9.2.2.1 El esquema JSON de respuesta se actualiza para reflejar la estructura desglosada del identificador **v4.0**.
+---
 
-```json
-{
-  "utcs_identifier_string": "EstándarUniversal:Requisito-Detallado-CS25-1309-...",
-  "utcs_identifier_parsed": {
-    "clase_de_artefacto": "Requisito",
-    "fase_de_origen": "Detallado",
-    "sistema_de_referencia": "CS25",
-    "capitulo": "1309",
-    "categoria": "ProtecciónEnvolvente",
-    "secuencia": "005",
-    "estado_de_version": "Generación002",
-    "producto_o_entidad": "Q100",
-    "metodo_de_generacion": "Híbrido",
-    "dominio_de_aplicacion": "Aviación",
-    "fase_canonica": "Preliminar",
-    "fecha_de_validez": "Perpetua",
-    "variante": null,
-    "instancia": null
-  },
-  "metadata": { ... },
-  "content": { ... },
-  "validation": { ... },
-  "applicability": {
-    "products": ["Q100", "HE180"],
-    "domains": ["Aviación"],
-    "lifecycle_phases": ["Detallado", "Implementación", "Verificación", "Validación"]
-  }
+<a id='sec-10'></a>
+# **§10 — Guías de Usuario**
+
+## §10.1 — Guía de Inicio Rápido
+
+### Los 5 Pasos Esenciales
+
+1. **Identifica qué estás creando** → Determina la Clase
+2. **Ubica tu fase actual** → Selecciona la Fase
+3. **Encuentra la regulación** → Elige el estándar que aplica
+4. **Describe sin acrónimos** → Escribe la Categoría en CamelCase
+5. **Completa los metadatos** → Rellena los campos restantes
+
+### Ejemplo Mínimo
+
+```yaml
+Necesito: "Un procedimiento de mantenimiento"
+Resultado: "EstándarUniversal:Procedimiento-Mantenimiento-ATA-32-00-InspeccionTrenAterrizaje-0001-v1.0-HybridElectric120-GeneracionHumana-AIR-AQUA-MNT-c3d4e5f6-Mantenimiento-Retiro"
+```
+
+## §10.2 — Guías por Rol
+
+### §10.2.1 — Para Ingenieros
+
+**Tus casos típicos:**
+
+```yaml
+especificacion_tecnica:
+  clase: "Especificacion"
+  fase: "DiseñoPreliminar" o "DiseñoDetallado"
+  regulacion: "ATA", "CS25", "DO178C"
+  tip: "Usa la sección exacta del estándar"
+  
+analisis_ingenieria:
+  clase: "Analisis"
+  fase: "La fase donde lo haces"
+  categoria: "DescribeElAnalisisEnCamelCase"
+  metodo: "GeneracionHybrida" si usas herramientas IA
+```
+
+### §10.2.2 — Para Desarrolladores de Software
+
+**Tus identificadores típicos:**
+
+```yaml
+codigo_software:
+  clase: "Codigo"
+  fase: "Implementacion"
+  regulacion: "DO178C"
+  capitulo: "6.3.4" # Testing
+  metodo:
+    - "GeneracionHumana": Código manual
+    - "GeneracionHybrida": Con Copilot/ChatGPT
+    - "GeneracionAuto": Generado por herramienta
+  hash: "Usa los 8 primeros del git commit"
+  
+codigo_cuantico:
+  clase: "CodigoCuantico"
+  fase: "Implementacion" # Nunca Concepto
+  metodo: "GeneracionHybrida" # Nunca solo Humana
+```
+
+### §10.2.3 — Para Gestores de Certificación
+
+**Documentación de cumplimiento:**
+
+```yaml
+evidencia_certificacion:
+  clase: "Certificado"
+  fase: "Validacion"
+  regulacion: "CS25" o "FAR25"
+  categoria: "EvidenciaCumplimientoSistemaX"
+  identificador: "AQUA-CERT"
+  periodo: "Validacion" # Solo válido en validación
+```
+
+### §10.2.4 — Para Contribuyentes Open Source
+
+**Como individuo:**
+
+```yaml
+contribucion_individual:
+  identificador_fisico:
+    opcion_1: "IND-TuNombre" # Si quieres reconocimiento
+    opcion_2: "IND-a1b2c3d4" # Si prefieres anonimato
+  
+contribucion_ia_asistida:
+  metodo: "GeneracionHybrida"
+  identificador_fisico: "AI-Claude-x7y8" # Si la IA es coautora
+```
+
+## §10.3 — Errores Comunes y Soluciones
+
+### ❌ ERROR 1: Usar Acrónimos
+```yaml
+MALO:  "BWB-Q100"
+MALO:  "HE-120"
+MALO:  "UAV"
+BUENO: "BlendedWingBodyQuantum100"
+BUENO: "HybridElectric120"
+BUENO: "GaiaTacticalSwift"
+```
+
+### ❌ ERROR 2: Fase Incorrecta para Clase
+```yaml
+MALO:  "CodigoCuantico" con fase "Concepto"
+BUENO: "CodigoCuantico" con fase "Implementacion"
+
+MALO:  "Certificado" con fase "DiseñoPreliminar"
+BUENO: "Certificado" con fase "Validacion"
+```
+
+### ❌ ERROR 3: Formato de Versión
+```yaml
+MALO:  "1.0", "V1.0", "version1"
+BUENO: "v1.0", "v2.3", "v10.5"
+```
+
+### ❌ ERROR 4: Formato de Capítulo ATA
+```yaml
+MALO:  "100.27.00" # No incluir el 100
+MALO:  "ATA27"     # Falta el formato
+BUENO: "27-00"     # Formato correcto
+```
+
+### ❌ ERROR 5: Hash Incorrecto
+```yaml
+MALO:  "abc"              # Muy corto
+MALO:  "a1b2c3d4e5f6g7h8" # Muy largo
+BUENO: "a1b2c3d4"         # Exactamente 8 caracteres
+```
+
+## §10.4 — Herramientas de Apoyo
+
+### §10.4.1 — Generador de Hash Python
+
+```python
+import hashlib
+
+def generar_hash_utcs(contenido: str) -> str:
+    """
+    Genera hash de 8 caracteres para UTCS
+    """
+    hash_completo = hashlib.sha256(contenido.encode()).hexdigest()
+    return hash_completo[:8]
+
+# Uso
+contenido = "El contenido completo de tu artefacto..."
+hash_utcs = generar_hash_utcs(contenido)
+print(f"Hash UTCS: {hash_utcs}")
+```
+
+### §10.4.2 — Validador JavaScript
+
+```javascript
+function validarUTCS(identificador) {
+    // Verificar estructura básica
+    if (!identificador.startsWith("EstándarUniversal:")) {
+        return false;
+    }
+    
+    // Contar campos
+    const campos = identificador.substring(18).split("-");
+    if (campos.length !== 13) {
+        return false;
+    }
+    
+    // Verificar no acrónimos
+    const acronimosProhibidos = ['BWB', 'HE', 'UAV', 'VTOL'];
+    for (let acronimo of acronimosProhibidos) {
+        if (identificador.includes(acronimo)) {
+            console.error(`Acrónimo prohibido: ${acronimo}`);
+            return false;
+        }
+    }
+    
+    return true;
 }
 ```
 
-<a id='sec-10'></a>
-# **§10 — Integración con el Ecosistema v4.0**
+### §10.4.3 — Plantilla Excel
 
-## §10.1 — UTCS en CSDB/S1000D
-10.1.1 La integración con S1000D ahora utiliza los campos explícitos para un mapeo más rico.
+| A | B | C | D | E | F | G | H | I | J | K | L | M |
+|:--|:--|:--|:--|:--|:--|:--|:--|:--|:--|:--|:--|:--|
+| Clase | Fase | Regulación | Capítulo | Categoría | Secuencia | Versión | Programa | Método | Dominio | ID Físico | Hash | Periodo |
+| [Dropdown] | [Dropdown] | [Dropdown] | [Validado] | [CamelCase] | [Auto] | vX.Y | [Dropdown] | [Dropdown] | [Dropdown] | [Texto] | [8 car] | [Selector] |
 
-```xml
-<dmCode modelIdentCode="Q100"
-        systemCode="27"
-        systemName="ControlesDeVuelo">
-    <dmAddress>
-        <dmIdent>
-            <!-- El identificador v4.0 completo se almacena en un atributo para trazabilidad total -->
-            <dmCode utcs_v4_id="EstándarUniversal:Procedimiento-Mantenimiento-ATA100-27-CalibraciónActuador-010-..."/>
-            ...
-        </dmIdent>
-    </dmAddress>
-</dmCode>
+**Fórmula para celda N1 (Identificador Completo):**
+```excel
+="EstándarUniversal:"&A2&"-"&B2&"-"&C2&"-"&D2&"-"&E2&"-"&F2&"-"&G2&"-"&H2&"-"&I2&"-"&J2&"-"&K2&"-"&L2&"-"&M2
 ```
 
-## §10.2 — UTCS en la Matriz de Trazabilidad de Requisitos (RTM)
-10.2.1 La estructura de la RTM se beneficia enormemente de los nuevos campos.
-
-| Identificador UTCS v4.0 | Clase | Producto | Método | Padre | Hijos | ... |
-|---|---|---|---|---|---|---|
-| `...:Requisito-...-Q100-Convencional-...` | Requisito| Q100 | Convencional | ... | `...:Especificación-...`| ... |
-| `...:Especificación-...-Q100-Automático-...`| Especificación| Q100 | Automático | `...:Requisito-...` | `...:Código-...` | ... |
-
-## §10.3 — UTCS y AMOReS
-10.3.1 La integración con AMOReS es ahora mucho más potente, permitiendo políticas de gobernanza basadas en la procedencia y el ciclo de vida.
-
-a) **Asignación de `DAL` Informada por el Método:** Las reglas de asignación ahora pueden incluir el `MétodoDeGeneración`. Por ejemplo: "Un `DAL B` asignado a un artefacto con `MétodoDeGeneración=Automático` requiere un proceso de revisión humana adicional."
-
-b) **Gobernanza Temporal:** AMOReS **deberá** usar la `FechaDeValidez` para marcar automáticamente artefactos como "expirados" y lanzar flujos de trabajo para su sustitución.
+---
 
 <a id='sec-11'></a>
-# **§11 — Pasarelas y Compatibilidad v4.0**
+# **§11 — Ejemplos Completos**
 
-## §11.1 — Mapeo con Estándares Tradicionales
-11.1.1 El mapeo es ahora explícito gracias al campo `SistemaDeReferencia`. La ambigüedad ha sido eliminada.
+## §11.1 — Ejemplo: Requisito Aeronáutico
 
-## §11.2 — Estrategia de Migración
-11.2.1 La transición de v1.0 (basada en acrónimos) a v4.0 (semántica) es un **cambio de ruptura mayor**.
-11.2.2 Se **proporcionará** un script de migración (`migrate-utcs-v1-to-v4.py`). Este script requerirá un fichero de mapeo para asignar los nuevos campos (`ProductoOEntidad`, `MétodoDeGeneración`, etc.) a los identificadores v1.0 existentes basándose en el contexto del repositorio.
+```yaml
+contexto: "Requisito de autonomía para el Blended Wing Body Quantum 100"
+
+campos:
+  1_clase: "Requisito"
+  2_fase: "Concepto"
+  3_regulacion: "CS25"
+  4_capitulo: "25.1309"
+  5_categoria: "AutonomiaMinimaCuatroMilKilometros"
+  6_secuencia: "0042"
+  7_version: "v1.0"
+  8_programa: "BlendedWingBodyQuantum100"
+  9_metodo: "GeneracionHumana"
+  10_dominio: "AIR"
+  11_identificador: "AQUA-REQ"
+  12_hash: "b2c3d4e5"
+  13_periodo: "Concepto-DiseñoPreliminar"
+
+identificador_completo: "EstándarUniversal:Requisito-Concepto-CS25-25.1309-AutonomiaMinimaCuatroMilKilometros-0042-v1.0-BlendedWingBodyQuantum100-GeneracionHumana-AIR-AQUA-REQ-b2c3d4e5-Concepto-DiseñoPreliminar"
+```
+
+## §11.2 — Ejemplo: Código Cuántico
+
+```yaml
+contexto: "Algoritmo QAOA para optimización de rutas de vuelo"
+
+campos:
+  1_clase: "CodigoCuantico"
+  2_fase: "Implementacion"
+  3_regulacion: "CQEA"
+  4_capitulo: "18.03"
+  5_categoria: "AlgoritmoQAOAOptimizacionRutas"
+  6_secuencia: "0234"
+  7_version: "v2.3"
+  8_programa: "PlatformDigitalIntelligence"
+  9_metodo: "GeneracionHybrida"
+  10_dominio: "CROSS"
+  11_identificador: "AI-Claude-x7y8"
+  12_hash: "f5g6h7i8"
+  13_periodo: "Implementacion-RestoDeVidaUtil"
+
+identificador_completo: "EstándarUniversal:CodigoCuantico-Implementacion-CQEA-18.03-AlgoritmoQAOAOptimizacionRutas-0234-v2.3-PlatformDigitalIntelligence-GeneracionHybrida-CROSS-AI-Claude-x7y8-f5g6h7i8-Implementacion-RestoDeVidaUtil"
+```
+
+## §11.3 — Ejemplo: Certificado de Validación
+
+```yaml
+contexto: "Certificado de cumplimiento DO-178C para software de control"
+
+campos:
+  1_clase: "Certificado"
+  2_fase: "Validacion"
+  3_regulacion: "DO178C"
+  4_capitulo: "6.4.3"
+  5_categoria: "CumplimientoNivelASoftwareControl"
+  6_secuencia: "0567"
+  7_version: "v1.0"
+  8_programa: "HybridElectric120"
+  9_metodo: "GeneracionHumana"
+  10_dominio: "AIR"
+  11_identificador: "AQUA-CERT"
+  12_hash: "j9k0l1m2"
+  13_periodo: "Validacion"
+
+identificador_completo: "EstándarUniversal:Certificado-Validacion-DO178C-6.4.3-CumplimientoNivelASoftwareControl-0567-v1.0-HybridElectric120-GeneracionHumana-AIR-AQUA-CERT-j9k0l1m2-Validacion"
+```
+
+---
 
 <a id='sec-12'></a>
-# §12 — Requisitos de Seguridad y Seguridad Funcional
-*[Esta sección se fortalece gracias a los nuevos campos.]*
+# **§12 — APIs de Implementación**
 
-12.1.3 **Safety Gates (Puertas de Seguridad):** Las transiciones de estado (`Mapeo` a `Generación001`) ahora pueden tener criterios de entrada basados en el `MétodoDeGeneración`. Un artefacto `Automático` o `Híbrido` puede requerir una firma de revisión adicional que un artefacto `Convencional` no necesita.
+## §12.1 — API REST
 
-<a id='sec-13'></a>
-# **§13 — Gestión de Configuración y Ciclo de Vida v4.0**
+### Endpoints Principales
 
-## §13.5 — Gestión de Aplicabilidad Múltiple (Nueva Sección)
-13.5.1 **Principio Normativo:** El identificador v4.0 representa la autoridad de diseño. La aplicabilidad de un artefacto a múltiples productos, dominios o fases **deberá** gestionarse como metadatos explícitos asociados al identificador.
-13.5.2 **Metadatos de Aplicabilidad:** Los sistemas conformes **deberán** ser capaces de gestionar los siguientes metadatos para cada artefacto:
-*   `lista_aplicabilidad_producto`: Una lista de objetos que especifican el producto y el **rango de unidades** (`número de serie`, `lote`, `baseline` o `todos`).
-*   `lista_aplicabilidad_dominio`: Una lista de los dominios donde el uso del artefacto está aprobado.
-*   `fases_ciclo_vida_aplicables`: Una lista o rango de las fases donde el artefacto es válido.
-
-<a id='sec-20'></a>
-# **§20 — Work Order & Contract Envelope (WOCE) v4.0**
-*[WOCE se beneficia de la claridad y las restricciones temporales.]*
-
-20.2.1 `ClaseDeArtefacto=OrdenDeTrabajo` **identificará** cada paquete de trabajo.
-20.2.3 La `FechaDeValidez` en una `OrdenDeTrabajo` **deberá** interpretarse como la fecha límite de entrega contractual.
-20.3.1 El contenido de WOCE ahora incluye la validación del **rango de unidades** aplicable para los entregables.
-
----
-## **Anexos v4.0**
-
-### **Anexo A (normativo) — Reglas de Validación Canónicas**
-*[Se reemplaza la expresión regular por un algoritmo de validación lógico, como se describió en §8.]*
-
-### **Anexo I (informativo) — Mapas de Equivalencia**
-*[La equivalencia es ahora directa y explícita.]*
-
-| Contrato Tradicional | Identificador UTCS v4.0 Equivalente |
-|---|---|
-| Acuerdo de Servicio para Mantenimiento del Q100 | `EstándarUniversal:Contrato-Operaciones-AQUA:Servicios-MantenimientoFlota-001-Generación001-Q100-Convencional-Aviación-Operaciones-20351231` |
-
----
-**FIN DEL DOCUMENTO UTCS-MI v4.0**
-
-_Total de páginas: Aprox. 160_  
-_Palabras: Aprox. 60,000_  
-_Estado: COMPLETO Y NORMATIVO_  
-_Innovation: A fully semantic, human-readable, and machine-governable identifier for the generative age._
-
----
-
-### **Anexo 1 (Informativo) — Resumen de Campos y Atributos Admitidos**
-
-Este anexo proporciona una tabla de referencia rápida de todos los campos del identificador **UTCS-MI v4.0**, sus catálogos de valores y un ejemplo canónico para cada uno.
-
-| # | Campo | Rol | Valores Admitidos (Catálogo) | Ejemplo |
-|:---:|:---|:---|:---|:---|
-| 1 | **ClaseDeArtefacto** | Naturaleza semántica | `Requisito`, `Especificación`, `Análisis`, `Plan`, `Procedimiento`, `Resultado`, `ModeloVisual`, `Código`, `ConjuntoDeDatos`, `OrdenDeTrabajo`, `Contrato`, `Plantilla`. | `Especificación` |
-| 2 | **FaseDeOrigen** | Origen en el ciclo de vida | `Concepto`, `Preliminar`, `Detallado`, `Implementación`, `Producción`, `Verificación`, `Validación`, `Operaciones`, `Mantenimiento`, `Sostenibilidad`, `Retiro`, `Perenne`. | `Perenne` |
-| 3 | **SistemaDeReferencia** | Estándar de clasificación | `ATA100`, `CS25`, `FAR25`, `S1000D`, `DO178C`, `DO254`, `ISO27001`, `AQUA`. | `AQUA` |
-| 4 | **Capítulo** | Sección en el estándar | Cadena alfanumérica. | `General` |
-| 5 | **Categoría** | Sub-clasificación descriptiva | `CamelCase` sin espacios. | `IdentificadorEstándar` |
-| 6 | **Secuencia** | Número único | `001` - `999`. | `001` |
-| 7 | **EstadoDeVersión** | Versión aprobada | `Mapeo`, `Generación001`, `Generación002`, ... | `Generación008` |
-| 8 | **ProductoOEntidad** | "Dueño" del diseño | Códigos de producto (`Q100`, etc.) o entidad (`Organizacional`, `Plataforma`, etc.). | `Organizacional` |
-| 9 | **MétodoDeGeneración** | Procedencia del contenido | `Convencional`, `Automático`, `Híbrido`, `Derivado`. | `Convencional` |
-| 10 | **DominioDeAplicación** | Dominio de diseño primario | `Aviación`, `Espacio`, `Tierra`, `Defensa`, `Transversal`. | `Transversal` |
-| 11 | **FaseCanónica** | Fase de aprobación formal | Catálogo de `FaseDeOrigen` (excluyendo `Perenne`). | `Concepto` |
-| 12 | **FechaDeValidez** | Fecha de expiración | `YYYYMMDD` o `Perpetua`. | `Perpetua` |
-| 13 | **(Opcional) Variante** | Configuración específica | Cadena descriptiva. | `EdiciónClaridad` |
-| 14 | **(Opcional) Instancia** | Despliegue específico | Cadena descriptiva. | `RevisiónFinal` |
-
-**Ejemplo Consolidado:**
-`EstándarUniversal:Especificación-Perenne-AQUA:General-IdentificadorEstándar-001-Generación008-Organizacional-Convencional-Transversal-Concepto-Perpetua-EdiciónClaridad-RevisiónFinal`
-
----
-
-### **Anexo 2 (Informativo) — Guía de Usuario: La Arquitectura de Plantillas de Prompt**
-
-Este anexo describe el flujo de trabajo y la estructura de la arquitectura de prompts, que es el mecanismo principal para la generación de artefactos en el ecosistema AQUA.
-
-#### **2.1. El Principio: Separación de Instrucciones**
-
-La generación de artefactos se basa en un artefacto especial de `ClaseDeArtefacto=Plantilla`. Cada `Plantilla` contiene dos componentes clave para asegurar una generación consistente y de alta calidad:
-
-1.  **Instrucción de Sistema:** La configuración interna y las restricciones que se proporcionan al modelo de IA. **Es la parte de la máquina.**
-2.  **Guía de Usuario:** La interfaz estructurada y las instrucciones que se presentan al usuario humano. **Es la parte del humano.**
-
-Esta separación permite que el sistema pre-configure al modelo de IA para una tarea específica (ej: "actúa como un experto en certificación") mientras guía al usuario para que proporcione solo la información sustantiva necesaria.
-
-#### **2.2. Flujo de Trabajo para Generar un Artefacto**
-
-El proceso sigue tres pasos sencillos para el usuario:
-
-**Paso 1: Seleccionar la Intención (Elegir la Plantilla)**
-
-El usuario no empieza con una página en blanco. El sistema le pregunta qué desea crear, y el usuario selecciona una `Plantilla` de la librería.
-
-*   *Usuario quiere:* "Crear un nuevo plan de pruebas."
-*   *Sistema ofrece:*
-    *   `...:Plantilla-...-PlanPruebasUnitarias-...`
-    *   `...:Plantilla-...-PlanPruebasIntegración-...`
-    *   `...:Plantilla-...-PlanPruebasAceptación-...`
-*   *Usuario selecciona:* `...:Plantilla-...-PlanPruebasIntegración-...`
-
-**Paso 2: Completar la Información (Rellenar la Guía de Usuario)**
-
-El sistema presenta un formulario estructurado basado en la `Guía de Usuario` de la plantilla seleccionada. El usuario rellena los campos.
-
-*   **Nombre del Plan:** "Plan de Pruebas de Integración para el Módulo de Gestión de Batería"
-*   **Componentes a Integrar (UTCS IDs):** `...:Código-...-BMS-...`, `...:Código-...-BusEnergía-...`
-*   **Requisito a Verificar (UTCS ID):** `...:Requisito-...-EficienciaEnergética-...`
-*   **Fecha Límite:** `2026-05-20`
-
-**Paso 3: Generar y Revisar (Ejecutar el Prompt y Validar la Salida)**
-
-El usuario pulsa "Generar". El sistema:
-1.  Carga la `Instrucción de Sistema` de la `Plantilla` en el modelo de IA.
-2.  Inyecta la información proporcionada por el usuario.
-3.  Ejecuta el prompt completo.
-4.  Presenta el artefacto `Plan` generado al usuario para su revisión y aprobación final.
-
-#### **2.3. Subtitulación: La Relación Entre Identificadores**
-
-La trazabilidad del proceso de generación se asegura mediante "subtitulación" en los metadatos. Cada artefacto generado **debe** llevar en sus metadatos una referencia a la `Plantilla` que se usó para crearlo.
-
-**Artefacto Generado:**
-`EstándarUniversal:Plan-Verificación-DO178C-12.2-PlanPruebasIntegración-001-Mapeo-Q100-Automático-Aviación-Detallado-20261231`
-
-**Metadatos Asociados al Artefacto:**
 ```yaml
-utcs_identifier: "EstándarUniversal:Plan-Verificación-DO178C-12.2-PlanPruebasIntegración-001-..."
-...
-# Subtitulación: Referencia a la plantilla de origen
-generation_template_id: "EstándarUniversal:Plantilla-Concepto-AQUA:Guías-PlanPruebasIntegración-001-Generación002-Organizacional-Convencional-Transversal-Concepto-Perpetua"
+base_url: "https://api.aqua.systems/utcs/v5"
+
+endpoints:
+  validacion:
+    GET: "/validar/{identificador}"
+    response: {valido: boolean, errores: array}
+    
+  generacion:
+    POST: "/generar"
+    body: {clase, fase, regulacion, ...}
+    response: {identificador: string, hash: string}
+    
+  catalogos:
+    GET: "/catalogos/{nombre}"
+    response: {valores: array}
+    
+  trazabilidad:
+    GET: "/trazabilidad/{identificador}"
+    response: {padres: array, hijos: array}
 ```
----
 
-### **Anexo 3 (Informativo) — Guía de Implementación: El Asistente de Línea de Comandos `aqua-cli`**
-
-Este anexo describe la arquitectura y el funcionamiento de `aqua-cli`, la herramienta de línea de comandos de referencia para interactuar con las capacidades generativas del ecosistema AQUA OS.
-
-#### **3.1. Concepto: De un Comando a un Prompt Perfeccionado**
-
-El `aqua-cli` no es una simple interfaz de comandos. Es un **asistente interactivo y contextual** diseñado para resolver el principal desafío de la IA generativa: la ingeniería de prompts. Su función es guiar al usuario a través de un diálogo para transformar una intención inicial simple en un **Universal Prompt Envelope (UPE)** completo, validado y trazable.
-
-#### **3.2. Características Clave**
-
-1.  **Interfaz Conversacional (Inferencia de Intención):** El usuario puede iniciar el proceso con un lenguaje natural y simple. El CLI utiliza un modelo de lenguaje para interpretar esta intención inicial.
-
-2.  **Contexto Automático:** El CLI es consciente del entorno del usuario. Conoce el `ProductoOEntidad` en el que está trabajando (basado en el directorio del repositorio), el `DominioDeAplicación`, e incluso el `Usuario` para proponer valores por defecto.
-
-3.  **Selección de Plantillas Guiada:** Basándose en la intención inferida, el CLI busca en la librería de artefactos `Plantilla` y sugiere las opciones más relevantes, ayudando al usuario a elegir la "receta" correcta.
-
-4.  **Refinamiento Interactivo (El "Mago" de Prompts):** Una vez seleccionada una `Plantilla`, el CLI inicia un "mago" (wizard) interactivo. En lugar de pedirle al usuario que edite un archivo complejo, le hace preguntas claras y concisas para rellenar cada parámetro de la `Guía de Usuario` de la plantilla.
-
-5.  **Validación "Pre-Vuelo":** Antes de enviar la solicitud de generación al motor de IA principal (que puede ser computacionalmente costoso), el `aqua-cli` realiza una validación local completa contra las reglas de AMOReS. Comprueba que todos los UTCS ID referenciados existan, que los parámetros sean válidos, etc.
-
-6.  **Generación y Trazabilidad:** Al confirmar, el CLI ensambla el UPE final, lo envía al motor de generación, recibe el artefacto resultante y se asegura de que se guarde con el identificador UTCS v4.0 correcto y con los metadatos de trazabilidad (incluyendo la referencia a la `Plantilla` utilizada).
-
-#### **3.3. Flujo de Trabajo de Ejemplo: Interacción con `aqua-cli`**
-
-Imaginemos que un ingeniero necesita crear un procedimiento de prueba para el Módulo de Gestión de Batería (`GestiónBatería`) del producto `Q100`.
-
-**Paso 1: El usuario expresa una intención simple.**
+### Ejemplo de Llamada
 
 ```bash
-> aqua generar procedimiento de prueba para el BMS
+curl -X POST https://api.aqua.systems/utcs/v5/generar \
+  -H "Content-Type: application/json" \
+  -d '{
+    "clase": "Requisito",
+    "fase": "Concepto",
+    "regulacion": "CS25",
+    "capitulo": "25.1309",
+    "categoria": "SistemasElectricos",
+    "programa": "HybridElectric120",
+    "metodo": "GeneracionHumana",
+    "dominio": "AIR",
+    "identificador_fisico": "IND-Maria",
+    "periodo": "Concepto-DiseñoPreliminar"
+  }'
 ```
 
-**Paso 2: El CLI infiere la intención, aplica contexto y pide clarificación.**
+## §12.2 — SDK Python
 
+```python
+from aqua_utcs import UTCSClient
+
+# Inicializar cliente
+client = UTCSClient(api_key="tu-api-key")
+
+# Generar identificador
+identificador = client.generar(
+    clase="Especificacion",
+    fase="DiseñoDetallado",
+    regulacion="ATA",
+    capitulo="27-00",
+    categoria="ControlesVueloDigitales",
+    programa="BlendedWingBodyQuantum100",
+    metodo="GeneracionHybrida",
+    dominio="AIR",
+    identificador_fisico="AQUA-ENG",
+    periodo="DiseñoDetallado-Produccion"
+)
+
+print(f"Identificador generado: {identificador}")
+
+# Validar
+es_valido = client.validar(identificador)
+print(f"Válido: {es_valido}")
 ```
-Hola. He inferido que quieres generar un artefacto de 'ClaseDeArtefacto=Procedimiento'.
-Contexto detectado: ProductoOEntidad=Q100, DominioDeAplicación=Aviación.
-
-He encontrado 3 plantillas relevantes para 'Procedimiento de Prueba':
-  [1] Plantilla para Pruebas Unitarias de Software (UTCS:...-PlanPruebasUnitarias-...)
-  [2] Plantilla para Pruebas de Integración en HIL (UTCS:...-PlanPruebasIntegración-...)
-  [3] Plantilla para Pruebas de Sistema en Vuelo (UTCS:...-PlanPruebasSistema-...)
-
-Por favor, selecciona la plantilla que deseas usar [1, 2, 3]: 2
-```
-
-**Paso 3: El CLI inicia el "mago" interactivo para perfeccionar el prompt.**
-
-```
-Excelente. Usaremos la Plantilla para Pruebas de Integración en HIL.
-Por favor, completa la siguiente información:
-
-→ ¿Cuál es la Categoría para este procedimiento? (ej: GestiónBatería, CargaRápida): GestiónBatería
-→ ¿Cuál es el UTCS ID del Requisito que estás verificando?: UTCS:Requisito-Detallado-CS25-1309...
-→ Describe el objetivo principal de la prueba (1 frase): Verificar que el BMS corta la carga al alcanzar el 99.5% de capacidad en condiciones de -20°C.
-→ ¿Cuál es la Fecha de Validez para este procedimiento? (YYYYMMDD o 'Perpetua') [Perpetua]: 20301231
-```
-
-**Paso 4: El CLI presenta el "Pre-Vuelo" para confirmación final.**
-
-```
---- Resumen de Generación (Pre-Vuelo) ---
-Se generará el siguiente artefacto:
-
-  Clase: Procedimiento
-  Fase de Origen: Verificación
-  Producto: Q100
-  Método: Híbrido (iniciado por usuario, estructurado por plantilla)
-  ...
-
-Con el identificador UTCS propuesto:
-  EstándarUniversal:Procedimiento-Verificación-DO178C-12.3-GestiónBatería-004-Mapeo-Q100-Híbrido-Aviación-Detallado-20301231
-
-El prompt final se basará en la plantilla ...-PlanPruebasIntegración-... y verificará
-el requisito ...-EficienciaCarga-....
-
-¿Proceder con la generación? [S/n]: s
-```
-
-**Paso 5: Generación y resultado.**
-
-```
-Generando artefacto... ¡Éxito!
-El artefacto ha sido creado en:
-  /Q100/procedures/EstándarUniversal:Procedimiento-Verificación-....-20301231.md
-
-Metadatos de trazabilidad actualizados en AMOReS.
-```
-
-#### **3.4. Conclusión del Anexo**
-
-El asistente `aqua-cli` es la encarnación de la filosofía de colaboración Humano-IA de AQUA. Transforma la tarea de "ingeniería de prompts", que requiere mucho conocimiento experto, en un diálogo simple y guiado. Asegura que cada artefacto generado automáticamente nazca siendo **consistente, validado y completamente trazable**, cumpliendo con los más altos estándares de gobernanza desde su concepción.
 
 ---
 
-### **Anexo 4 (Informativo) — Guía de Implementación para Sistemas de IA Generativa**
+<a id='sec-13'></a>
+# **§13 — Anexos**
 
-#### **4.1. Principio Fundamental: Generación Guiada por Plantillas (Template-Driven Generation)**
+## Anexo A — Tabla de Conversión de Acrónimos Prohibidos
 
-Este anexo establece la **mejor práctica recomendada** para la generación de artefactos UTCS mediante Modelos de Lenguaje de Gran Escala (LLMs).
+| ❌ PROHIBIDO | ✅ CORRECTO |
+|:-------------|:------------|
+| BWB | BlendedWingBody |
+| HE | HybridElectric |
+| Q100, Q250 | Quantum100, Quantum250 |
+| UAV | GaiaTacticalSwift (u otro nombre específico) |
+| VTOL, eVTOL | VerticalTakeOff |
+| HALE | HighAltitude |
+| HAPS | HighAltitudePlatform |
+| QKD | QuantumKeyDistribution |
+| AI | AgentIA o InteligenciaArtificial |
+| MRO | Mantenimiento |
+| POC | PrototipoConcepto |
+| MVP | ProductoMinimoViable |
+| API | InterfazProgramacion |
+| CEO, CTO, CFO | (usar nombres de rol completos) |
 
-La experiencia ha demostrado que la interacción directa con un LLM mediante prompts de formato libre (incluso si contienen un identificador UTCS) conduce a resultados inconsistentes y a la violación de la integridad del estándar. Los LLMs, por su naturaleza, pueden "alucinar" o desviarse de formatos estrictos si no se les guía de manera precisa.
+## Anexo B — Mapeo de Fases del Ciclo de Vida
 
-Por lo tanto, toda generación de artefactos en un sistema conforme a AQUA **deberá** seguir un **modelo de generación guiada por plantillas**.
+```mermaid
+graph LR
+    A[Autogenesis] -->|Solo UTCS-MI| A
+    C[Concepto] --> DP[DiseñoPreliminar]
+    DP --> DD[DiseñoDetallado]
+    DD --> I[Implementacion]
+    I --> IN[Integracion]
+    IN --> P[Produccion]
+    P --> VER[Verificacion]
+    VER --> VAL[Validacion]
+    VAL --> O[Operaciones]
+    O --> M[Mantenimiento]
+    M --> R[Retrofit]
+    R --> S[Sostenibilidad]
+    S --> RET[Retiro]
+    
+    RUL[RestoDeVidaUtil] -.->|Aplica siempre| ALL[Todas las fases]
+```
 
-#### **4.2. El Rol de la `Plantilla` (UTCS `ClaseDeArtefacto=Plantilla`)**
+## Anexo C — Checklist de Validación
 
-La generación de un artefacto (ej: `Procedimiento`) no se inicia a partir de un prompt de usuario en bruto. En su lugar, el proceso **debe** ser mediado por un artefacto `Plantilla` (`TPLT`) pre-aprobado y direccionable por UTCS.
-
-El rol de la `Plantilla` es triple:
-1.  **Imponer la Estructura (Gobernanza):** La `Plantilla` contiene la estructura canónica del artefacto a generar (secciones, tablas, etc.), asegurando que todos los artefactos de la misma clase sean consistentes.
-2.  **Contextualizar al Modelo de IA (Instrucción de Sistema):** Proporciona al LLM su rol, sus restricciones y el contexto necesario (`System Prompt`) **antes** de que reciba la entrada del usuario. Esto "pre-condiciona" al modelo para que se comporte de acuerdo a las reglas del ecosistema AQUA.
-3.  **Guiar al Usuario (Guía de Usuario):** Abstrae la complejidad de la ingeniería de prompts para el usuario final, presentándole un formulario o una interfaz estructurada (`User Prompt Guidance`) donde solo necesita proporcionar la información sustantiva.
-
-#### **4.3. Flujo de Trabajo Normativo de Generación**
-
-El flujo de trabajo canónico para la generación de un artefacto es el siguiente:
-
-1.  **Intención del Usuario:** El usuario expresa la intención de crear un artefacto.
-2.  **Selección de Plantilla:** Un sistema mediador (como el `aqua-cli`) ayuda al usuario a seleccionar la `Plantilla` (`TPLT`) adecuada para su intención.
-3.  **Entrada Guiada:** El sistema presenta al usuario la `Guía de Usuario` de la `Plantilla` para que complete los parámetros requeridos.
-4.  **Ensamblaje del UPE:** El sistema combina la `Instrucción de Sistema` de la `Plantilla` con las entradas del usuario para crear un **Universal Prompt Envelope (UPE)** completo.
-5.  **Ejecución y Generación:** El UPE se envía al motor de IA, que genera el artefacto.
-6.  **Validación y Trazabilidad:** El artefacto generado es validado contra los criterios de la `Plantilla` y se le asigna un identificador UTCS v4.0. Crucialmente, los metadatos del nuevo artefacto **deben** incluir un puntero al UTCS ID de la `Plantilla` que se usó para crearlo.
-
-#### **4.4. Prohibición de la Generación "A Secas"**
-
-Se desaconseja firmemente la práctica de enviar un identificador UTCS como parte de un prompt de formato libre directamente a un LLM. Este método **no se considera conforme** a las mejores prácticas del ecosistema AQUA porque no garantiza la consistencia, la gobernanza ni la trazabilidad del proceso de generación.
+- [ ] ¿El identificador empieza con "EstándarUniversal:"?
+- [ ] ¿Tiene exactamente 13 campos separados por guiones?
+- [ ] ¿La versión empieza con "v"?
+- [ ] ¿El hash tiene exactamente 8 caracteres?
+- [ ] ¿NO contiene acrónimos prohibidos?
+- [ ] ¿La clase es válida según catálogo?
+- [ ] ¿La fase es válida según catálogo?
+- [ ] ¿El programa existe en el portfolio?
+- [ ] ¿El método es uno de los tres permitidos?
+- [ ] ¿El dominio es uno de los cinco permitidos?
+- [ ] ¿La categoría está en CamelCase?
+- [ ] ¿El capítulo tiene el formato correcto para la regulación?
+- [ ] ¿El periodo es coherente con la fase?
 
 ---
 
+**FIN DEL DOCUMENTO UTCS-MI v5.0 DEFINITIVO**
+
+**Documento de Autogénesis del Ecosistema AQUA**
+
+_Este documento ES el protocolo de génesis._  
+_Sin este documento, no hay génesis._  
+_Con este documento, todo cobra existencia._
+
+---
+
+_Versión_: **5.0-definitiva**  
+_Estado_: **NORMATIVO**  
+_Hash Madre_: **a0b1c2d3**  
+_Entrada en vigor_: **2025-09-01**  
+_Conformidad obligatoria_: **Inmediata**
+
+**Soporte**: utcs-support@aqua.systems  
+**Repositorio**: github.com/aqua-os/utcs-mi  
+**Validador online**: aqua.systems/utcs-validator
+
+---
+
+**© 2025 AQUA OS - Open Source bajo licencia AQUA-OSL-2.0**
