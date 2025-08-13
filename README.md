@@ -864,24 +864,24 @@ RoBoT Product Line:
 ```mermaid
 graph TB
     subgraph "AQUA PLATFORM ECOSYSTEM + EXTENSIONS"
-        AMPEL[AMPEL360<br/>Design Platform<br/>+CQEA Design<br/>Engine: EstándarUniversal:[Aplicacion][Produccion]...]
-        DIQ[DiQIaaS<br/>Operations Platform<br/>+WEE Learning<br/>Fleet API: EstándarUniversal:[Interfaz][Produccion]...]
-        CAAS[CaaS<br/>Certification Platform<br/>+AMOReS Compliance<br/>Checker: EstándarUniversal:[Aplicacion][Produccion]...]
-        ROBOT[RoBoT<br/>Manufacturing Platform<br/>+DeMOS Metrics<br/>Controller: EstándarUniversal:[Aplicacion][Produccion]...]
-        GAIA[GAIA<br/>Control Platform<br/>+Quantum Coordination<br/>Mission: EstándarUniversal:[Aplicacion][Produccion]...]
+        AMPEL["AMPEL360<br/>Design Platform<br/>+CQEA Design<br/>Engine: EstándarUniversal:\[Aplicacion\]\[Produccion\]..."]
+        DIQ["DiQIaaS<br/>Operations Platform<br/>+WEE Learning<br/>Fleet API: EstándarUniversal:\[Interfaz\]\[Produccion\]..."]
+        CAAS["CaaS<br/>Certification Platform<br/>+AMOReS Compliance<br/>Checker: EstándarUniversal:\[Aplicacion\]\[Produccion\]..."]
+        ROBOT["RoBoT<br/>Manufacturing Platform<br/>+DeMOS Metrics<br/>Controller: EstándarUniversal:\[Aplicacion\]\[Produccion\]..."]
+        GAIA["GAIA<br/>Control Platform<br/>+Quantum Coordination<br/>Mission: EstándarUniversal:\[Aplicacion\]\[Produccion\]..."]
         
         subgraph "Integration Layer + Extensions"
-            DATA[Unified Data Lake<br/>EstándarUniversal:[ConjuntoDeDatos][Operaciones]...]
-            AI[Central AI/ML<br/>EstándarUniversal:[Codigo][Operaciones]...]
-            QUANTUM[Quantum Processing<br/>EstándarUniversal:[CodigoCuantico][Implementacion]...]
-            SENTIENT[Sentient Models<br/>EstándarUniversal:[Codigo][Implementacion]...]
-            WEE[WEE Learning Engine<br/>EstándarUniversal:[Codigo][Operaciones]...]
-            AMORES[AMOReS Governance<br/>EstándarUniversal:[Codigo][Validacion]...]
+            DATA["Unified Data Lake<br/>EstándarUniversal:\[ConjuntoDeDatos\]\[Operaciones\]..."]
+            AI["Central AI/ML<br/>EstándarUniversal:\[Codigo\]\[Operaciones\]..."]
+            QUANTUM["Quantum Processing<br/>EstándarUniversal:\[CodigoCuantico\]\[Implementacion\]..."]
+            SENTIENT["Sentient Models<br/>EstándarUniversal:\[Codigo\]\[Implementacion\]..."]
+            WEE["WEE Learning Engine<br/>EstándarUniversal:\[Codigo\]\[Operaciones\]..."]
+            AMORES["AMOReS Governance<br/>EstándarUniversal:\[Codigo\]\[Validacion\]..."]
         end
         
         AMPEL --> DATA
         DIQ --> DATA
-        CAAS --> DATA```mermaid
+        CAAS --> DATA
         ROBOT --> DATA
         GAIA --> DATA
         DATA --> AI
