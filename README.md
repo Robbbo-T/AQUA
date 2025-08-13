@@ -3053,7 +3053,8 @@ gantt
     €195M Revenue                   :milestone, m2, 2027-12, 1d
     €840M Revenue                   :milestone, m3, 2030-12, 1d
     €2.12B Revenue                  :milestone, m4, 2035-12, 1d
-    €3.65B Revenue                  :milestone, m5, 2040-12, 1d```
+    €3.65B Revenue                  :milestone, m5, 2040-12, 1d
+```
 
 ---
 
