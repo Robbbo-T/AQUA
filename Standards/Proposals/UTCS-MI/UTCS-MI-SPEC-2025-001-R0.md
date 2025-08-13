@@ -1,9 +1,3 @@
-### **Revisión del Estándar Publicado (Paso 1 de 3)**
-
-A continuación, se presenta la primera parte del documento actualizado. Los cambios más significativos están marcados en **negrita** o explicados en *[cursiva]*.
-
----
-
 # **Especificación Técnica UTCS-MI v4.0 — Completa**
 **Estándar Universal de Contenido Técnico - Interfaz Humano-Máquina**  
 **Documento normativo con anclajes canónicos (`§x.y.z`) y estructura ISO/IEC.**
