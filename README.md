@@ -105,6 +105,7 @@ EstándarUniversal:Diagrama-IngenieriaDeSistemas-CS25+DO178C+S1000D-Arquitectura
 
 1) Arquitectura de capas clásicas–cuánticas
 
+```mermaid
 flowchart TB
   subgraph L1_Fisica [Capa Fisica]
     SENS[Sensorica]
@@ -150,12 +151,13 @@ flowchart TB
   DO178C --> CertGate[Decision Gate]
   CS25 --> CertGate
   S1000D --> CertGate
-
+```
 
 ⸻
 
 2) Flujo de datos y trazabilidad UTCS‑MI
 
+```mermaid
 flowchart LR
   SENS[Sensorica] --> EDGE[Edge Compute]
   EDGE --> QNS[QNS]
@@ -169,12 +171,13 @@ flowchart LR
   VAL --> REG[Registro UTCS MI]
   REG --> PKG[S1000D Packages]
   PKG --> GATE[Gate Certificacion]
-
+```
 
 ⸻
 
 3) Bucle de control FbQW y sincronía
 
+```mermaid
 sequenceDiagram
   participant QNS as QNS
   participant FCC as FCC
@@ -189,12 +192,14 @@ sequenceDiagram
   ACT-->>Twin: Telemetria
   Twin-->>FCC: Validacion
   Twin-->>UTCS: Registro de configuracion
-
+```
 
 ⸻
 
 4) SICOCA: red logistica con asistencia cuantica
 
+
+```
 flowchart TB
   SUP[Proveedores] --> PLT[Plantas]
   PLT --> WH[Almacenes]
@@ -212,12 +217,14 @@ flowchart TB
   QAOA --> MILP
   MILP --> PLAN[Plan sincronizado coste CO2 energia]
   PLAN --> OPS
-
+```
 
 ⸻
 
 5) Certificacion integrada
 
+
+```mermaid
 flowchart LR
   REQ[Requisitos] --> ARQ[Arquitectura]
   ARQ --> SW[Software DO178C]
@@ -227,7 +234,7 @@ flowchart LR
   VVT --> EVID[Paquetes S1000D]
   EVID --> MAP[Mapa CS25]
   MAP --> DEC[Decision Gate]
-
+```
 
 ⸻
 
