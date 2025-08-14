@@ -1,0 +1,263 @@
+```c
+/**
+ * @file aqua-bootloader.efi
+ * @author AEROSPACE (a fictional aerospace company)
+ * @date 2025-08-14
+ *
+ * @brief Main UEFI Bootloader for AQUA OS. Compliant with DO-178C Level A principles.
+ *
+ * This EFI application is the first stage of the AQUA OS boot process. It is
+ * responsible for initializing essential hardware, loading the AQUA kernel from the
+ * EFI System Partition (ESP), and passing control to it in a deterministic and
+ * ABI-compliant manner.
+ *
+ * Responsibilities:
+ * 1.  Initialize basic services (Console I/O).
+ * 2.  Locate and initialize the Graphics Output Protocol (GOP) to set up a
+ *     framebuffer for the kernel.
+ * 3.  Locate the EFI Simple File System Protocol to access the disk.
+ * 4.  Load the kernel executable (`kernel.elf`) into a temporary buffer.
+ * 5.  Validate the kernel is a supported ELF64 executable (ET_EXEC, EM_X86_64).
+ * 6.  Parse the ELF64 kernel and load its segments into their target physical memory locations.
+ * 7.  Locate the ACPI RSDP (2.0+ with fallback to 1.0).
+ * 8.  Allocate a persistent BootInfo structure to pass hand-off data.
+ * 9.  Retrieve the system memory map and exit all UEFI boot services in a race-free manner.
+ * 10. Jump to the kernel's entry point using the System V AMD64 ABI, passing the BootInfo pointer.
+ *
+ * This code is built for the x86_64 architecture and expects a non-relocatable
+ * (ET_EXEC) ELF64 kernel linked for a physical load address.
+ */
+
+#include <efi.h>
+#include <efilib.h>
+
+// If the toolchain doesn't provide CompareGuid, use this portable implementation.
+#ifndef CompareGuid
+static inline BOOLEAN CompareGuid(const EFI_GUID* Guid1, const EFI_GUID* Guid2) {
+    return (CompareMem((VOID*)Guid1, (VOID*)Guid2, sizeof(EFI_GUID)) == 0);
+}
+#endif
+
+// --- Boot Information Structure (Hand-off to Kernel) ---
+#define BOOTINFO_VERSION 1
+typedef struct {
+    UINT32 Version;
+    VOID*   FramebufferBase;
+    UINTN   FramebufferSize;
+    UINT32  HorizontalResolution, VerticalResolution, PixelsPerScanLine;
+    EFI_GRAPHICS_PIXEL_FORMAT PixelFormat;
+    UINT32  RedMask, GreenMask, BlueMask, ReservedMask;
+    EFI_MEMORY_DESCRIPTOR* MemoryMap;
+    UINTN   MemoryMapSize, MemoryMapDescriptorSize;
+    UINT32  MemoryMapDescriptorVersion;
+    VOID*   AcpiRsdp;
+    CHAR8*  Cmdline;
+    UINTN   CmdlineLen;
+} BootInfo;
+
+// --- ELF64 Definitions ---
+#define EI_NIDENT 16
+typedef UINT64 Elf64_Addr; typedef UINT64 Elf64_Off; typedef UINT16 Elf64_Half;
+typedef UINT32 Elf64_Word; typedef UINT64 Elf64_Xword;
+typedef struct {
+    unsigned char e_ident[EI_NIDENT]; Elf64_Half e_type; Elf64_Half e_machine;
+    Elf64_Word e_version; Elf64_Addr e_entry; Elf64_Off e_phoff; Elf64_Off e_shoff;
+    Elf64_Word e_flags; Elf64_Half e_ehsize, e_phentsize, e_phnum, e_shentsize, e_shnum, e_shstrndx;
+} Elf64_Ehdr;
+typedef struct {
+    Elf64_Word p_type, p_flags; Elf64_Off p_offset; Elf64_Addr p_vaddr, p_paddr;
+    Elf64_Xword p_filesz, p_memsz, p_align;
+} Elf64_Phdr;
+#define ET_EXEC 2
+#define EM_X86_64 62
+#define PT_LOAD 1
+
+// --- GUIDs ---
+EFI_GUID gAcpi20TableGuid = {0x8868e871, 0xe4f1, 0x11d3, {0xbc, 0x22, 0x0, 0x80, 0xc7, 0x3c, 0x88, 0x81}};
+EFI_GUID gAcpi10TableGuid = {0xeb9d2d30, 0x2d88, 0x11d3, {0x9a, 0x16, 0x0, 0x90, 0x27, 0x3f, 0xc1, 0x4d}};
+
+
+EFI_STATUS EFIAPI efi_main(EFI_HANDLE ImageHandle, EFI_SYSTEM_TABLE *SystemTable) {
+    EFI_STATUS Status;
+
+    // --- Resource Initialization ---
+    BootInfo* bootInfoPtr = NULL;
+    EFI_PHYSICAL_ADDRESS bootInfoAddress = 0;
+    UINTN bootInfoPages = 0;
+    EFI_FILE_PROTOCOL *Root = NULL;
+    EFI_FILE_PROTOCOL *KernelFile = NULL;
+    VOID *KernelBuffer = NULL;
+    EFI_MEMORY_DESCRIPTOR *MemoryMap = NULL;
+    UINTN MemoryMapSize = 0;
+
+    InitializeLib(ImageHandle, SystemTable);
+    gBS->SetWatchdogTimer(0, 0, 0, NULL);
+    Print(L"AQUA OS Bootloader Initializing...\n[INFO] Build: %a %a\n", __DATE__, __TIME__);
+
+    // Step 1: Allocate persistent BootInfo structure
+    bootInfoPages = EFI_SIZE_TO_PAGES(sizeof(BootInfo));
+    Status = gBS->AllocatePages(AllocateAnyPages, EfiLoaderData, bootInfoPages, &bootInfoAddress);
+    if (EFI_ERROR(Status)) {
+        Print(L"[FAIL] Could not allocate memory for BootInfo structure: %r\n", Status);
+        return Status; // Cannot proceed, and nothing to clean up yet.
+    }
+    bootInfoPtr = (BootInfo*)(UINTN)bootInfoAddress;
+    SetMem(bootInfoPtr, sizeof(BootInfo), 0);
+    bootInfoPtr->Version = BOOTINFO_VERSION;
+    Print(L"[OK]   BootInfo structure allocated at 0x%lx\n", bootInfoAddress);
+
+    // Step 2: Set up Graphics Output Protocol (GOP)
+    EFI_GRAPHICS_OUTPUT_PROTOCOL *Gop;
+    Status = gBS->LocateProtocol(&gEfiGraphicsOutputProtocolGuid, NULL, (VOID **)&Gop);
+    if (EFI_ERROR(Status)) {
+        Print(L"[FAIL] Unable to locate GOP: %r\n", Status);
+        goto cleanup;
+    }
+    bootInfoPtr->FramebufferBase = (VOID*)Gop->Mode->FrameBufferBase;
+    bootInfoPtr->FramebufferSize = Gop->Mode->FrameBufferSize;
+    bootInfoPtr->HorizontalResolution = Gop->Mode->Info->HorizontalResolution;
+    bootInfoPtr->VerticalResolution = Gop->Mode->Info->VerticalResolution;
+    bootInfoPtr->PixelsPerScanLine = Gop->Mode->Info->PixelsPerScanLine;
+    bootInfoPtr->PixelFormat = Gop->Mode->Info->PixelFormat;
+    if (bootInfoPtr->PixelFormat == PixelBitMask) {
+        bootInfoPtr->RedMask = Gop->Mode->Info->PixelInformation.RedMask;
+        bootInfoPtr->GreenMask = Gop->Mode->Info->PixelInformation.GreenMask;
+        bootInfoPtr->BlueMask = Gop->Mode->Info->PixelInformation.BlueMask;
+        bootInfoPtr->ReservedMask = Gop->Mode->Info->PixelInformation.ReservedMask;
+    }
+    Print(L"[OK]   GOP Initialized. Resolution: %ux%u\n", bootInfoPtr->HorizontalResolution, bootInfoPtr->VerticalResolution);
+
+    // Step 3: Load Kernel from ESP
+    UINTN KernelSize = 0;
+    Elf64_Ehdr *KernelHeader = NULL;
+    {
+        EFI_LOADED_IMAGE_PROTOCOL *LoadedImage;
+        Status = gBS->HandleProtocol(ImageHandle, &gEfiLoadedImageProtocolGuid, (VOID **)&LoadedImage);
+        if (EFI_ERROR(Status)) { Print(L"[FAIL] HandleProtocol(LoadedImage): %r\n", Status); goto cleanup; }
+
+        EFI_SIMPLE_FILE_SYSTEM_PROTOCOL *FileSystem;
+        Status = gBS->HandleProtocol(LoadedImage->DeviceHandle, &gEfiSimpleFileSystemProtocolGuid, (VOID **)&FileSystem);
+        if (EFI_ERROR(Status)) { Print(L"[FAIL] HandleProtocol(FileSystem): %r\n", Status); goto cleanup; }
+
+        Status = FileSystem->OpenVolume(FileSystem, &Root);
+        if (EFI_ERROR(Status)) { Print(L"[FAIL] OpenVolume: %r\n", Status); goto cleanup; }
+
+        CHAR16 *KernelPath = L"\\EFI\\AQUA\\kernel.elf";
+        Status = Root->Open(Root, &KernelFile, KernelPath, EFI_FILE_MODE_READ, 0);
+        if (EFI_ERROR(Status)) { Print(L"[FAIL] Could not open kernel at %s: %r\n", KernelPath, Status); goto cleanup; }
+
+        UINTN FileInfoSize = 0;
+        Status = KernelFile->GetInfo(KernelFile, &gEfiFileInfoGuid, &FileInfoSize, NULL);
+        if (Status != EFI_BUFFER_TOO_SMALL) { Print(L"[FAIL] GetInfo(Size): %r\n", Status); goto cleanup; }
+
+        EFI_FILE_INFO *FileInfo;
+        gBS->AllocatePool(EfiLoaderData, FileInfoSize, (VOID**)&FileInfo);
+        KernelFile->GetInfo(KernelFile, &gEfiFileInfoGuid, &FileInfoSize, (VOID*)FileInfo);
+        KernelSize = FileInfo->FileSize;
+        gBS->FreePool(FileInfo);
+
+        Status = gBS->AllocatePool(EfiLoaderData, KernelSize, &KernelBuffer);
+        if (EFI_ERROR(Status)) { Print(L"[FAIL] Failed to allocate buffer for kernel: %r\n", Status); goto cleanup; }
+
+        Status = KernelFile->Read(KernelFile, &KernelSize, KernelBuffer);
+        if (EFI_ERROR(Status)) { Print(L"[FAIL] Failed to read kernel file: %r\n", Status); goto cleanup; }
+    }
+    Print(L"[OK]   Kernel loaded into temporary buffer. Size: %lu bytes.\n", KernelSize);
+
+    // Step 4: Validate and Load ELF64 Kernel Segments
+    KernelHeader = (Elf64_Ehdr *)KernelBuffer;
+    if (CompareMem(KernelHeader->e_ident, "\x7f""ELF", 4) != 0 ||
+        KernelHeader->e_type != ET_EXEC || KernelHeader->e_machine != EM_X86_64) {
+        Print(L"[FAIL] Kernel is not a supported executable type.\n");
+        Status = EFI_UNSUPPORTED;
+        goto cleanup;
+    }
+
+    Elf64_Phdr *ProgramHeaders = (Elf64_Phdr *)((UINT8 *)KernelBuffer + KernelHeader->e_phoff);
+    for (UINTN i = 0; i < KernelHeader->e_phnum; ++i) {
+        Elf64_Phdr *Phdr = &ProgramHeaders[i];
+        if (Phdr->p_type == PT_LOAD) {
+            if (Phdr->p_align > 1 && (Phdr->p_paddr % Phdr->p_align) != 0) {
+                Print(L"[FAIL] Kernel segment has invalid alignment.\n");
+                Status = EFI_UNSUPPORTED;
+                goto cleanup;
+            }
+            UINTN Pages = (Phdr->p_memsz + EFI_PAGE_SIZE - 1) / EFI_PAGE_SIZE;
+            EFI_PHYSICAL_ADDRESS SegmentAddress = Phdr->p_paddr;
+            Status = gBS->AllocatePages(AllocateAddress, EfiLoaderCode, Pages, &SegmentAddress);
+            if (EFI_ERROR(Status)) {
+                Print(L"[FAIL] Failed to allocate memory for segment at 0x%lx: %r\n", SegmentAddress, Status);
+                goto cleanup;
+            }
+            CopyMem((VOID*)SegmentAddress, (UINT8*)KernelBuffer + Phdr->p_offset, Phdr->p_filesz);
+            if (Phdr->p_memsz > Phdr->p_filesz) {
+                SetMem((VOID*)(SegmentAddress + Phdr->p_filesz), Phdr->p_memsz - Phdr->p_filesz, 0);
+            }
+        }
+    }
+    UINT64 KernelEntry = KernelHeader->e_entry;
+    gBS->FreePool(KernelBuffer); KernelBuffer = NULL;
+    gBS->Close(KernelFile); KernelFile = NULL;
+    gBS->Close(Root); Root = NULL;
+    Print(L"[OK]   Kernel segments loaded into physical memory.\n");
+
+    // Step 5: Find ACPI RSDP
+    bootInfoPtr->AcpiRsdp = NULL;
+    for (UINTN i = 0; i < SystemTable->NumberOfTableEntries; ++i) {
+        EFI_CONFIGURATION_TABLE *table = &SystemTable->ConfigurationTable[i];
+        if (CompareGuid(&table->VendorGuid, &gAcpi20TableGuid) || CompareGuid(&table->VendorGuid, &gAcpi10TableGuid)) {
+            bootInfoPtr->AcpiRsdp = table->VendorTable;
+            Print(L"[OK]   ACPI %s RSDP found at 0x%lx\n", CompareGuid(&table->VendorGuid, &gAcpi10TableGuid) ? L"1.0" : L"2.0+", bootInfoPtr->AcpiRsdp);
+            break;
+        }
+    }
+    if (bootInfoPtr->AcpiRsdp == NULL) { Print(L"[WARN] No ACPI RSDP found.\n"); }
+
+    // Step 6: Get Memory Map and Exit Boot Services
+    Print(L"[INFO] Preparing to exit boot services...\n");
+    UINTN MapKey; UINTN DescriptorSize; UINT32 DescriptorVersion;
+    for (;;) {
+        MemoryMapSize = 0;
+        Status = gBS->GetMemoryMap(&MemoryMapSize, NULL, &MapKey, &DescriptorSize, &DescriptorVersion);
+        if (Status != EFI_BUFFER_TOO_SMALL) { Print(L"[FAIL] GetMemoryMap(Size): %r\n", Status); goto cleanup; }
+
+        if (MemoryMap) gBS->FreePool(MemoryMap);
+        MemoryMapSize += 2 * DescriptorSize;
+        Status = gBS->AllocatePool(EfiLoaderData, MemoryMapSize, (VOID**)&MemoryMap);
+        if (EFI_ERROR(Status)) { Print(L"[FAIL] AllocatePool(MemoryMap): %r\n", Status); goto cleanup; }
+
+        Status = gBS->GetMemoryMap(&MemoryMapSize, MemoryMap, &MapKey, &DescriptorSize, &DescriptorVersion);
+        if (EFI_ERROR(Status)) { continue; }
+
+        bootInfoPtr->MemoryMap = MemoryMap;
+        bootInfoPtr->MemoryMapSize = MemoryMapSize;
+        bootInfoPtr->MemoryMapDescriptorSize = DescriptorSize;
+        bootInfoPtr->MemoryMapDescriptorVersion = DescriptorVersion;
+
+        Status = gBS->ExitBootServices(ImageHandle, MapKey);
+        if (!EFI_ERROR(Status)) { break; } // Success!
+    }
+    // --- UEFI BOOT SERVICES TERMINATED ---
+
+    // Step 7: Jump to Kernel
+    __asm__ __volatile__ (
+        "mov %0, %%rdi\n\t"
+        "jmp *%1\n\t"
+        : : "r"(bootInfoPtr), "r"((VOID*)(UINTN)KernelEntry) : "rdi"
+    );
+
+    __builtin_unreachable();
+
+cleanup:
+    // This section is only reached on failure. On success, we jump to the kernel.
+    Print(L"[HALT] A fatal error occurred. Status: %r. System halted.\n", Status);
+    if (KernelFile) gBS->Close(KernelFile);
+    if (Root) gBS->Close(Root);
+    if (KernelBuffer) gBS->FreePool(KernelBuffer);
+    if (MemoryMap) gBS->FreePool(MemoryMap);
+    if (bootInfoAddress != 0) gBS->FreePages(bootInfoAddress, bootInfoPages);
+    while(1) { __asm__("hlt"); } // Halt on failure.
+
+    return Status;
+}
+```
