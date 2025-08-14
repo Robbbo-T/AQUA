@@ -1,0 +1,3 @@
+# Kernel configuration
+tick_rate_hz: 100
+max_tasks: 256
