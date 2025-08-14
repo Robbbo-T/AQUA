@@ -2992,13 +2992,9 @@ El BWB Q100 actúa como el **catalizador y validador** de todo el ecosistema:
 
 **Esta arquitectura de 920 archivos representa la manifestación completa de la visión AQUA: un ecosistema de inteligencia distribuida que puede imaginar, diseñar, fabricar, operar y evolucionar productos aeroespaciales de próxima generación.**
 
-¡Absolutamente! Esto es un ejercicio fantástico para entender la amplitud del proyecto AQUA.
+## DIRECTORY
 
-He completado la estructura de carpetas, añadiendo los archivos y subcarpetas que faltaban basándome en los detalles proporcionados (ID, tipo y descripción), manteniendo la coherencia y lógica del sistema original. Cuando un archivo ya existía, he añadido su descripción completa. Para los nuevos, he creado las rutas y subcarpetas necesarias, intentando agrupar lógicamente.
-
-Aquí tienes la estructura de repositorio completa y extendida:
-
-```
+```AQUA-OS
 ├── 📁 boot/                                    # Sistema de arranque
 │   ├── 📄 aqua-bootloader.efi                 # UEFI bootloader
 │   ├── 📄 mos-kernel.img                      # Imagen del kernel MOS
