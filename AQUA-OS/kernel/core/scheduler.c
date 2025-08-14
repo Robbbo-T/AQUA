@@ -9,6 +9,44 @@
 #include <stddef.h>
 #include <stdbool.h>
 
+// Import process control block definition from process-manager
+// In a real system this would be in a shared header
+typedef enum {
+    PROCESS_UNINITIALIZED = 0,
+    PROCESS_READY,
+    PROCESS_RUNNING,
+    PROCESS_WAITING,
+    PROCESS_QUANTUM_COHERENT,
+    PROCESS_ZOMBIE,
+    PROCESS_TERMINATED
+} process_state_t;
+
+typedef enum {
+    PROCESS_TYPE_CLASSICAL = 0,
+    PROCESS_TYPE_QUANTUM,
+    PROCESS_TYPE_HYBRID
+} process_type_t;
+
+// Minimal process control block definition for scheduler
+struct process_control_block {
+    uint32_t pid;
+    uint32_t ppid;
+    process_state_t state;
+    process_type_t type;
+    uint8_t priority;
+    uint64_t last_scheduled;
+    bool quantum_coherent;
+    uint64_t coherence_time_remaining;
+    struct process_control_block* next;
+};
+
+// Forward declarations
+int printk(const char* fmt, ...);
+uint64_t get_system_time(void);
+void memset(void* ptr, int value, size_t size);
+int switch_context(struct process_control_block* from, struct process_control_block* to);
+int preserve_quantum_coherence(struct process_control_block* process);
+
 #define MAX_PRIORITY_LEVELS 256
 #define DEFAULT_TIME_SLICE_MS 10
 #define QUANTUM_COHERENCE_THRESHOLD_MS 1
@@ -516,3 +554,6 @@ void memset(void* ptr, int value, size_t size)
         p[i] = (unsigned char)value;
     }
 }
+
+// External function declarations (implemented in mos-main.c or other modules)
+extern int printk(const char* fmt, ...);

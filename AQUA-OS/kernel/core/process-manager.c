@@ -454,12 +454,5 @@ void kfree(void* ptr) {
     // Placeholder for kernel memory deallocation
 }
 
-int strncpy(char* dest, const char* src, size_t n) {
-    // Simple string copy implementation
-    size_t i;
-    for (i = 0; i < n - 1 && src[i] != '\0'; i++) {
-        dest[i] = src[i];
-    }
-    dest[i] = '\0';
-    return 0;
-}
+// External function declarations (implemented in mos-main.c or other modules)
+extern int printk(const char* fmt, ...);
