@@ -1,0 +1,109 @@
+# Task Scheduler Configuration
+# UTCS-MI Code: [053] Scheduler Configuration
+
+# Scheduler Algorithm Settings
+scheduler:
+  algorithm: "quantum_aware_cfs"  # Quantum-Aware Completely Fair Scheduler
+  preemption: true
+  load_balancing: true
+  
+# Time Slice Configuration
+time_slices:
+  classical_default: 10  # milliseconds
+  quantum_default: 100   # milliseconds
+  realtime_default: 1    # milliseconds
+  batch_default: 50      # milliseconds
+  
+# Priority Configuration
+priority:
+  levels: 140
+  default_priority: 120
+  nice_range: [-20, 19]
+  realtime_priorities: [1, 99]
+  
+# Quantum Scheduling
+quantum:
+  enabled: true
+  dedicated_queue: true
+  priority_boost: 20  # Boost quantum tasks by 20 priority levels
+  coherence_aware: true
+  max_quantum_time_slice: 1000  # milliseconds
+  min_quantum_time_slice: 10    # milliseconds
+  
+# Load Balancing
+load_balancing:
+  enabled: true
+  algorithm: "work_stealing"
+  migration_threshold: 0.8  # CPU utilization threshold
+  quantum_affinity: true    # Keep quantum tasks on quantum-capable cores
+  
+# Real-time Scheduling
+realtime:
+  enabled: true
+  max_realtime_tasks: 64
+  deadline_scheduling: true
+  rate_monotonic: true
+  
+# Performance Tuning
+performance:
+  context_switch_optimization: true
+  cache_affinity: true
+  numa_awareness: true
+  power_aware_scheduling: true
+  
+# Scheduler Statistics
+statistics:
+  enabled: true
+  collection_interval: 1000  # milliseconds
+  metrics:
+    - "context_switches_per_second"
+    - "average_wait_time"
+    - "cpu_utilization"
+    - "quantum_utilization"
+    - "scheduler_overhead"
+    
+# Debugging
+debug:
+  enabled: false
+  trace_scheduling_decisions: false
+  log_context_switches: false
+  performance_counters: true
+  
+# Failsafe Settings
+failsafe:
+  max_starvation_time: 5000  # milliseconds
+  emergency_scheduling: true
+  quantum_fallback: true     # Fall back to classical if quantum unavailable
+  deadlock_detection: true
+  
+# Process Classes
+process_classes:
+  interactive:
+    priority_boost: 5
+    time_slice_multiplier: 1.0
+    
+  batch:
+    priority_penalty: 5
+    time_slice_multiplier: 2.0
+    
+  realtime:
+    fixed_priority: true
+    preemption_disabled: false
+    
+  quantum:
+    dedicated_resources: true
+    coherence_preservation: true
+    
+# CPU Affinity
+cpu_affinity:
+  enabled: true
+  quantum_cores: [0, 1]      # Cores with quantum capabilities
+  classical_cores: [2, 3, 4, 5, 6, 7]  # Classical-only cores
+  shared_cores: []           # Cores that can handle both
+  
+# Power Management Integration
+power_management:
+  dynamic_frequency_scaling: true
+  idle_state_management: true
+  quantum_power_optimization: true
+  thermal_throttling_aware: true

@@ -1,0 +1,43 @@
+# Resource Map
+**UTCS-MI Code: [089] Resource Map**
+
+## AQUA OS Resource Allocation Map
+
+### CPU Resources
+```
+Core 0-1: Quantum Processing Cores
+├── Quantum Gate Operations
+├── Quantum Circuit Execution  
+├── Quantum Error Correction
+└── Quantum State Management
+
+Core 2-7: Classical Processing Cores
+├── General Purpose Computing
+├── System Services
+├── Application Processing
+└── Background Tasks
+```
+
+### Memory Resources
+```
+Physical Memory (8GB):
+├── Kernel: 512MB (6.25%)
+├── User Space: 6GB (75%)
+├── Quantum Memory: 1GB (12.5%)
+└── Reserved: 512MB (6.25%)
+
+Quantum Memory (1000 qubits):
+├── System Qubits: 100 (10%)
+├── Application Qubits: 800 (80%)
+├── Error Correction: 100 (10%)
+```
+
+### I/O Resources
+- **Network Bandwidth**: 10Gbps classical, 1Mbps quantum
+- **Storage Bandwidth**: 1GB/s read, 500MB/s write
+- **Quantum I/O**: 1000 gates/second per qubit
+
+### Integration Points
+- **Memory Manager [033]**: Memory allocation coordination
+- **Process Manager [030]**: Resource assignment to processes
+- **Scheduler [051]**: Resource-aware scheduling decisions

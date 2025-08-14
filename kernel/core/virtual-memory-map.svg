@@ -1,0 +1,32 @@
+# Virtual Memory Map
+**UTCS-MI Code: [065] Virtual Memory Map**
+
+## AQUA OS Virtual Memory Architecture
+
+### Address Space Layout
+```
+User Space (0x0000000000000000 - 0x00007FFFFFFFFFFF):
+├── Code Segment       (0x0000000000400000 - 0x0000000040000000)
+├── Data Segment       (0x0000000040000000 - 0x0000000080000000)  
+├── Heap               (0x0000000080000000 - 0x0000004000000000)
+├── Quantum Memory     (0x0000004000000000 - 0x0000008000000000)
+└── Stack              (0x00007FF000000000 - 0x00007FFFFFFFFFFF)
+
+Kernel Space (0x0000800000000000 - 0x0000FFFFFFFFFFFF):
+├── Kernel Code        (0x0000800000000000 - 0x0000800040000000)
+├── Kernel Data        (0x0000800040000000 - 0x0000800080000000)
+├── Device Memory      (0x0000800080000000 - 0x00008000C0000000)
+└── Quantum Kernel     (0x00008000C0000000 - 0x0000FFFFFFFFFFFF)
+```
+
+### Page Table Structure
+- **4-Level Paging**: PML4, PDPT, PD, PT
+- **2MB Pages**: For kernel and large allocations
+- **4KB Pages**: Standard user space pages
+- **Quantum Pages**: Variable size for qubit alignment
+
+### Virtual Memory Features
+- **Copy-on-Write**: Efficient process forking
+- **Demand Paging**: Pages loaded on access
+- **Quantum Coherence**: Memory coherence preservation
+- **NUMA Awareness**: Non-uniform memory access optimization

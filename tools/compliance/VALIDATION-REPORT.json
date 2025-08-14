@@ -1,0 +1,78 @@
+{
+  "overall_pass": false,
+  "completeness": {
+    "pass": false,
+    "missing_directories": [
+      "boot",
+      "kernel",
+      "framework",
+      "platforms",
+      "integration",
+      "standards",
+      "technologies",
+      "config",
+      "tests",
+      "var",
+      "tools"
+    ],
+    "missing_subsystems": [
+      "MOS Core",
+      "Process Manager",
+      "Memory Manager",
+      "Scheduler",
+      "Security Manager",
+      "CQEA Framework",
+      "AMOReS Engine",
+      "WEE Engine",
+      "DeMOS System",
+      "AMPEL360 Platform",
+      "CaaS Service",
+      "GAIA System"
+    ],
+    "utcs_codes_found": 1
+  },
+  "structure": {
+    "pass": false,
+    "issues": [
+      "kernel/core missing",
+      "kernel/config missing",
+      "kernel/drivers missing",
+      "kernel/io missing",
+      "kernel/ipc missing",
+      "kernel/net missing",
+      "kernel/power missing",
+      "kernel/quantum missing",
+      "kernel/runtime missing",
+      "kernel/security missing",
+      "framework/amores missing",
+      "framework/cqea missing",
+      "framework/demos missing",
+      "framework/wee missing",
+      "platforms/ampel360 missing",
+      "platforms/caas missing",
+      "platforms/diqiaas missing",
+      "platforms/gaia missing"
+    ]
+  },
+  "consistency": {
+    "pass": false,
+    "issues": [
+      "Missing pair: kernel/config/kernel-config.yaml \u2194 kernel/core/mos-main.c",
+      "Missing pair: boot/config/boot-config.yaml \u2194 boot/bootloader.c",
+      "Missing pair: platforms/ampel360/config/platform-config.yaml \u2194 platforms/ampel360/platform-core.cpp"
+    ],
+    "naming_violations": []
+  },
+  "compliance": {
+    "pass": false,
+    "issues": [
+      "Missing standards file: standards/aerospace/aerospace-standards-index.md",
+      "Missing regulatory system: amores",
+      "Missing regulatory system: caas"
+    ],
+    "utcs_coverage_percent": 0,
+    "standards_present": 0,
+    "regulatory_systems": 0
+  },
+  "validation_timestamp": "2025-01-01T00:00:00Z"
+}

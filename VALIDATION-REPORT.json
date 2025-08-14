@@ -1,0 +1,31 @@
+{
+  "overall_pass": true,
+  "completeness": {
+    "pass": true,
+    "missing_directories": [],
+    "missing_subsystems": [],
+    "utcs_codes_found": 21
+  },
+  "structure": {
+    "pass": true,
+    "issues": []
+  },
+  "consistency": {
+    "pass": true,
+    "issues": [],
+    "naming_violations": [
+      "core/evidence_chain/data/ledger/qaudit_main-v1.0.jsonl",
+      "domains/INDUSTRY_MANUFACTURING/supply-chain/GLOBAL-OPT/algorithms/SICOCA/INS-01/AQUART-ALGO-IND-SC-SICOCA-QOPT-0954-<UTCS_PATH>-SDIG-v0.1.0.md",
+      "domains/AIR_CIVIL_AVIATION/aircraft/BWB-Q100/releases/v1.0/docs/AQUART-AIR-ACFT-DOC-PDC-bwb_q100-v1.0.md",
+      "foundational/Systems/Env-Control/ECO-ARCH/CONOPS-eco_archs.md"
+    ]
+  },
+  "compliance": {
+    "pass": true,
+    "issues": [],
+    "utcs_coverage_percent": 77.77777777777779,
+    "standards_present": 1,
+    "regulatory_systems": 2
+  },
+  "validation_timestamp": "2025-01-01T00:00:00Z"
+}
