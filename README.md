@@ -583,32 +583,24 @@ graph LR
 *Axioms Embodied*: Return (II), AQUA Pattern (Return).
 
 ```mermaid
-%%{init: {'themeVariables': {
-  'fontFamily': 'Inter, Arial, sans-serif',
-  'fontSize': '16px',
-  'textColor': '#15191d'
-}} }%%
 flowchart LR
-    %% Ciclo de Vida AQUA Pattern + extensiones
-
-    A(@@IMAGINE@@<br>Concepto Quantum-Secure<br><small>CQEA Planning</small>):::a1
-    B(@@DIGITIZE@@<br>Simulación Multi-Física<br><small>+DeMOS Twins</small>):::a2
-    C(@@PHYSICALIZE@@<br>Prototipo Manufactura<br><small>+RoBoT Assembly</small>):::a3
-    D(@@EMBED@@<br>IoT Sensor Integration<br><small>+WEE Capture</small>):::a4
-    E(@@EXTEND@@<br>Mantenimiento Red<br><small>+AMOReS Compliance</small>):::a5
-    F(@@ENTANGLE@@<br>Integración ATC Quantum<br><small>+Quantum Extensions</small>):::a6
-    G(@@RETURN@@<br>Data-Driven NextGen Design<br><small>+WEE Wisdom</small>):::a7
+    A["IMAGINE<br>Concepto Quantum-Secure<br><i>CQEA Planning</i>"]
+    B["DIGITIZE<br>Simulación Multi-Física<br><i>+DeMOS Twins</i>"]
+    C["PHYSICALIZE<br>Prototipo Manufactura<br><i>+RoBoT Assembly</i>"]
+    D["EMBED<br>IoT Sensor Integration<br><i>+WEE Capture</i>"]
+    E["EXTEND<br>Mantenimiento Red<br><i>+AMOReS Compliance</i>"]
+    F["ENTANGLE<br>Integración ATC Quantum<br><i>+Quantum Extensions</i>"]
+    G["RETURN<br>Data-Driven NextGen Design<br><i>+WEE Wisdom</i>"]
 
     A --> B --> C --> D --> E --> F --> G --> A
 
-    %% Colores de etapas
-    classDef a1 fill:#fef6ed,stroke:#EA580C,color:#222;
-    classDef a2 fill:#e1f5fe,stroke:#0ea5e9,color:#222;
-    classDef a3 fill:#ede9fe,stroke:#7c3aed,color:#222;
-    classDef a4 fill:#fef2f2,stroke:#dc2626,color:#222;
-    classDef a5 fill:#ecfdf5,stroke:#059669,color:#222;
-    classDef a6 fill:#f3e8ff,stroke:#a21caf,color:#222;
-    classDef a7 fill:#f1f5f9,stroke:#475569,color:#222;
+    style A fill:#fef6ed,stroke:#EA580C,color:#222
+    style B fill:#e1f5fe,stroke:#0ea5e9,color:#222
+    style C fill:#ede9fe,stroke:#7c3aed,color:#222
+    style D fill:#fef2f2,stroke:#dc2626,color:#222
+    style E fill:#ecfdf5,stroke:#059669,color:#222
+    style F fill:#f3e8ff,stroke:#a21caf,color:#222
+    style G fill:#f1f5f9,stroke:#475569,color:#222
 ```
 
 **Description**: Cycle completes as operational data flows back to AMPEL360. Every lesson learned becomes next generation's foundation, every failure prevented, every success amplified.
