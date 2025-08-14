@@ -223,7 +223,6 @@ flowchart TB
 
 5) Certificacion integrada
 
-
 ```mermaid
 flowchart LR
   REQ[Requisitos] --> ARQ[Arquitectura]
