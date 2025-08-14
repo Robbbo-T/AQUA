@@ -26,7 +26,8 @@ QEMU := qemu-system-x86_64
 
 # Compiler flags
 CFLAGS := -std=c11 -ffreestanding -O2 -Wall -Wextra -nostdlib -fno-builtin
-CXXFLAGS := -std=c++17 -ffreestanding -O2 -Wall -Wextra -nostdlib -fno-builtin -fno-exceptions -fno-rtti
+CXXFLAGS := -std=c++17 -O2 -Wall -Wextra -fno-exceptions -fno-rtti
+FRAMEWORK_CXXFLAGS := -std=c++17 -O2 -Wall -Wextra
 ASFLAGS := -f elf64
 LDFLAGS := -nostdlib
 
@@ -70,9 +71,13 @@ kernel: $(KERNEL_OBJS)
 framework:
 	@echo "Building CQEA Framework..."
 	@mkdir -p $(BUILD_DIR)/framework
-	@# Build CQEA components
+	@# Build CQEA components (using hosted C++ for framework services)
 	@if [ -f $(FRAMEWORK_DIR)/cqea/cqea-core.cpp ]; then \
-		$(CXX) $(CXXFLAGS) $(INCLUDES) -c $(FRAMEWORK_DIR)/cqea/cqea-core.cpp -o $(BUILD_DIR)/framework/cqea-core.o; \
+		$(CXX) $(FRAMEWORK_CXXFLAGS) $(INCLUDES) -c $(FRAMEWORK_DIR)/cqea/cqea-core.cpp -o $(BUILD_DIR)/framework/cqea-core.o; \
+	fi
+	@# Build platform components (using hosted C++ for platform services)
+	@if [ -f $(PLATFORMS_DIR)/ampel360/platform-core.cpp ]; then \
+		$(CXX) $(FRAMEWORK_CXXFLAGS) $(INCLUDES) -c $(PLATFORMS_DIR)/ampel360/platform-core.cpp -o $(BUILD_DIR)/framework/platform-core.o; \
 	fi
 	@# Copy Python framework components
 	@cp -r $(FRAMEWORK_DIR)/amores $(BUILD_DIR)/framework/ 2>/dev/null || true

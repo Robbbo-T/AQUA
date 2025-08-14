@@ -305,17 +305,44 @@ bool CQEACore::initializeQuantumSubsystem() {
     // For now, this is a placeholder that simulates quantum availability
     logFrameworkEvent("Attempting quantum subsystem initialization...");
     
+    // Create a concrete implementation of QuantumProcessor
+    class ConcreteQuantumProcessor : public QuantumProcessor {
+    public:
+        bool initialize() override { return true; }
+        bool isAvailable() override { return true; }
+        std::future<std::string> executeQuantumCircuit(const std::string& circuit_qasm) override {
+            return std::async(std::launch::deferred, [circuit_qasm]() {
+                return "quantum_result:" + circuit_qasm;
+            });
+        }
+        bool calibrateHardware() override { return true; }
+    };
+    
+    quantum_processor_ = std::make_unique<ConcreteQuantumProcessor>();
+    
     // Placeholder: In real implementation, this would:
     // 1. Detect quantum hardware
     // 2. Initialize quantum drivers
     // 3. Calibrate quantum processors
     // 4. Set up quantum error correction
     
-    return true; // Simulate success for now
+    return quantum_processor_->initialize();
 }
 
 bool CQEACore::initializeClassicalSubsystem() {
-    classical_processor_ = std::make_unique<ClassicalProcessor>();
+    // Create a concrete implementation of ClassicalProcessor
+    class ConcreteClassicalProcessor : public ClassicalProcessor {
+    public:
+        bool initialize() override { return true; }
+        std::future<std::string> executeClassicalAlgorithm(const std::string& algorithm_spec) override {
+            return std::async(std::launch::deferred, [algorithm_spec]() {
+                return "classical_result:" + algorithm_spec;
+            });
+        }
+        bool optimizePerformance() override { return true; }
+    };
+    
+    classical_processor_ = std::make_unique<ConcreteClassicalProcessor>();
     
     // Classical subsystem should always initialize successfully
     logFrameworkEvent("Classical subsystem initialized");

@@ -13,6 +13,18 @@
 #define MOS_VERSION "1.0.0"
 #define MOS_MAGIC 0x4D4F5320  // "MOS "
 
+// Forward declarations
+int printk(const char* fmt, ...);
+int process_manager_init(void);
+int memory_manager_init(void);
+int scheduler_init(void);
+int security_manager_init(void);
+int quantum_gateway_init(void);
+int cqea_framework_init(void);
+void scheduler_tick(void);
+void quantum_gateway_tick(void);
+void syscall_handler_tick(void);
+
 // Kernel subsystem states
 typedef enum {
     SUBSYSTEM_UNINITIALIZED = 0,
@@ -204,11 +216,11 @@ void mos_kernel_panic(const char* reason)
     printk("System halted.\n");
     
     // Disable interrupts and halt
-    asm volatile("cli; hlt" ::: "memory");
+    __asm__ volatile("cli; hlt" ::: "memory");
     
     // Loop forever in case halt doesn't work
     while (1) {
-        asm volatile("hlt");
+        __asm__ volatile("hlt");
     }
 }
 
@@ -220,7 +232,7 @@ void mos_kernel_main_loop(void)
     printk("Entering kernel main loop...\n");
     
     // Enable interrupts
-    asm volatile("sti" ::: "memory");
+    __asm__ volatile("sti" ::: "memory");
     
     // Main kernel scheduling loop
     while (1) {
@@ -236,7 +248,7 @@ void mos_kernel_main_loop(void)
         syscall_handler_tick();
         
         // Yield to allow other tasks to run
-        asm volatile("hlt");
+        __asm__ volatile("hlt");
     }
 }
 
