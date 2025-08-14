@@ -1,0 +1,147 @@
+# Logs
+*.log
+/var/log/aqua/
+
+# Build artifacts
+build/
+dist/
+*.o
+*.so
+*.a
+*.ko
+mos-kernel
+*.efi
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+env/
+venv/
+.env
+
+# C/C++ build artifacts
+*.out
+*.exe
+*.dll
+*.dylib
+
+# Development files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Temporary files
+/tmp/
+/var/tmp/
+*.tmp
+*.temp
+
+# Cache directories
+/var/cache/aqua/
+.cache/
+cache/
+
+# Database files
+*.db
+*.sqlite
+*.sqlite3
+
+# Quantum simulation data
+*.qsim
+quantum_cache/
+
+# Container and VM files
+*.iso
+*.img
+*.qcow2
+*.vmdk
+
+# Backup files
+*.bak
+*.backup
+*~
+
+# OS specific
+.DS_Store
+Thumbs.db
+
+# IDE and editor files
+.project
+.classpath
+.settings/
+*.sublime-*
+
+# Documentation build
+docs/_build/
+site/
+
+# Test artifacts
+.pytest_cache/
+.coverage
+htmlcov/
+.tox/
+
+# Dependency directories
+node_modules/
+vendor/
+
+# Rust artifacts
+target/
+Cargo.lock
+
+# Go artifacts
+bin/
+pkg/
+
+# Configuration overrides (keep templates)
+/etc/aqua/*.local
+/etc/aqua/*.override
+config/*.local
+config/*.override
+
+# Runtime data
+/var/lib/aqua/runtime/
+/var/run/aqua/
+
+# User-specific configuration
+~/.aqua/local/
+~/.aqua/cache/
+
+# Security sensitive files
+*.key
+*.pem
+*.crt
+secrets/
+private/
+
+# Large data files
+*.bin
+*.dat
+data/large/
+datasets/
+
+# Quantum hardware specific
+qpu_calibration/
+quantum_noise_models/
+
+# Framework specific ignores
+# WEE wisdom database working files
+/var/lib/aqua/wee/working/
+wisdom_temp/
+
+# AMOReS working files
+/var/lib/aqua/amores/working/
+compliance_temp/
+
+# DeMOS working files
+/var/lib/aqua/demos/working/
+metrics_temp/
+
+# CQEA working files
+/var/lib/aqua/cqea/working/
+extension_temp/
