@@ -4196,7 +4196,7 @@ Esta tabla muestra la cantidad de archivos (identificados por su `File ID`) asig
 
 **Validación:** La suma de todos los "Número de Archivos (File ID)" en la tabla es **920**, lo que coincide con el total de archivos que hemos estado manejando para el proyecto AQUA. Esto confirma que la priorización está completa y autoconsistente.
 
-```
+
 # AQUA v20.0: Quantum-Classical Hybrid Framework for Autonomous Aerospace Systems
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
