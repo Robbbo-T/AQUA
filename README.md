@@ -60,6 +60,7 @@ Operation follows **CMPC** via the **POAE** loop. Certification readiness is con
 
 ## Architecture (Mermaid)
 
+
 ### TCA — Triadic Computational Architecture
 
 ```mermaid
@@ -74,15 +75,15 @@ graph TD
   V --> FDI[Fault Detection & Isolation]
   FDI --> ACT[Deterministic Actuation]
 
-  subgraph Photonic TSN Backplane
-    P1[Optical Modulators/Detectors]
+  subgraph P[Photonic TSN Backplane]
+    P1[Optical Modulators / Detectors]
     P2[TSN Switch Fabric]
   end
   A --> P1 --> P2 --> V
 
-  subgraph Organic Domain (R&D / No Flight)
-    O1[Bio-Interfaces]
-    O2[Self-Healing Modules]
+  subgraph O[Organic Domain RnD No Flight]
+    O1[Bio Interfaces]
+    O2[Self Healing Modules]
   end
   O1 --> O2
 ```
@@ -101,13 +102,14 @@ flowchart LR
 
 ```mermaid
 graph LR
-  K[Kernel & RTOS Tracepoints] --> ECA[Evidence Collector Agent]
+  K[Kernel and RTOS Tracepoints] --> ECA[Evidence Collector Agent]
   ECA --> WORM[WORM Immutable Store]
   WORM --> HSM[HSM Hash + PQC Sign]
   HSM --> DLT[Distributed Ledger Anchor]
   DLT --> REP[Evidence Repository]
-  REP -->|Audits & Cert| CAA[Authorities & Safety Case]
+  REP -->|Audits & Certification| CAA[Authorities and Safety Case]
 ```
+
 
 ---
 
