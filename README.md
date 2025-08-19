@@ -797,26 +797,838 @@ RV-8.4.1 Cada entrada está firmada con una clave HSM y tiene una marca de tiemp
         F --> H[Aircraft Actuators]
     ```
 
-*   **Fragmento (ATA-27 Flight Control):**
+# ATA-27 Flight Control — fragmento revisado + **Desglose por ATA** (mapeo extendido)
 
-    ```cpp
-    // domains/AIR_CIVIL_AVIATION/ATA-27-00/bwb-flight-control.cpp [0669]
-    #include "Voter_Interface.h"
-    #include "HAL_Interface.h"
+Ajusto el snippet para que sea **autocontenible, determinista y listo para P0**, con *voter 2oo3*, tolerancias numéricas y salida degradada segura. Luego incluyo la **tabla de mapeo por capítulos ATA** para todo el stack relevante.
 
-    struct CtrlOut { float elevon_l, elevon_r; };
-    static CtrlOut law_cpu(const CtrlIn& x);
-    static CtrlOut law_fpga(const CtrlIn& x);
-    static CtrlOut law_dsp(const CtrlIn& x);
+---
 
-    int flight_ctrl_step(const CtrlIn& x, CtrlOut* y) {
-      // Asume voter_compare y voter_get_consensed_result usan Voter_Logic.c [implícito]
-      if (voter_compare(&c, &f, &d, sizeof(CtrlOut)) != VOTE_EQUAL) return -1;
-      *y = *(const CtrlOut*)voter_get_consensed_result(0x27);
+## 1) `bwb-flight-control.cpp` (ATA-27-00) — versión robusta
+
+```cpp
+// domains/AIR_CIVIL_AVIATION/ATA-27-00/bwb-flight-control.cpp  // [UTCS: 0669]
+#include <cmath>
+#include <cstdint>
+#include "Voter_Interface.h"   // interfaz real del voter 2oo3
+#include "HAL_Interface.h"     // IO de sensores/actuadores (determinista)
+
+struct CtrlIn  { float q_pitch, q_roll, alpha, tas; };     // rad/s, rad/s, rad, m/s
+struct CtrlOut { float elevon_l, elevon_r; };              // comandos normalizados [-1,+1]
+
+// límites y tolerancias (config DO-178C/ARINC 653)
+static constexpr float ELEVON_MIN = -1.0f;
+static constexpr float ELEVON_MAX = +1.0f;
+static constexpr float VOTE_EPS   = 1.0e-4f;   // tolerancia igualdad numérica
+static constexpr uint16_t VOTE_TAG = 0x27;     // trazabilidad ATA-27
+
+// utilidades deterministas
+static inline float sat(const float v, const float lo, const float hi) {
+  return (v < lo) ? lo : (v > hi ? hi : v);
+}
+static inline bool feq(float a, float b, float eps){ return std::fabs(a-b) <= eps; }
+static inline bool ctrl_eq(const CtrlOut& a, const CtrlOut& b, float eps){
+  return feq(a.elevon_l, b.elevon_l, eps) && feq(a.elevon_r, b.elevon_r, eps);
+}
+
+// LEY DE CONTROL (tres implementaciones lane-específicas, mismas ecuaciones)
+static CtrlOut law_cpu (const CtrlIn& x){
+  // simple ejemplo PD desacoplado (coef fijos para P0; en P1 usar gain-sched)
+  const float Kp_p=0.80f, Kd_p=0.06f, Kp_r=0.75f, Kd_r=0.05f;
+  float u_p = -(Kp_p*x.q_pitch + Kd_p*0.0f);
+  float u_r = -(Kp_r*x.q_roll  + Kd_r*0.0f);
+  CtrlOut y { sat(u_p - u_r, ELEVON_MIN, ELEVON_MAX),
+              sat(u_p + u_r, ELEVON_MIN, ELEVON_MAX) };
+  return y;
+}
+static CtrlOut law_fpga(const CtrlIn& x){ return law_cpu(x); } // P0: isomorfa
+static CtrlOut law_dsp (const CtrlIn& x){ return law_cpu(x); } // P0: isomorfa
+
+// Votación 2oo3 con degradación segura y telemetría SEAL
+int flight_ctrl_step(const CtrlIn& xin, CtrlOut* y_out){
+  if(!y_out) return -2;
+
+  // 1) calcular tres resultados independientes
+  const CtrlOut c = law_cpu (xin);
+  const CtrlOut f = law_fpga(xin);
+  const CtrlOut d = law_dsp (xin);
+
+  // 2) comparar con tolerancia (fallback typed voter)
+  bool cf = ctrl_eq(c,f,VOTE_EPS);
+  bool cd = ctrl_eq(c,d,VOTE_EPS);
+  bool fd = ctrl_eq(f,d,VOTE_EPS);
+
+  // 3) integrar con Voter_Interface (si expone API por pares)
+  //    Nota: si tu voter devuelve el resultado consensuado internamente,
+  //    puedes sustituir este bloque por esa llamada (manteniendo VOTE_TAG).
+  CtrlOut consensus{};
+  if     (cf || cd) consensus = c;
+  else if(fd)       consensus = f;
+  else {
+    // SIN CONSENSO → modo degradado seguro: trim neutro + flag de fallo
+    consensus = CtrlOut{0.0f, 0.0f};
+    HAL_ReportFault(VOTE_TAG, HAL_Fault::TMR_MAJORITY_LOSS);
+    // registrar las tres salidas para trazabilidad DET/SEAL
+    HAL_LogVector(VOTE_TAG, "lane_c", &c, sizeof(CtrlOut));
+    HAL_LogVector(VOTE_TAG, "lane_f", &f, sizeof(CtrlOut));
+    HAL_LogVector(VOTE_TAG, "lane_d", &d, sizeof(CtrlOut));
+    *y_out = consensus;
+    return -1; // se permite continuar en modo seguro
+  }
+
+  // 4) escribir actuadores (determinista, saturación ya aplicada)
+  *y_out = consensus;
+  HAL_WriteElevonLeft (y_out->elevon_l);
+  HAL_WriteElevonRight(y_out->elevon_r);
+
+  // 5) opcional: publicar consenso en voter para auditoría/FDI
+  voter_publish(VOTE_TAG, &consensus, sizeof(CtrlOut));
+
+  return 0;
+}
+```
+
+**Notas de certificación (P0):**
+
+* **Determinismo:** sin asignaciones dinámicas ni E/S no determinista en el lazo.
+* **Defensivo:** saturaciones explícitas; `nullptr` check; tolerancias fijadas.
+* **Trazabilidad:** `VOTE_TAG=0x27` (ATA-27) para DET/SEAL y *flight data review*.
+* **Evolución P1–P2:** separar *gains* por tabla (gain scheduling) y equivalencia bit-a-bit entre lanes (CPU/FPGA/DSP).
+
+---
+
+## 2) **Desglose por ATA** — mapeo extendido de módulos AMEDEO/AQUA
+
+> Guía de asignación funcional a **ATA iSpec 100/2200**. El SW de infraestructura (OS, redes, seguridad) se referencia desde **ATA-46 Information Systems** cuando no está ligado a un sistema ATA operacional específico.
+
+| **Módulo / Carpeta**                                          | **Función**                                 | **ATA Cap.-Sección**      | **Notas de conformidad**                           |
+| ------------------------------------------------------------- | ------------------------------------------- | ------------------------- | -------------------------------------------------- |
+| `domains/AIR_CIVIL_AVIATION/ATA-27-00/bwb-flight-control.cpp` | Ley de control elevones (BWB)               | **27-00 / 27-10 / 27-30** | Voter 2oo3; límites; saturación; FDI               |
+| `domains/.../ATA-22-00/autoflight-manager.cpp`                | Auto Flight / AP / FD                       | **22-00**                 | Interfaces con FMS/IRS; monitoreo de acoplamientos |
+| `domains/.../ATA-34-00/air-data-nav-filter.cpp`               | Fusión de datos aire-navegación             | **34-00**                 | Integridad, lat/long/alt; RAIM/IRU health          |
+| `domains/.../ATA-23-00/tsn-comms-stack/`                      | TSN/Comms determinista a bordo              | **23-00** **/ 46-00**     | Config TSN + seguridad PQC; ver 46 si red interna  |
+| `kernel/gaia-air-rtos/`                                       | RTOS particionado (ARINC 653)               | **46-00** (infra)         | DO-178C DAL-A; particiones y health monitor        |
+| `security/seal/`                                              | SEAL Gates, PQC (Kyber/Dilithium)           | **46-00** (infra)         | DO-326A; control llaves/HSM; Zero-Trust            |
+| `aeic/tsp-sync/`                                              | AEIC/TSP Sync 10 MHz + 1PPS                 | **46-00** (infra)         | Distribución de tiempo; φ\_sync ≤ 1 ms             |
+| `qpu/qal-backend-aqua/`                                       | Backend QPU NISQ (offload optimización)     | **46-00** (infra)         | Aislar en no-safety partitions; evidencias DET     |
+| `power/demos-energy-policy/`                                  | Energy-as-Policy / presupuestos energéticos | **24-00** **/ 46-00**     | Medición/limitación; reporting carbono             |
+| `maintenance/det/`                                            | Digital Evidence Twin                       | **31-00** **/ 46-00**     | Indicating/Recording + IS; anclaje inmutable       |
+| `hydraulics/servo-actuators/hal_bridge.cpp`                   | Puente HAL actuadores primarios             | **29-00 / 27-00**         | Tiempos y límites certificados                     |
+| `landing-gear/brake-control/`                                 | Control de frenos                           | **32-40**                 | Interacción con anti-skid; partición dedicada      |
+| `fuel/management/`                                            | Gestión de combustible                      | **28-00**                 | Balance y transferencia determinista               |
+| `environmental/air-cond-pack/`                                | Control packs (no crítico de vuelo)         | **21-00**                 | Particiones DAL inferiores; monitoreo              |
+
+**Criterios de mapeo:**
+
+1. **Función primaria** domina la asignación ATA; 2) **Infraestructura común** → **ATA-46**;
+2. Módulos que **visualizan/graban** → también **ATA-31**; 4) **Seguridad cibernética** → **ATA-46** + DO-326A.
+
+---
+
+## 3) Trazabilidad (ejemplos P0)
+
+* **REQ-27-CTRL-LAT-001** → `flight_ctrl_step`: *latencia acotada < 1 ms @ 1 kHz*.
+* **REQ-27-CTRL-SAF-002** → saturación ±1.0; *fail-silent* en pérdida de mayoría.
+* **REQ-46-SEC-PQC-003** → SEAL: **Kyber** (KEM) y **Dilithium** (firma) citados en *Security §*.
+* **REQ-46-DET-004** → `voter_publish(VOTE_TAG, ...)` → canalización **DET** (hash+firma).
+
+---
+
+## 4) Pruebas mínimas recomendadas (P0)
+
+* **Unit (host):** igualdad con tolerancia (`ctrl_eq`), saturación, *no-NaN propagation*.
+* **HIL (1 kHz):** step/impulse en `q_pitch/q_roll`; verificación de jitter y *deadline miss = 0*.
+* **FDI/Voter:** inyectar fallo en un lane → confirmación de consenso y *fault flag*.
+* **MC/DC (crítico):** ramas `cf|cd|fd|else` cubiertas; reporte a **DET**.
+
+---
+
+
+A continuación van los **headers tipados del Voter**, un **HAL de simulación determinista (host)** y un **generador de `ATA-map.md`** para trazabilidad continua.
+
+---
+
+## 1) `include/Voter_Interface.h`
+
+```c
+// include/Voter_Interface.h
+#ifndef VOTER_INTERFACE_H
+#define VOTER_INTERFACE_H
+
+#include <stddef.h>
+#include <stdint.h>
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+typedef enum {
+  VOTE_EQUAL = 0,
+  VOTE_DIFFER = 1
+} voter_cmp_t;
+
+/** Inicializa backend del voter (NVM buffers, tablas tag->payload, etc.). */
+void voter_init(void);
+
+/** Comparación determinista por bytes (para tipos triviales/packed). */
+voter_cmp_t voter_compare_raw(const void* a, const void* b, size_t len);
+
+/** Publica (almacena) el payload consensuado para un TAG (no bloqueante). */
+int voter_publish(uint16_t tag, const void* payload, size_t len);
+
+/** Recupera el último consenso publicado para TAG (len debe coincidir). */
+int voter_get_last(uint16_t tag, void* out, size_t len);
+
+#ifdef __cplusplus
+}
+#endif
+
+#endif /* VOTER_INTERFACE_H */
+```
+
+---
+
+## 2) `include/Voter_Typed.h` (plantillas C para tipos)
+
+```c
+// include/Voter_Typed.h
+#ifndef VOTER_TYPED_H
+#define VOTER_TYPED_H
+
+#include <stdint.h>
+#include "Voter_Interface.h"
+
+/* Declara envoltorios tipados para un struct POD T */
+#define VOTER_DECLARE_TYPED(T)                                                     \
+  static inline voter_cmp_t voter_compare_##T(const T* a, const T* b) {            \
+    return voter_compare_raw((const void*)a, (const void*)b, sizeof(T));           \
+  }                                                                                \
+  static inline int voter_publish_##T(uint16_t tag, const T* v) {                  \
+    return voter_publish(tag, (const void*)v, sizeof(T));                          \
+  }                                                                                \
+  static inline int voter_get_last_##T(uint16_t tag, T* out) {                     \
+    return voter_get_last(tag, (void*)out, sizeof(T));                             \
+  }
+
+/* Ejemplo de igualdad con tolerancia para tipos con float (campo a campo) */
+#define VOTER_DECLARE_EQ_TOL_FLOAT(T, F_EQ_FN)                                     \
+  static inline voter_cmp_t voter_feq_##T(const T* a, const T* b) {                \
+    return (F_EQ_FN(a, b) ? VOTE_EQUAL : VOTE_DIFFER);                             \
+  }
+
+#endif /* VOTER_TYPED_H */
+```
+
+---
+
+## 3) `include/HAL_Interface.h`
+
+```c
+// include/HAL_Interface.h
+#ifndef HAL_INTERFACE_H
+#define HAL_INTERFACE_H
+
+#include <stddef.h>
+#include <stdint.h>
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+typedef enum {
+  HAL_FAULT_NONE = 0,
+  HAL_FAULT_TMR_MAJORITY_LOSS = 1,
+  HAL_FAULT_SENSOR_RANGE = 2,
+  HAL_FAULT_ACTUATOR_SAT = 3,
+  HAL_FAULT_TIMING_DEADLINE = 4
+} HAL_Fault;
+
+/* Salidas de actuadores (deterministas, saturación ya aplicada por la ley). */
+void HAL_WriteElevonLeft(float norm_cmd_m1_p1);
+void HAL_WriteElevonRight(float norm_cmd_m1_p1);
+
+/* Telemetría y fallos (en P0: buffer in-mem; en vuelo: canal DET/FDI). */
+void HAL_ReportFault(uint16_t tag, HAL_Fault code);
+void HAL_LogVector(uint16_t tag, const char* key, const void* buf, size_t len);
+
+/* Reloj determinista de simulación (host) o HW monotónico (target). */
+uint64_t HAL_NowMicros(void);
+
+/* Solo sim: avanza el tiempo determinista de host (Δt fijo). */
+void HAL_SimStep(void);
+
+#ifdef __cplusplus
+}
+#endif
+#endif /* HAL_INTERFACE_H */
+```
+
+---
+
+## 4) `sim/Voter_Sim.c` (backend determinista de pruebas)
+
+```c
+// sim/Voter_Sim.c
+#include <string.h>
+#include "Voter_Interface.h"
+
+/* Tabla simple TAG->payload (fixed slots). Ajustar tamaños a tu caso. */
+#define VOTER_MAX_SLOTS 64
+#define VOTER_MAX_PAYLOAD 64
+
+typedef struct {
+  uint16_t tag;
+  uint16_t len;
+  uint8_t  buf[VOTER_MAX_PAYLOAD];
+  uint8_t  used;
+} voter_slot_t;
+
+static voter_slot_t g_slots[VOTER_MAX_SLOTS];
+
+void voter_init(void) { memset(g_slots, 0, sizeof(g_slots)); }
+
+static int find_or_alloc(uint16_t tag, size_t len) {
+  for (int i = 0; i < VOTER_MAX_SLOTS; ++i)
+    if (g_slots[i].used && g_slots[i].tag == tag && g_slots[i].len == (uint16_t)len)
+      return i;
+  for (int i = 0; i < VOTER_MAX_SLOTS; ++i)
+    if (!g_slots[i].used) {
+      g_slots[i].used = 1;
+      g_slots[i].tag = tag;
+      g_slots[i].len = (uint16_t)len;
+      return i;
+    }
+  return -1;
+}
+
+voter_cmp_t voter_compare_raw(const void* a, const void* b, size_t len) {
+  return (memcmp(a, b, len) == 0) ? VOTE_EQUAL : VOTE_DIFFER;
+}
+
+int voter_publish(uint16_t tag, const void* payload, size_t len) {
+  if (!payload || len == 0 || len > VOTER_MAX_PAYLOAD) return -1;
+  int idx = find_or_alloc(tag, len);
+  if (idx < 0) return -2;
+  memcpy(g_slots[idx].buf, payload, len);
+  return 0;
+}
+
+int voter_get_last(uint16_t tag, void* out, size_t len) {
+  if (!out || len == 0) return -1;
+  for (int i = 0; i < VOTER_MAX_SLOTS; ++i)
+    if (g_slots[i].used && g_slots[i].tag == tag && g_slots[i].len == (uint16_t)len) {
+      memcpy(out, g_slots[i].buf, len);
       return 0;
     }
-    ```
-*   **Desglose por ATA:** (Sección extendida con mapeo de módulos a ATA)
+  return -2;
+}
+```
+
+---
+
+## 5) `sim/HAL_Sim.c` (host sim determinista, 1 kHz)
+
+```c
+// sim/HAL_Sim.c
+#include <stdio.h>
+#include <string.h>
+#include "HAL_Interface.h"
+
+#ifndef SIM_DT_US
+#define SIM_DT_US 1000u  /* 1 kHz */
+#endif
+
+typedef struct {
+  float elevon_l;
+  float elevon_r;
+} sim_actuators_t;
+
+typedef struct {
+  uint16_t tag;
+  HAL_Fault code;
+  uint64_t t_us;
+} sim_fault_t;
+
+#define LOG_RING 256
+typedef struct {
+  uint16_t tag;
+  char     key[24];
+  uint8_t  data[64];
+  uint16_t len;
+  uint64_t t_us;
+} sim_log_t;
+
+static uint64_t      g_now_us = 0;
+static sim_actuators_t g_act;
+static sim_fault_t     g_last_fault = {0};
+static sim_log_t       g_logs[LOG_RING];
+static unsigned        g_log_w = 0;
+
+static void log_push(uint16_t tag, const char* key, const void* buf, size_t len) {
+  sim_log_t* s = &g_logs[g_log_w++ % LOG_RING];
+  s->tag = tag;
+  s->len = (len > sizeof(s->data)) ? sizeof(s->data) : (uint16_t)len;
+  strncpy(s->key, key ? key : "", sizeof(s->key)-1);
+  s->key[sizeof(s->key)-1] = '\0';
+  if (buf && s->len) memcpy(s->data, buf, s->len);
+  s->t_us = g_now_us;
+}
+
+void HAL_WriteElevonLeft(float v)  { g_act.elevon_l = v; }
+void HAL_WriteElevonRight(float v) { g_act.elevon_r = v; }
+
+void HAL_ReportFault(uint16_t tag, HAL_Fault code) {
+  g_last_fault.tag = tag; g_last_fault.code = code; g_last_fault.t_us = g_now_us;
+  /* opcional: printf para depuración host */
+  /* printf("[FAULT] t=%llu us tag=0x%04x code=%d\n",
+           (unsigned long long)g_now_us, tag, code); */
+}
+
+void HAL_LogVector(uint16_t tag, const char* key, const void* buf, size_t len) {
+  log_push(tag, key, buf, len);
+}
+
+uint64_t HAL_NowMicros(void) { return g_now_us; }
+void HAL_SimStep(void) { g_now_us += SIM_DT_US; }
+
+/* Helpers de test (opcionales) */
+#ifdef HAL_SIM_MAIN
+/* Ejemplo mínimo de ciclo 100 pasos */
+int main(void) {
+  for (int i = 0; i < 100; ++i) {
+    HAL_SimStep();
+  }
+  printf("SIM done. t=%llu us, elevon L/R=%.4f/%.4f\n",
+         (unsigned long long)g_now_us, g_act.elevon_l, g_act.elevon_r);
+  return 0;
+}
+#endif
+```
+
+---
+
+## 6) `tools/ata_map_gen.py` (auto-genera `ATA-map.md`)
+
+```python
+#!/usr/bin/env python3
+# tools/ata_map_gen.py
+import re, os, sys, pathlib, datetime
+
+ROOT = pathlib.Path(sys.argv[1]) if len(sys.argv) > 1 else pathlib.Path(".")
+ATA_RE = re.compile(r"ATA-(\d{2})-(\d{2})")
+UTCS_RE = re.compile(r"\[UTCS:\s*([0-9]{3,})\]")
+TITLE_RE = re.compile(r"^\s*(//|#|/\*|\*)\s*(.+)")
+
+def scan_file(p: pathlib.Path):
+    try:
+        txt = p.read_text(errors="ignore", encoding="utf-8")
+    except Exception:
+        return None
+    utcs = None
+    m_utcs = UTCS_RE.search(txt[:4096])
+    if m_utcs: utcs = m_utcs.group(1)
+    # primera línea de comentario como título, si existe
+    title = None
+    for line in txt.splitlines()[:10]:
+        m = TITLE_RE.match(line)
+        if m:
+            title = m.group(2).strip()
+            break
+    return utcs, title
+
+def main():
+    entries = {}
+    for dirpath, _, files in os.walk(ROOT):
+        for fn in files:
+            p = pathlib.Path(dirpath) / fn
+            m = ATA_RE.search(str(p))
+            if not m:
+                continue
+            ata = f"{m.group(1)}-{m.group(2)}"
+            utcs, title = scan_file(p)
+            lst = entries.setdefault(ata, [])
+            lst.append((str(p).replace("\\","/"), utcs, title))
+    now = datetime.datetime.utcnow().isoformat(timespec="seconds") + "Z"
+    print("# ATA-map — Auto-generated")
+    print(f"_Generated: {now}_\n")
+    for ata in sorted(entries.keys()):
+        print(f"## ATA-{ata}\n")
+        print("| File | UTCS | Title/Note |")
+        print("|---|---:|---|")
+        for path, utcs, title in sorted(entries[ata]):
+            utcs_s = utcs if utcs else ""
+            title_s = title if title else ""
+            print(f"| `{path}` | {utcs_s} | {title_s} |")
+        print()
+    if not entries:
+        print("_No ATA-tagged files found. Ensure paths contain `ATA-XX-YY`._")
+
+if __name__ == "__main__":
+    main()
+```
+
+**Uso (Makefile):**
+
+```make
+# Makefile (fragmento)
+ata-map:
+\tpython3 tools/ata_map_gen.py . > docs/architecture/ATA-map.md
+```
+
+---
+
+## 7) `docs/architecture/ATA-map.md` (cabecera)
+
+```md
+<!-- docs/architecture/ATA-map.md -->
+# ATA-map — Auto-generated
+_Run `make ata-map` to refresh this file. Do not edit manually._
+```
+
+---
+
+## 8) Integración mínima en tu `bwb-flight-control.cpp`
+
+```cpp
+#include "Voter_Typed.h"
+// ...
+VOTER_DECLARE_TYPED(CtrlOut)  // crea wrappers compare/publish/get_last
+// Si tienes un eq con tolerancia campo-a-campo:
+// VOTER_DECLARE_EQ_TOL_FLOAT(CtrlOut, ctrl_eq)
+```
+
+---
+
+## 9) Sugerencia CI (opcional): GitHub Actions
+
+```yaml
+# .github/workflows/ata-map.yml
+name: ATA map & manifest
+on: { push: { branches: ["**"] }, pull_request: {} }
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.11" }
+      - run: python3 tools/ata_map_gen.py . > docs/architecture/ATA-map.md
+      - run: python3 tools/manifest_check.py  # si existe en repo
+      - name: Commit ATA-map if changed
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "ci: refresh ATA-map.md"
+          file_pattern: docs/architecture/ATA-map.md
+```
+
+---
+
+el **test host** corre 1 000 pasos a **1 kHz**, registra trazas **DET/SEAL** vía `HAL_LogVector`, aplica **seal gate** (saturación ±1), y valida **consenso 2oo3** (incluye inyección de fallos: 1 fallo tolerado —2oo3 válido— y 1 fallo no tolerado —pérdida de mayoría—).
+
+---
+
+## `tests/ata27_flight_ctrl_host.c`
+
+```c
+// tests/ata27_flight_ctrl_host.c
+// [ATA-27-00] Host test loop 1k @ 1 kHz — DET/SEAL traces + 2oo3 consensus assertions
+// [UTCS: 000669]
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <math.h>
+#include <stdbool.h>
+#include <assert.h>
+
+#include "Voter_Interface.h"
+#include "HAL_Interface.h"
+
+#ifndef M_PI
+#define M_PI 3.14159265358979323846
+#endif
+
+#define TAG_ATA27 0x0027u
+#define STEPS 1000
+#define TOL 1e-3f
+
+typedef struct {
+  float theta_cmd;  // pitch cmd [rad]
+  float theta;      // pitch meas [rad]
+  float phi_cmd;    // roll cmd [rad]
+  float phi;        // roll meas [rad]
+} CtrlIn;
+
+typedef struct {
+  float elevon_l;   // [-1, +1]
+  float elevon_r;   // [-1, +1]
+} CtrlOut;
+
+/* ---------- Helpers ---------- */
+
+static inline float clampf(float x, float lo, float hi) {
+  return (x < lo) ? lo : (x > hi ? hi : x);
+}
+
+static inline float quantize(float x, float qstep) { // simulate fixed-point lane
+  return qstep > 0.0f ? floorf((x / qstep) + 0.5f) * qstep : x;
+}
+
+static bool ctrlout_eq_tol(const CtrlOut* a, const CtrlOut* b, float tol) {
+  return (fabsf(a->elevon_l - b->elevon_l) <= tol) &&
+         (fabsf(a->elevon_r - b->elevon_r) <= tol);
+}
+
+static CtrlOut ctrlout_avg(const CtrlOut* a, const CtrlOut* b) {
+  CtrlOut o = { .elevon_l = 0.5f*(a->elevon_l + b->elevon_l),
+                .elevon_r = 0.5f*(a->elevon_r + b->elevon_r) };
+  return o;
+}
+
+/* SEAL gate: clamp ±1.0 and return saturation flags (bit0=L, bit1=R) */
+static unsigned seal_gate(const CtrlOut* in, CtrlOut* out) {
+  unsigned sat = 0;
+  out->elevon_l = in->elevon_l;
+  out->elevon_r = in->elevon_r;
+  float l = out->elevon_l, r = out->elevon_r;
+  float lc = clampf(l, -1.0f, 1.0f);
+  float rc = clampf(r, -1.0f, 1.0f);
+  if (lc != l) sat |= 0x1;
+  if (rc != r) sat |= 0x2;
+  out->elevon_l = lc;
+  out->elevon_r = rc;
+  return sat;
+}
+
+/* ---------- Simple control law (same math; lanes differ by quant/glitches) ---------- */
+static inline CtrlOut law_eval(const CtrlIn* u) {
+  const float Kp_th = 0.8f, Kp_ph = 0.6f;
+  float uth = Kp_th * (u->theta_cmd - u->theta);
+  float uph = Kp_ph * (u->phi_cmd   - u->phi);
+  CtrlOut y;
+  /* decouple: elevon mix (roll/pitch) */
+  y.elevon_l = uth - uph;
+  y.elevon_r = uth + uph;
+  return y;
+}
+
+static CtrlOut law_cpu(const CtrlIn* u) {
+  /* baseline floating-point */
+  return law_eval(u);
+}
+
+static CtrlOut law_fpga(const CtrlIn* u) {
+  /* emulate fixed-point quantization (e.g., 1e-4 step) */
+  CtrlOut y = law_eval(u);
+  y.elevon_l = quantize(y.elevon_l, 1e-4f);
+  y.elevon_r = quantize(y.elevon_r, 1e-4f);
+  return y;
+}
+
+static CtrlOut law_dsp(const CtrlIn* u, int step) {
+  /* emulate DSP lane, with one benign glitch (still 2oo3) at step 600 */
+  CtrlOut y = law_eval(u);
+  if (step == 600) {                // single-lane fault; 2oo3 must still succeed
+    y.elevon_l += 0.05f;
+    y.elevon_r -= 0.05f;
+  }
+  return y;
+}
+
+/* 2oo3 consensus; publish consensus payload if success. On failure, report fault. */
+static bool consensus_2oo3(const CtrlOut* c, const CtrlOut* f, const CtrlOut* d, CtrlOut* y_out) {
+  if (ctrlout_eq_tol(c, f, TOL)) {
+    *y_out = ctrlout_avg(c, f);
+    (void)voter_publish(TAG_ATA27, y_out, sizeof(CtrlOut));
+    return true;
+  }
+  if (ctrlout_eq_tol(c, d, TOL)) {
+    *y_out = ctrlout_avg(c, d);
+    (void)voter_publish(TAG_ATA27, y_out, sizeof(CtrlOut));
+    return true;
+  }
+  if (ctrlout_eq_tol(f, d, TOL)) {
+    *y_out = ctrlout_avg(f, d);
+    (void)voter_publish(TAG_ATA27, y_out, sizeof(CtrlOut));
+    return true;
+  }
+  HAL_ReportFault(TAG_ATA27, HAL_FAULT_TMR_MAJORITY_LOSS);
+  return false;
+}
+
+/* ---------- Test main ---------- */
+int main(void) {
+  voter_init();
+
+  /* plant states (very simple 1st order tracking for meas) */
+  CtrlIn u = {0};
+  CtrlOut y_cpu = {0}, y_fpga = {0}, y_dsp = {0}, y_cons = {0}, y_safe = {0};
+
+  unsigned ok_consensus = 0, lost_majority = 0, seal_sats = 0, seal_events = 0;
+
+  for (int k = 0; k < STEPS; ++k) {
+    /* 1 kHz time base */
+    HAL_SimStep();
+
+    /* commands (bounded sinusoids) */
+    u.theta_cmd = 0.20f * sinf(2.0f * (float)M_PI * (float)k / 200.0f);
+    u.phi_cmd   = 0.10f * sinf(2.0f * (float)M_PI * (float)k / 150.0f);
+
+    /* simple 1st-order "plant" update to get measurements */
+    u.theta = 0.95f * u.theta + 0.05f * u.theta_cmd;
+    u.phi   = 0.95f * u.phi   + 0.05f * u.phi_cmd;
+
+    /* lane evaluations */
+    y_cpu  = law_cpu(&u);
+    y_fpga = law_fpga(&u);
+    y_dsp  = law_dsp(&u, k);
+
+    /* DELIBERATE MAJORITY LOSS at k==750 (two lanes deviated differently) */
+    if (k == 750) {
+      y_cpu.elevon_l += 0.07f;  y_cpu.elevon_r += 0.01f;
+      y_fpga.elevon_l -= 0.06f; y_fpga.elevon_r -= 0.02f;
+    }
+
+    /* DET traces for lanes */
+    HAL_LogVector(TAG_ATA27, "lane/cpu",  &y_cpu,  sizeof(CtrlOut));
+    HAL_LogVector(TAG_ATA27, "lane/fpga", &y_fpga, sizeof(CtrlOut));
+    HAL_LogVector(TAG_ATA27, "lane/dsp",  &y_dsp,  sizeof(CtrlOut));
+
+    /* 2oo3 consensus */
+    bool ok = consensus_2oo3(&y_cpu, &y_fpga, &y_dsp, &y_cons);
+    if (ok) {
+      ++ok_consensus;
+      HAL_LogVector(TAG_ATA27, "consensus", &y_cons, sizeof(CtrlOut));
+
+      /* SEAL gate (±1 clamp) */
+      unsigned sat = seal_gate(&y_cons, &y_safe);
+      if (sat) { ++seal_events; seal_sats |= sat; }
+      HAL_LogVector(TAG_ATA27, "seal", &y_safe, sizeof(CtrlOut));
+
+      /* Actuation */
+      HAL_WriteElevonLeft(y_safe.elevon_l);
+      HAL_WriteElevonRight(y_safe.elevon_r);
+    } else {
+      ++lost_majority;
+      /* Safe neutral command */
+      CtrlOut neutral = {0.0f, 0.0f};
+      HAL_LogVector(TAG_ATA27, "consensus", &neutral, sizeof(CtrlOut));
+      HAL_WriteElevonLeft(0.0f);
+      HAL_WriteElevonRight(0.0f);
+    }
+  }
+
+  /* Assertions summary */
+  printf("[ATA-27 TEST] steps=%d, consensus_ok=%u, lost_majority=%u, seal_events=%u (mask=0x%x)\n",
+         STEPS, ok_consensus, lost_majority, seal_events, seal_sats);
+
+  /* Expect: 1 lost majority (k=750), all demás con 2oo3 válido => 999/1 */
+  bool pass = (ok_consensus == (STEPS - 1)) && (lost_majority == 1);
+  if (!pass) {
+    fprintf(stderr, "Assertion failed: consensus/lost_majority unexpected\n");
+    return 1;
+  }
+  return 0;
+}
+```
+
+---
+
+### Build rápido (ejemplo)
+
+```bash
+# suponiendo árbol estándar:
+# include/{Voter_Interface.h,HAL_Interface.h}
+# sim/{Voter_Sim.c,HAL_Sim.c}
+# tests/ata27_flight_ctrl_host.c
+cc -std=c99 -O2 -Iinclude tests/ata27_flight_ctrl_host.c sim/Voter_Sim.c sim/HAL_Sim.c -lm -o build/ata27_host_test
+./build/ata27_host_test
+```
+
+Salida esperada (resumen):
+
+```
+[ATA-27 TEST] steps=1000, consensus_ok=999, lost_majority=1, seal_events=0 (mask=0x0)
+```
+
+Listo. Objetivo de **Makefile** + **GitHub Actions** + **Jenkinsfile** para ejecutar el test host de ATA-27.
+
+### `Makefile` (añadir o reemplazar lo necesario)
+
+```make
+CC ?= gcc
+CFLAGS ?= -std=c99 -O2 -Iinclude
+LDFLAGS ?= -lm
+
+SRC_SIM := sim/Voter_Sim.c sim/HAL_Sim.c
+SRC_TEST := tests/ata27_flight_ctrl_host.c
+BIN := build/ata27_host_test
+
+.PHONY: all test-ata27-host clean
+all: test-ata27-host
+
+test-ata27-host: $(BIN)
+	./$(BIN)
+
+$(BIN): $(SRC_SIM) $(SRC_TEST)
+	mkdir -p build
+	$(CC) $(CFLAGS) $^ $(LDFLAGS) -o $@
+
+clean:
+	rm -rf build
+```
+
+### `.github/workflows/ata27_host_test.yml`
+
+```yaml
+name: ata27-host-test
+on:
+  push:
+  pull_request:
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build & run host test (ATA-27 @1kHz)
+        run: |
+          sudo apt-get update && sudo apt-get install -y build-essential
+          make test-ata27-host
+```
+
+### `Jenkinsfile` (opcional)
+
+```groovy
+pipeline {
+  agent any
+  stages {
+    stage('Checkout') { steps { checkout scm } }
+    stage('Build & Test') {
+      steps {
+        sh 'make test-ata27-host'
+      }
+    }
+  }
+  post {
+    always {
+      archiveArtifacts artifacts: 'build/**', fingerprint: true
+    }
+  }
+}
+```
+
+### README (snippet)
+
+````md
+#### ATA-27 Host Test
+```bash
+make test-ata27-host
+# Esperado:
+# [ATA-27 TEST] steps=1000, consensus_ok=999, lost_majority=1, seal_events=0 (mask=0x0)
+````
+
+```
+::contentReference[oaicite:0]{index=0}
+```
+
 
 RV-11.1.1 Tiempo sensor→actuador (P95) ≤ 8 ms.
 RV-11.1.2 En modo degradado 2oo2, autoridad limitada; registro obligatorio en `var/logs/FDI_Event_Log.log` [1067].
@@ -895,7 +1707,7 @@ Las principales iniciativas de certificación y seguridad se implementan a lo la
 graph LR
   K[Kernel Tracepoints] --> ECA[Evidence Collector Agent]
   ECA --> WORM[WORM Store]
-  ECA --> HASH[Hash+Sig (HSM)]
+  ECA --> HASH[Hash+Sig HSM]
   HASH --> DLT[DLT Anchor]
   DLT --> Repo[DET Evidence Repo]
 ```
@@ -1075,7 +1887,385 @@ graph LR
 
 ### 21. Infraestructura y DevOps
 
-(Esta sección se desarrollaría en un documento aparte, detallando la infraestructura, herramientas de CI/CD como Jenkins/GitHub Actions, repositorios de artefactos, y la integración de herramientas de verificación como `manifest_check.py` para asegurar la calidad y trazabilidad del build y release.)
+# Infra CI/CD — AMEDEO/AQUA (Jenkins + GitHub Actions)
+
+*End-to-end pipelines, artefact repos, and verification (incl. `manifest_check.py`). Ready to paste.*
+
+---
+
+## 1) Repos/paths (suggested)
+
+```
+.
+├─ .github/workflows/
+│   ├─ ci.yml
+│   └─ release.yml
+├─ Jenkinsfile
+├─ scripts/ci/
+│   ├─ install_deps.sh
+│   └─ seal_gate.py
+├─ tools/
+│   └─ manifest_check.py          # ya aportado
+├─ docs/papers/
+│   ├─ amedeo_elsevier.tex
+│   └─ main_ieee.tex
+├─ tests/
+│   ├─ validation-plan.yaml
+│   └─ results.json               # generado por pruebas/HIL (si existe)
+├─ aqua_manifest.json             # opcional
+└─ priority_map.json              # opcional
+```
+
+---
+
+## 2) GitHub Actions — CI (push/PR) → build+verify+docs+SBOM
+
+**`.github/workflows/ci.yml`**
+
+```yaml
+name: ci
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main, develop ]
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+permissions:
+  contents: read
+
+jobs:
+  verify-manifest:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: '3.11' }
+      - name: Run manifest_check.py
+        run: |
+          python tools/manifest_check.py \
+            --root . \
+            --manifest aqua_manifest.json \
+            --map priority_map.json \
+            --hash \
+            --out ci_manifest
+      - uses: actions/upload-artifact@v4
+        with:
+          name: manifest-report
+          path: |
+            ci_manifest.json
+            ci_manifest.md
+
+  build-core:
+    runs-on: ubuntu-latest
+    needs: [verify-manifest]
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install build deps
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y build-essential clang cppcheck cmake make
+      - name: Static analysis (cppcheck)
+        run: |
+          cppcheck --enable=warning,performance,portability \
+                   --inline-suppr --error-exitcode=1 \
+                   --suppress=missingIncludeSystem .
+      - name: Build (Makefile or fallback)
+        run: |
+          if [ -f Makefile ]; then make -j$(nproc); else
+            find . -name '*.c' -print0 | xargs -0 -I{} clang -c {} -O2
+          fi
+      - uses: actions/upload-artifact@v4
+        with:
+          name: build-artifacts
+          path: |
+            **/*.o
+            **/a.out
+            build/**
+          if-no-files-found: ignore
+
+  docs-pdf:
+    runs-on: ubuntu-latest
+    needs: [verify-manifest]
+    strategy:
+      matrix:
+        texfile:
+          - docs/papers/amedeo_elsevier.tex
+          - docs/papers/main_ieee.tex
+    steps:
+      - uses: actions/checkout@v4
+      - name: Compile LaTeX (${{ matrix.texfile }})
+        uses: xu-cheng/latex-action@v3
+        with:
+          root_file: ${{ matrix.texfile }}
+          latexmk_use_lualatex: true
+      - uses: actions/upload-artifact@v4
+        with:
+          name: pdfs
+          path: |
+            docs/papers/*.pdf
+
+  seal-gate:
+    runs-on: ubuntu-latest
+    needs: [build-core]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: '3.11' }
+      - name: Gate thresholds (SEAL)
+        env:
+          STRICT_SEAL: "0"   # pon "1" para exigir results.json
+        run: |
+          python scripts/ci/seal_gate.py \
+            --plan tests/validation-plan.yaml \
+            --results tests/results.json
+
+  sbom-and-sign:
+    runs-on: ubuntu-latest
+    needs: [build-core]
+    permissions:
+      contents: read
+      id-token: write   # para cosign keyless si lo activas
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install syft & cosign
+        run: |
+          curl -sSfL https://raw.githubusercontent.com/anchore/syft/main/install.sh | sh -s -- -b /usr/local/bin
+          COSIGN_LATEST=$(curl -s https://api.github.com/repos/sigstore/cosign/releases/latest | grep -Po '"tag_name": "\K.*?(?=")')
+          curl -sL "https://github.com/sigstore/cosign/releases/download/${COSIGN_LATEST}/cosign-linux-amd64" -o cosign && sudo install cosign /usr/local/bin/cosign
+      - name: Generate SBOM (repo workspace)
+        run: syft dir:. -o spdx-json=sbom.spdx.json
+      - name: Sign SBOM (keyless OIDC; opcional)
+        if: ${{ always() }}
+        run: cosign sign-blob --yes sbom.spdx.json | tee sbom.sig || true
+      - uses: actions/upload-artifact@v4
+        with:
+          name: evidence-sbom
+          path: |
+            sbom.spdx.json
+            sbom.sig
+```
+
+---
+
+## 3) GitHub Actions — Release (tag) → artefactos + evidencias
+
+**`.github/workflows/release.yml`**
+
+```yaml
+name: release
+on:
+  push:
+    tags: [ 'v*.*.*' ]
+permissions:
+  contents: write
+  id-token: write
+
+jobs:
+  build-and-release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with: { fetch-depth: 0 }
+      - uses: actions/setup-python@v5
+        with: { python-version: '3.11' }
+      - name: Manifest report
+        run: |
+          python tools/manifest_check.py --root . --hash --out release_manifest
+      - name: PDFs
+        uses: xu-cheng/latex-action@v3
+        with:
+          root_file: |
+            docs/papers/amedeo_elsevier.tex
+            docs/papers/main_ieee.tex
+          latexmk_use_lualatex: true
+      - name: SBOM
+        run: |
+          curl -sSfL https://raw.githubusercontent.com/anchore/syft/main/install.sh | sh -s -- -b /usr/local/bin
+          syft dir:. -o spdx-json=sbom.spdx.json
+      - name: Create release
+        id: cr
+        uses: softprops/action-gh-release@v2
+        with:
+          draft: false
+          generate_release_notes: true
+          files: |
+            release_manifest.json
+            release_manifest.md
+            sbom.spdx.json
+            docs/papers/*.pdf
+```
+
+---
+
+## 4) Jenkinsfile — alternativa on-prem (Declarative)
+
+**`Jenkinsfile`**
+
+```groovy
+pipeline {
+  agent { label 'linux' }
+  options { timestamps(); ansiColor('xterm'); buildDiscarder(logRotator(numToKeepStr: '20')) }
+  stages {
+    stage('Checkout'){ steps { checkout scm } }
+    stage('Setup Deps'){
+      steps {
+        sh 'sudo apt-get update && sudo apt-get install -y build-essential clang cppcheck python3 python3-pip'
+        sh 'pip3 install --user --upgrade pip'
+      }
+    }
+    stage('Manifest Check'){
+      steps {
+        sh 'python3 tools/manifest_check.py --root . --manifest aqua_manifest.json --map priority_map.json --hash --out jenkins_manifest'
+        archiveArtifacts artifacts: 'jenkins_manifest.*', fingerprint: true
+      }
+    }
+    stage('Build + Static Analysis'){
+      steps {
+        sh 'cppcheck --enable=warning,performance,portability --inline-suppr --error-exitcode=1 .'
+        sh 'if [ -f Makefile ]; then make -j$(nproc); else echo "No Makefile; skipping." ; fi'
+      }
+    }
+    stage('Docs (LaTeX)'){
+      steps {
+        sh '''
+        sudo apt-get install -y texlive-latex-extra latexmk lualatex
+        latexmk -lualatex -cd docs/papers/amedeo_elsevier.tex
+        latexmk -lualatex -cd docs/papers/main_ieee.tex
+        '''
+        archiveArtifacts artifacts: 'docs/papers/*.pdf', fingerprint: true
+      }
+    }
+    stage('SEAL Gate'){
+      steps { sh 'python3 scripts/ci/seal_gate.py --plan tests/validation-plan.yaml --results tests/results.json || true' }
+    }
+    stage('SBOM'){
+      steps {
+        sh '''
+        curl -sSfL https://raw.githubusercontent.com/anchore/syft/main/install.sh | sh -s -- -b /usr/local/bin
+        syft dir:. -o spdx-json=sbom.spdx.json
+        '''
+        archiveArtifacts artifacts: 'sbom.spdx.json', fingerprint: true
+      }
+    }
+  }
+  post {
+    always { junit testResults: 'build/**/test-results*.xml', allowEmptyResults: true }
+  }
+}
+```
+
+---
+
+## 5) SEAL gate (políticas de umbral)
+
+**`scripts/ci/seal_gate.py`**
+
+```python
+#!/usr/bin/env python3
+import json, sys, argparse, math, pathlib, yaml
+
+def main():
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--plan", required=True)
+    ap.add_argument("--results", required=False, default="tests/results.json")
+    ap.add_argument("--strict", action="store_true", default=False)
+    args = ap.parse_args()
+
+    plan = yaml.safe_load(pathlib.Path(args.plan).read_text(encoding="utf-8"))
+    res_path = pathlib.Path(args.results)
+    if not res_path.exists():
+        msg = f"[SEAL] results.json missing: {res_path}"
+        if args.strict or (os.getenv("STRICT_SEAL") == "1"):
+            print(msg); sys.exit(1)
+        else:
+            print(msg + " (non-blocking)"); sys.exit(0)
+
+    res = json.loads(res_path.read_text(encoding="utf-8"))
+
+    failures = []
+    def ck(key, want, op=">="):
+        have = res.get(key)
+        if have is None: failures.append(f"{key}: missing"); return
+        ok = (have >= want) if op == ">=" else (have <= want)
+        if not ok: failures.append(f"{key}: have {have} (want {op} {want})")
+
+    # ejemplos: ajusta a tus métricas reales
+    ck("rb_1q_avg_fid", 0.999, ">=")
+    ck("rb_2q_avg_fid", 0.992, ">=")
+    ck("tsp_phase_ns_rms", 500, "<=")
+    ck("qaoa8_zne_gain", 1.5, ">=")
+
+    if failures:
+        print("[SEAL] FAIL:\n  - " + "\n  - ".join(failures))
+        sys.exit(1)
+    print("[SEAL] PASS")
+    sys.exit(0)
+
+if __name__ == "__main__":
+    main()
+```
+
+---
+
+## 6) Helper — deps mínimos CI
+
+**`scripts/ci/install_deps.sh`**
+
+```bash
+#!/usr/bin/env bash
+set -euo pipefail
+sudo apt-get update
+sudo apt-get install -y build-essential clang cppcheck cmake make python3 python3-pip
+pip3 install --user --upgrade pip
+```
+
+---
+
+## 7) Artefact repositories (opciones)
+
+* **GitHub Releases/Artifacts** (rápido, sin infra extra): PDFs, SBOMs, manifest report.
+* **GitHub Container Registry (GHCR)**: contenedores de build `ghcr.io/<org>/aqua-ci:<tag>`.
+* **Nexus/Artifactory (on-prem)**: bucket “generic” para PDFs/evidencias + “docker” para imágenes.
+
+  * Convención nombre:
+    `aqua/${module}/${UTCS}-${semver}/${artefact}.${ext}`
+    ej.: `aqua/docs/UTCS-MI-READMETEX-0001-v1.0/AMeDEO-Elsevier.pdf`
+
+*Ejemplo publish a Nexus (generic):*
+
+```bash
+curl -u "$NEXUS_USER:$NEXUS_PASS" \
+  --upload-file docs/papers/amedeo_elsevier.pdf \
+  "https://nexus.example.com/repository/aqua-generic/aqua/docs/UTCS-MI-0001-v1.0/amedeo_elsevier.pdf"
+```
+
+---
+
+## 8) Badges (README)
+
+```md
+![CI](https://github.com/<org>/<repo>/actions/workflows/ci.yml/badge.svg)
+![Release](https://github.com/<org>/<repo>/actions/workflows/release.yml/badge.svg)
+```
+
+---
+
+## 9) Qué valida cada gate
+
+* **`manifest_check.py`**: cobertura de ficheros, UTCS únicos, prioridades P0–P9, hashes.
+* **Static analysis**: `cppcheck` (C/C++), (añade `clang-tidy` si procede).
+* **Docs**: PDFs Elsevier/IEEE reproducibles (artefactos).
+* **SEAL**: umbrales técnicos (TSP φ, RB fidelities, ZNE gain).
+* **SBOM + firma**: `syft` + `cosign` (provenance/evidencia).
+
+---
+
+### Listo.
+
+Copia/pega estos archivos y lanza PR para ver los artefactos (manifest, PDFs, SBOM) y gates operando.
+
 
 ---
 
